@@ -2,7 +2,7 @@
 view-business-profile
 
 ## Summary
-A single-page web app that displays a user's business profile as a set of collapsible content blocks. The page supports section-level edit affordances, inline edit flows for small fields and modal/drawer editors for larger content, with clear save/cancel flow, client-side validation, preview of unsaved changes, and role-based edit permission. Initial content is loaded from an "initial input" folder and persisted to the canonical storage format.
+A single-page web app that displays a user's business profile as a set of collapsible content blocks. The page supports section-level edit affordances, inline edit flows for small fields and modal/drawer editors for larger content, with clear save/cancel flow, client-side validation, preview of unsaved changes, and role-based edit permission. Initial content is loaded from an "initial input" folder and persisted through a browser-local profile storage adapter.
 
 ## Scope
 Included:
@@ -138,7 +138,7 @@ Storage expectations:
 - Navigation: load, fragment linking, responsive breakpoints
 - Collapse: keyboard toggle, ARIA attributes, animation timing
 - Edit flows: inline and modal, Save/Cancel, validation messages
-- Persistence: initial load from JSON, save updates, lastUpdated changes
+- Persistence: initial load from JSON, save updates, lastUpdated and lastEditedByUserId changes
 - Accessibility: WCAG 2.1 AA core checks, screen reader flows
 - Performance: Lighthouse targets met
 - Edge cases: empty sections, very long content, invalid email/phone formats
@@ -149,7 +149,7 @@ Storage expectations:
 - Story/task breakdown (suggested priority):
   1. Data loading & render sections (High)
   2. Collapse/expand behavior & URL fragments (High)
-  3. Edit affordances & inline editor (High)
+  3. Role-based edit affordances & inline editor (High)
   4. Modal editor and validation (Medium)
   5. Preview, Save/Cancel, persistence (Medium)
   6. Accessibility audit & responsive polish (High)
