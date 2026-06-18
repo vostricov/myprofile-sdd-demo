@@ -36,7 +36,7 @@ M1 — Scaffold, data & render (2.5d)
   - Acceptance: fixture validates on import; missing required fields, invalid roles, invalid email, and invalid phone fail schema tests
   - GitHub issue: "Add profile schema and fixture validation"
 
-- [ ] T004 [P] Add design tokens, CSS Modules baseline, and responsive layout primitives (frontend/src/styles/tokens.css, frontend/src/styles/globals.module.css)
+- [X] T004 [P] Add design tokens, CSS Modules baseline, and responsive layout primitives (frontend/src/styles/tokens.css, frontend/src/styles/globals.module.css)
   - Owner: @dev | Estimate: 0.5d | Depends: T001
   - Branch: feature/t004-design-tokens-responsive-css
   - Acceptance: tokens (--color-*, --spacing-*) are imported in main.tsx; section layout supports mobile single-column and desktop two-column behavior
