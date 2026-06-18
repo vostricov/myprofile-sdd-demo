@@ -106,31 +106,49 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: core UI labels are not hard-coded inside feature components; dates display via locale-aware formatter; profile view renders correctly under rtl direction
   - GitHub issue: "Add i18n helpers and RTL smoke support"
 
-- [ ] T015 Unit tests for schema, permissions, components, reducer, and edge cases (frontend/tests/unit/profile.test.tsx, frontend/tests/unit/profileSchema.test.ts, frontend/tests/unit/permissions.test.ts)
-  - Owner: @dev | Estimate: 1d | Depends: T003,T005,T006,T008,T013
-  - Branch: feature/t015-profile-unit-tests-edge-cases
-  - Acceptance: deterministic tests cover schema validation, visitor/owner/editor permissions, reducer actions, empty sections, very long content, invalid email, and invalid phone
-  - GitHub issue: "Add unit tests for profile behavior and edge cases"
+- [ ] T015 [P] Schema validation unit tests (frontend/tests/unit/profileSchema.test.ts)
+  - Owner: @dev | Estimate: 0.25d | Depends: T003
+  - Branch: feature/t015-profile-schema-unit-tests
+  - Acceptance: deterministic tests cover required fields, editableBy role validation, invalid email, invalid phone, empty sections, and very long content
+  - GitHub issue: "Add schema validation unit tests"
 
-- [ ] T016 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
+- [ ] T016 [P] Permission unit tests (frontend/tests/unit/permissions.test.ts)
+  - Owner: @dev | Estimate: 0.25d | Depends: T008
+  - Branch: feature/t016-permissions-unit-tests
+  - Acceptance: deterministic tests cover visitor, owner, and editor edit permissions for editable and non-editable sections
+  - GitHub issue: "Add permission unit tests"
+
+- [ ] T017 [P] Reducer and component unit tests (frontend/tests/unit/profile.test.tsx)
+  - Owner: @dev | Estimate: 0.5d | Depends: T005,T006,T008
+  - Branch: feature/t017-profile-reducer-component-tests
+  - Acceptance: deterministic tests cover reducer actions, role-aware rendered edit controls, empty sections, and very long content rendering
+  - GitHub issue: "Add reducer and component unit tests"
+
+- [ ] T018 [P] Persistence and save metadata unit tests (frontend/tests/unit/profilePersistence.test.ts)
+  - Owner: @dev | Estimate: 0.5d | Depends: T013
+  - Branch: feature/t018-profile-persistence-unit-tests
+  - Acceptance: deterministic tests cover profileApi.save, local adapter persistence, optimistic failure handling, lastUpdated, and lastEditedByUserId updates
+  - GitHub issue: "Add persistence and save metadata unit tests"
+
+- [ ] T019 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
   - Owner: @dev | Estimate: 1d | Depends: T007,T012,T014
-  - Branch: feature/t016-playwright-axe-e2e
+  - Branch: feature/t019-playwright-axe-e2e
   - Acceptance: Playwright covers view/collapse/edit/preview/save/undo flows, mobile single-column layout, desktop two-column layout, RTL smoke scenario, and axe accessibility checks
   - GitHub issue: "Add Playwright E2E and axe accessibility checks"
 
-- [ ] T017 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
-  - Owner: @dev | Estimate: 0.5d | Depends: T015,T016
-  - Branch: feature/t017-lighthouse-ci-budgets
+- [ ] T020 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
+  - Owner: @dev | Estimate: 0.5d | Depends: T015,T016,T017,T018,T019
+  - Branch: feature/t020-lighthouse-ci-budgets
   - Acceptance: Lighthouse baseline is documented; CI asserts Performance >= 90, Accessibility >= 90, Best Practices >= 90, and 3G-equivalent load target <= 2s
   - GitHub issue: "Add Lighthouse CI budgets and baseline"
 
-- [ ] T018 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
-  - Owner: @dev | Estimate: 1d | Depends: T015,T016,T017
-  - Branch: feature/t018-final-qa-polish
+- [ ] T021 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
+  - Owner: @dev | Estimate: 1d | Depends: T015,T016,T017,T018,T019,T020
+  - Branch: feature/t021-final-qa-polish
   - Acceptance: final QA records pass/fail status for responsive layout, WCAG 2.1 AA checks, performance budget, edge cases, and save/undo behavior
   - GitHub issue: "Finalize QA and polish"
 
-Dependencies summary: follow Task IDs. Parallel opportunities: T002 and T004 can run after T001; T003 can begin once T002 exists; T011 can be worked in parallel with editor implementation after T007; T015 schema/permission tests can start before full E2E work once T003/T008 are complete.
+Dependencies summary: follow Task IDs. Parallel opportunities: T002 and T004 can run after T001; T003 can begin once T002 exists; T007 and T008 can run in parallel after T006; T011 and T012 can run in parallel after T010; T015 can start after T003; T016 can start after T008; T017 can start after T005/T006/T008; T018 can start after T013; T014 and T015-T018 can overlap where dependencies permit before T019 E2E and T020 Lighthouse.
 
 Suggested MVP: M1 + M2 + role-gated minimal inline editor (T001..T009) — deliverable: view + accessible collapse + permission-aware basic edit/save in-memory.
 
