@@ -30,7 +30,7 @@ M1 — Scaffold, data & render (2.5d)
   - Acceptance: fixture includes profileId, title, sections[], content, lastUpdated, lastEditedByUserId, and editableBy
   - GitHub issue: "Add initial profile JSON fixture"
 
-- [ ] T003 [P] Add Profile Zod schema and fixture validation (frontend/src/domain/profileSchema.ts)
+- [X] T003 [P] Add Profile Zod schema and fixture validation (frontend/src/domain/profileSchema.ts)
   - Owner: @dev | Estimate: 0.5d | Depends: T001,T002
   - Branch: feature/t003-profile-schema-fixture-validation
   - Acceptance: fixture validates on import; missing required fields, invalid roles, invalid email, and invalid phone fail schema tests
