@@ -1,0 +1,116 @@
+.appShell {
+  min-height: 100vh;
+  padding: var(--spacing-4);
+}
+
+.page {
+  width: min(100%, var(--layout-max-width));
+  margin: 0 auto;
+}
+
+.profileHeader {
+  display: grid;
+  gap: var(--spacing-2);
+  margin-block-end: var(--spacing-4);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-accent-strong);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.lede {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.profileLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--layout-gap);
+  align-items: start;
+}
+
+.primaryColumn,
+.secondaryColumn,
+.sectionStack {
+  display: grid;
+  min-width: 0;
+  gap: var(--spacing-3);
+}
+
+.sectionCard {
+  min-width: 0;
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-surface);
+}
+
+.sectionHeader {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.35;
+}
+
+.sectionBody {
+  margin-block-start: var(--spacing-3);
+  color: var(--color-text-muted);
+}
+
+.mutedPanel {
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48rem) {
+  .appShell {
+    padding: var(--spacing-5);
+  }
+
+  .profileHeader {
+    margin-block-end: var(--spacing-5);
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .profileLayout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(14rem, var(--layout-sidebar-width));
+  }
+}
+
+@media (min-width: 64rem) {
+  .appShell {
+    padding: var(--spacing-6) var(--spacing-5);
+  }
+
+  .profileLayout {
+    gap: var(--spacing-5);
+  }
+}
