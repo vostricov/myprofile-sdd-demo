@@ -1,50 +1,100 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: template -> 1.0.0
+Modified principles:
+- Template principle 1 -> I. Specification Authority
+- Template principle 2 -> II. One Task, One Feature Branch
+- Template principle 3 -> III. Traceable Implementation
+- Template principle 4 -> IV. Verification Before Completion
+- Template principle 5 -> V. Repository Hygiene
+Added sections:
+- Implementation Constraints
+- Development Workflow
+Removed sections:
+- Template placeholder sections
+Templates requiring updates:
+- Updated: .specify/templates/plan-template.md
+- Updated: .specify/templates/tasks-template.md
+- Reviewed, no change required: .specify/templates/spec-template.md
+Runtime guidance updated:
+- AGENTS.md
+- .github/copilot-instructions.md
+Deferred items:
+- None
+-->
+# MyProfile SDD Demo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Specification Authority
+The active feature specification, implementation plan, and task list are the
+source of truth for implementation. Work MUST be traceable to the current
+`spec.md`, `plan.md`, and `tasks.md` artifacts under the active feature
+directory. Material scope or architecture changes MUST update the relevant
+artifact before implementation continues.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. One Task, One Feature Branch
+Each implementation task MUST be completed in its own feature branch. A branch
+MUST contain only the changes required for one task ID from `tasks.md`, plus
+directly required documentation or generated lockfile updates. Branch names MUST
+start with `feature/` and SHOULD include the task ID and a short slug, for
+example `feature/t001-scaffold-frontend`.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Traceable Implementation
+Every task MUST keep its task ID visible in the task list, related issue or pull
+request, and branch name. Task completion MUST be recorded by changing only the
+completed task checkbox from `[ ]` to `[X]` in `tasks.md`. Unrelated tasks MUST
+remain unchecked until they are implemented and verified.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Verification Before Completion
+A task MUST NOT be marked complete until its acceptance criteria have been
+verified. Verification MAY include automated tests, build commands, browser
+checks, or documented manual validation appropriate to the task. Any skipped or
+unavailable validation MUST be reported with a reason.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Repository Hygiene
+Changes MUST be scoped to the active task and preserve unrelated user or
+workspace changes. Generated artifacts, dependency directories, build outputs,
+logs, local environment files, and editor metadata MUST be ignored unless they
+are explicitly required source artifacts. Destructive git operations MUST NOT be
+used to clean up unrelated work.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Implementation Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Implementation starts from the current feature plan and task list.
+- Each task branch MUST be created before editing files for that task.
+- Branch names MUST use the form `feature/t###-short-task-slug`.
+- If one task depends on another task branch, the dependent branch SHOULD be
+  created from the completed dependency branch or from the integration branch
+  after the dependency has merged.
+- A pull request SHOULD reference the task ID and related GitHub issue.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Read the active feature plan before implementing a task.
+- Confirm checklist status before implementation when checklists exist.
+- Create or switch to the dedicated `feature/` branch for the specific task.
+- Implement only that task's required files and direct supporting artifacts.
+- Run the task's acceptance validation.
+- Mark the task `[X]` in `tasks.md` only after validation passes.
+- Report changed files, validation commands, and any remaining risks.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes informal project practices for specification,
+planning, task execution, branching, and verification. Amendments require an
+explicit constitution update, a version bump, and propagation to affected
+templates or runtime guidance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Versioning follows semantic versioning:
+- MAJOR for incompatible governance changes or principle removals.
+- MINOR for new principles, required workflow additions, or materially expanded
+  constraints.
+- PATCH for wording clarifications that do not change required behavior.
+
+Compliance is reviewed during planning, task generation, implementation, and
+pull request review. Constitution conflicts MUST be resolved by updating the
+feature artifacts or the proposed implementation before work is considered
+complete.
+
+**Version**: 1.0.0 | **Ratified**: 2026-06-18 | **Last Amended**: 2026-06-18
