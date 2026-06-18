@@ -1,0 +1,98 @@
+{
+  "profileId": "business-123",
+  "title": "Acme Consulting",
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "content": "Acme Consulting helps growing teams clarify strategy, improve operations, and prepare for durable scale.",
+      "lastUpdated": "2026-06-01T12:00:00Z",
+      "lastEditedByUserId": "user-001",
+      "editableBy": ["owner", "editor"]
+    },
+    {
+      "id": "services",
+      "title": "Services",
+      "content": {
+        "items": [
+          {
+            "name": "Strategy workshops",
+            "description": "Focused planning sessions for leadership teams that need a clear operating plan."
+          },
+          {
+            "name": "Process audits",
+            "description": "Operational reviews that identify bottlenecks, ownership gaps, and measurable improvements."
+          },
+          {
+            "name": "Growth advisory",
+            "description": "Ongoing support for teams building repeatable sales, delivery, and reporting practices."
+          }
+        ]
+      },
+      "lastUpdated": "2026-06-01T12:00:00Z",
+      "lastEditedByUserId": "user-001",
+      "editableBy": ["owner", "editor"]
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "content": {
+        "phone": "+1-555-0100",
+        "email": "info@acme.example",
+        "address": "120 Market Street, Suite 400, San Francisco, CA 94105"
+      },
+      "lastUpdated": "2026-06-01T12:00:00Z",
+      "lastEditedByUserId": "user-001",
+      "editableBy": ["owner"]
+    },
+    {
+      "id": "hours",
+      "title": "Hours",
+      "content": {
+        "timezone": "America/Los_Angeles",
+        "regular": [
+          {
+            "day": "Monday",
+            "opens": "09:00",
+            "closes": "17:00"
+          },
+          {
+            "day": "Tuesday",
+            "opens": "09:00",
+            "closes": "17:00"
+          },
+          {
+            "day": "Wednesday",
+            "opens": "09:00",
+            "closes": "17:00"
+          },
+          {
+            "day": "Thursday",
+            "opens": "09:00",
+            "closes": "17:00"
+          },
+          {
+            "day": "Friday",
+            "opens": "09:00",
+            "closes": "15:00"
+          }
+        ]
+      },
+      "lastUpdated": "2026-06-01T12:00:00Z",
+      "lastEditedByUserId": "user-001",
+      "editableBy": ["owner", "editor"]
+    },
+    {
+      "id": "social-links",
+      "title": "Social Links",
+      "content": {
+        "website": "https://www.acme.example",
+        "linkedin": "https://www.linkedin.com/company/acme-consulting-example",
+        "x": "https://x.com/acmeconsulting"
+      },
+      "lastUpdated": "2026-06-01T12:00:00Z",
+      "lastEditedByUserId": "user-001",
+      "editableBy": ["owner", "editor"]
+    }
+  ]
+}
