@@ -52,10 +52,13 @@ M5 – Tests, i18n, performance & CI (2.5 days)
 12. Persistence adapter and profile API stub with metadata updates (0.5d)
 13. Icons, micro-interactions, animations polish (0.5d)
 14. Externalized messages, locale date formatting, and RTL smoke styling (0.5d)
-15. Unit tests (Vitest + RTL) for schema, permissions, components & reducer (1d)
-16. E2E Playwright + axe accessibility checks, including responsive and RTL smoke scenarios (1d)
-17. Lighthouse CI config with 3G-equivalent budget assertions and baseline run (0.5d)
-18. Final QA, accessibility fixes, perf tuning (1d)
+15. Schema validation unit tests (Vitest) (0.25d)
+16. Permission unit tests (Vitest) (0.25d)
+17. Reducer and component unit tests (Vitest + RTL) (0.5d)
+18. Persistence and save metadata unit tests (Vitest) (0.5d)
+19. E2E Playwright + axe accessibility checks, including responsive and RTL smoke scenarios (1d)
+20. Lighthouse CI config with 3G-equivalent budget assertions and baseline run (0.5d)
+21. Final QA, accessibility fixes, perf tuning (1d)
 
 **Repo layout (recommended)**
 frontend/
@@ -83,13 +86,13 @@ frontend/
 
 **Acceptance criteria mapping**
 - Render & load from validated fixture → Tasks 1–6
-- Collapse/navigation & accessibility → Tasks 7, 15–16
-- Role-based edit permissions → Tasks 5, 8, 15
+- Collapse/navigation & accessibility → Tasks 7, 17, 19
+- Role-based edit permissions → Tasks 5, 8, 16–17
 - Edit/validation/save/cancel/preview → Tasks 9–12
 - Undo & toast → Task 11
 - Local persistence and save metadata → Task 12
-- Responsive/i18n/RTL → Tasks 4, 14, 16
-- Tests & performance budgets → Tasks 15–17
+- Responsive/i18n/RTL → Tasks 4, 14, 19
+- Tests & performance budgets → Tasks 15–20
 
 **Risks & mitigations**
 - Accessibility regressions: run axe in Playwright on PRs early
