@@ -12,3 +12,7 @@ branch for that task. Branch names MUST start with `feature/` and SHOULD include
 the task ID and short slug, for example `feature/t001-scaffold-frontend`.
 Keep each task branch scoped to one task and mark only that task `[X]` after its
 acceptance criteria are verified.
+
+Commit messages for task work MUST start with the spec ID and task ID in square
+brackets, followed by a concise description of the change, for example
+`[SPEC-001/T001] scaffold project`.

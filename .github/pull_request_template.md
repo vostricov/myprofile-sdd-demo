@@ -7,6 +7,7 @@
 
 - [ ] Build/tests run
 - [ ] Relevant manual checks completed
+- [ ] Commit messages follow `[SPEC-###/T###] ...` format
 
 ## Notes
 

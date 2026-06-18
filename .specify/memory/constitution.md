@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report
-Version change: template -> 1.0.0
+Version change: 1.0.0 -> 1.1.0
 Modified principles:
 - Template principle 1 -> I. Specification Authority
 - Template principle 2 -> II. One Task, One Feature Branch
-- Template principle 3 -> III. Traceable Implementation
+- III. Traceable Implementation expanded with spec-scoped commit message format
 - Template principle 4 -> IV. Verification Before Completion
 - Template principle 5 -> V. Repository Hygiene
 Added sections:
@@ -41,10 +41,13 @@ start with `feature/` and SHOULD include the task ID and a short slug, for
 example `feature/t001-scaffold-frontend`.
 
 ### III. Traceable Implementation
-Every task MUST keep its task ID visible in the task list, related issue or pull
-request, and branch name. Task completion MUST be recorded by changing only the
-completed task checkbox from `[ ]` to `[X]` in `tasks.md`. Unrelated tasks MUST
-remain unchecked until they are implemented and verified.
+Every task MUST keep its spec ID and task ID visible in the task list, related
+issue or pull request, branch name, and commit messages. Commit messages for
+task work MUST start with the spec ID and task ID in square brackets followed by
+a concise description of the change, for example `[SPEC-001/T001] scaffold
+project`. Task completion MUST be recorded by changing only the completed task
+checkbox from `[ ]` to `[X]` in `tasks.md`. Unrelated tasks MUST remain
+unchecked until they are implemented and verified.
 
 ### IV. Verification Before Completion
 A task MUST NOT be marked complete until its acceptance criteria have been
@@ -64,6 +67,8 @@ used to clean up unrelated work.
 - Implementation starts from the current feature plan and task list.
 - Each task branch MUST be created before editing files for that task.
 - Branch names MUST use the form `feature/t###-short-task-slug`.
+- Commit messages MUST use the form `[SPEC-###/T###] concise task-specific
+  message`, where `SPEC-###` is derived from the active feature directory.
 - If one task depends on another task branch, the dependent branch SHOULD be
   created from the completed dependency branch or from the integration branch
   after the dependency has merged.
@@ -76,6 +81,8 @@ used to clean up unrelated work.
 - Create or switch to the dedicated `feature/` branch for the specific task.
 - Implement only that task's required files and direct supporting artifacts.
 - Run the task's acceptance validation.
+- Commit with a spec-and-task-prefixed message, for example
+  `[SPEC-001/T001] scaffold project`.
 - Mark the task `[X]` in `tasks.md` only after validation passes.
 - Report changed files, validation commands, and any remaining risks.
 
@@ -97,4 +104,4 @@ pull request review. Constitution conflicts MUST be resolved by updating the
 feature artifacts or the proposed implementation before work is considered
 complete.
 
-**Version**: 1.0.0 | **Ratified**: 2026-06-18 | **Last Amended**: 2026-06-18
+**Version**: 1.1.0 | **Ratified**: 2026-06-18 | **Last Amended**: 2026-06-18

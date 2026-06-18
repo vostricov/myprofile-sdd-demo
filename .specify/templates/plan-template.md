@@ -43,6 +43,8 @@
 - Confirm the plan can be implemented one task per branch.
 - Confirm task branches will use the required `feature/t###-short-task-slug`
   naming pattern.
+- Confirm task commits will use the required `[SPEC-###/T###] concise
+  task-specific message` format.
 - Confirm planned validation can prove each task's acceptance criteria before
   marking it complete.
 - Confirm generated artifacts and dependency directories are ignored unless they
