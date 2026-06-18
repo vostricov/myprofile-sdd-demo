@@ -42,7 +42,7 @@ M1 — Scaffold, data & render (2.5d)
   - Acceptance: tokens (--color-*, --spacing-*) are imported in main.tsx; section layout supports mobile single-column and desktop two-column behavior
   - GitHub issue: "Add design tokens and responsive CSS baseline"
 
-- [ ] T005 Implement ProfileContext + reducer for profile, draft, preview, collapse, undo, and current role (frontend/src/context/ProfileContext.tsx)
+- [X] T005 Implement ProfileContext + reducer for profile, draft, preview, collapse, undo, and current role (frontend/src/context/ProfileContext.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T003,T004
   - Branch: feature/t005-profile-context-reducer
   - Acceptance: context provides validated profile state, current viewer role, edit/preview/undo actions, and in-memory draft state
