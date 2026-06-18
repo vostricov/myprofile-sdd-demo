@@ -15,6 +15,7 @@ Branching strategy:
 - Each task MUST be implemented on its own branch.
 - Branch names MUST start with `feature/` and follow `feature/t###-short-task-slug`.
 - A task branch MUST contain only that task's implementation plus directly required documentation or generated lockfile updates.
+- Commit messages MUST start with the spec ID and task ID in square brackets followed by a concise task-specific message, for example `[SPEC-001/T001] scaffold project`.
 
 M1 — Scaffold, data & render (2.5d)
 - [X] T001 Scaffold Vite + React 19 + TypeScript app (frontend/package.json, frontend/vite.config.ts, frontend/src/main.tsx)

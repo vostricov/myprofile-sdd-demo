@@ -16,6 +16,10 @@ description: "Task list template for feature implementation"
 **Branching**: Each task MUST be implemented in its own branch. Branch names
 MUST start with `feature/` and SHOULD use `feature/t###-short-task-slug`.
 
+**Commits**: Commit messages for task work MUST start with the spec ID and task
+ID in square brackets followed by a concise task-specific message, for example
+`[SPEC-001/T001] scaffold project`.
+
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
@@ -23,6 +27,8 @@ MUST start with `feature/` and SHOULD use `feature/t###-short-task-slug`.
 - Include exact file paths in descriptions
 - Include a `Branch:` detail for every task using the `feature/t###-short-task-slug`
   pattern
+- Commit completed task work with the format `[SPEC-###/T###] concise
+  task-specific message`
 
 ## Path Conventions
 
@@ -282,6 +288,7 @@ With multiple developers:
 - Branch detail maps each task to its required `feature/` branch
 - Each user story should be independently completable and testable
 - Verify tests fail before implementing
-- Commit after each task on that task's dedicated branch
+- Commit after each task on that task's dedicated branch using
+  `[SPEC-###/T###] ...`
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
