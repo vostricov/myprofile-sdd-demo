@@ -13,11 +13,22 @@ description: "Task list template for feature implementation"
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
+**Branching**: Each task MUST be implemented in its own branch. Branch names
+MUST start with `feature/` and SHOULD use `feature/t###-short-task-slug`.
+
+**Commits**: Commit messages for task work MUST start with the task ID in square
+brackets followed by a concise task-specific message, for example
+`[T001] scaffold project`.
+
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
+- Include a `Branch:` detail for every task using the `feature/t###-short-task-slug`
+  pattern
+- Commit completed task work with the format `[T###] concise task-specific
+  message`
 
 ## Path Conventions
 
@@ -50,8 +61,11 @@ description: "Task list template for feature implementation"
 **Purpose**: Project initialization and basic structure
 
 - [ ] T001 Create project structure per implementation plan
+  - Branch: feature/t001-create-project-structure
 - [ ] T002 Initialize [language] project with [framework] dependencies
+  - Branch: feature/t002-initialize-project
 - [ ] T003 [P] Configure linting and formatting tools
+  - Branch: feature/t003-configure-linting-formatting
 
 ---
 
@@ -64,11 +78,17 @@ description: "Task list template for feature implementation"
 Examples of foundational tasks (adjust based on your project):
 
 - [ ] T004 Setup database schema and migrations framework
+  - Branch: feature/t004-setup-database-schema
 - [ ] T005 [P] Implement authentication/authorization framework
+  - Branch: feature/t005-implement-auth-framework
 - [ ] T006 [P] Setup API routing and middleware structure
+  - Branch: feature/t006-setup-api-routing
 - [ ] T007 Create base models/entities that all stories depend on
+  - Branch: feature/t007-create-base-models
 - [ ] T008 Configure error handling and logging infrastructure
+  - Branch: feature/t008-configure-error-handling-logging
 - [ ] T009 Setup environment configuration management
+  - Branch: feature/t009-setup-environment-config
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -85,16 +105,24 @@ Examples of foundational tasks (adjust based on your project):
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
 - [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
+  - Branch: feature/t010-us1-contract-test
 - [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+  - Branch: feature/t011-us1-integration-test
 
 ### Implementation for User Story 1
 
 - [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
+  - Branch: feature/t012-us1-create-entity1-model
 - [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
+  - Branch: feature/t013-us1-create-entity2-model
 - [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
+  - Branch: feature/t014-us1-implement-service
 - [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
+  - Branch: feature/t015-us1-implement-feature
 - [ ] T016 [US1] Add validation and error handling
+  - Branch: feature/t016-us1-validation-error-handling
 - [ ] T017 [US1] Add logging for user story 1 operations
+  - Branch: feature/t017-us1-add-logging
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -109,14 +137,20 @@ Examples of foundational tasks (adjust based on your project):
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
 - [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
+  - Branch: feature/t018-us2-contract-test
 - [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+  - Branch: feature/t019-us2-integration-test
 
 ### Implementation for User Story 2
 
 - [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
+  - Branch: feature/t020-us2-create-entity-model
 - [ ] T021 [US2] Implement [Service] in src/services/[service].py
+  - Branch: feature/t021-us2-implement-service
 - [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
+  - Branch: feature/t022-us2-implement-feature
 - [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+  - Branch: feature/t023-us2-integrate-us1-components
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -131,13 +165,18 @@ Examples of foundational tasks (adjust based on your project):
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
 - [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
+  - Branch: feature/t024-us3-contract-test
 - [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+  - Branch: feature/t025-us3-integration-test
 
 ### Implementation for User Story 3
 
 - [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
+  - Branch: feature/t026-us3-create-entity-model
 - [ ] T027 [US3] Implement [Service] in src/services/[service].py
+  - Branch: feature/t027-us3-implement-service
 - [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+  - Branch: feature/t028-us3-implement-feature
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -193,6 +232,7 @@ Examples of foundational tasks (adjust based on your project):
 - All tests for a user story marked [P] can run in parallel
 - Models within a story marked [P] can run in parallel
 - Different user stories can be worked on in parallel by different team members
+- Parallel work MUST still use one dedicated `feature/` branch per task
 
 ---
 
@@ -245,8 +285,9 @@ With multiple developers:
 
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
+- Branch detail maps each task to its required `feature/` branch
 - Each user story should be independently completable and testable
 - Verify tests fail before implementing
-- Commit after each task or logical group
+- Commit after each task on that task's dedicated branch using `[T###] ...`
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
