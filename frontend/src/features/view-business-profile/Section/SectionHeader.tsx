@@ -3,6 +3,7 @@ import type { KeyboardEvent } from "react";
 import styles from "../../../styles/globals.module.css";
 
 type SectionHeaderProps = {
+  canEdit: boolean;
   contentId: string;
   headingId: string;
   isExpanded: boolean;
@@ -11,6 +12,7 @@ type SectionHeaderProps = {
 };
 
 export function SectionHeader({
+  canEdit,
   contentId,
   headingId,
   isExpanded,
@@ -43,14 +45,16 @@ export function SectionHeader({
           </span>
         </button>
       </h2>
-      <button
-        aria-label={`Edit ${title}`}
-        className={styles.editPlaceholder}
-        disabled
-        type="button"
-      >
-        Edit
-      </button>
+      {canEdit ? (
+        <button
+          aria-label={`Edit ${title}`}
+          className={styles.editPlaceholder}
+          disabled
+          type="button"
+        >
+          Edit
+        </button>
+      ) : null}
     </header>
   );
 }
