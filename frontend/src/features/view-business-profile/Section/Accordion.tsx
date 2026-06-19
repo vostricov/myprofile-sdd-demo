@@ -5,6 +5,7 @@ import styles from "../../../styles/globals.module.css";
 import { SectionHeader } from "./SectionHeader";
 
 type AccordionProps = {
+  canEdit: boolean;
   children: ReactNode;
   headingId: string;
   sectionId: string;
@@ -12,6 +13,7 @@ type AccordionProps = {
 };
 
 export function Accordion({
+  canEdit,
   children,
   headingId,
   sectionId,
@@ -56,6 +58,7 @@ export function Accordion({
   return (
     <>
       <SectionHeader
+        canEdit={canEdit}
         contentId={contentId}
         headingId={headingId}
         isExpanded={isExpanded}

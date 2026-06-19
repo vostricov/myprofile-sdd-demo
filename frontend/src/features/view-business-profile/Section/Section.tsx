@@ -3,6 +3,8 @@ import type {
   ProfileSection,
   ProfileSectionContent,
 } from "../../../domain/profileSchema";
+import { canEditSection } from "../../../domain/permissions";
+import { useProfile } from "../../../context/ProfileContext";
 import styles from "../../../styles/globals.module.css";
 import { Accordion } from "./Accordion";
 
@@ -13,7 +15,9 @@ type SectionProps = {
 type JsonObject = { [key: string]: JsonValue };
 
 export function Section({ section }: SectionProps) {
+  const { currentViewerRole } = useProfile();
   const headingId = `${section.id}-heading`;
+  const canEdit = canEditSection(section, currentViewerRole);
 
   return (
     <article
@@ -22,6 +26,7 @@ export function Section({ section }: SectionProps) {
       id={section.id}
     >
       <Accordion
+        canEdit={canEdit}
         headingId={headingId}
         sectionId={section.id}
         title={section.title}

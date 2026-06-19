@@ -10,13 +10,13 @@ import {
   initialProfile,
   profileSchema,
   sectionContentSchema,
-  type EditableRole,
   type Profile,
   type ProfileSection,
   type ProfileSectionContent,
 } from "../domain/profileSchema";
+import type { ViewerRole } from "../domain/permissions";
 
-export type ViewerRole = EditableRole | "visitor";
+export type { ViewerRole } from "../domain/permissions";
 
 export type DraftMap = Partial<Record<ProfileSection["id"], ProfileSectionContent>>;
 

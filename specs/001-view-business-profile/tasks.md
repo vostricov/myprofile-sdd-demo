@@ -62,7 +62,7 @@ M2 — Collapse & navigation (1d)
   - GitHub issue: "Add accessible collapse + fragment sync"
 
 M3 — Permissions, edit flows & validation (3.5d)
-- [ ] T008 Implement role-based edit gating (frontend/src/domain/permissions.ts, frontend/src/features/view-business-profile/Section/SectionHeader.tsx)
+- [X] T008 Implement role-based edit gating (frontend/src/domain/permissions.ts, frontend/src/features/view-business-profile/Section/SectionHeader.tsx)
   - Owner: @dev | Estimate: 0.5d | Depends: T006
   - Branch: feature/spec-001/t008-role-based-edit-controls
   - Acceptance: visitors never see edit controls; owners/editors only see controls for sections where their role is in editableBy
