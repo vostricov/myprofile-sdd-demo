@@ -38,6 +38,16 @@ function renderContent(content: ProfileSectionContent) {
     return <p>{content}</p>;
   }
 
+  if (Array.isArray(content)) {
+    return (
+      <ul className={styles.contentList}>
+        {content.map((item, index) => (
+          <li key={index}>{renderListItem(item)}</li>
+        ))}
+      </ul>
+    );
+  }
+
   return renderObject(content);
 }
 

@@ -25,7 +25,7 @@ describe("profileSchema", () => {
   });
 
   it("rejects invalid editableBy roles", () => {
-    const profile = withContactContent({
+    const profile = withFirstSectionOverrides({
       editableBy: ["owner", "visitor"],
     });
 
@@ -33,7 +33,7 @@ describe("profileSchema", () => {
   });
 
   it("rejects invalid contact email values", () => {
-    const profile = withContactContent({
+    const profile = withFirstSectionOverrides({
       content: {
         phone: "+1-555-0100",
         email: "not-an-email",
@@ -47,7 +47,7 @@ describe("profileSchema", () => {
   });
 
   it("rejects invalid contact phone values", () => {
-    const profile = withContactContent({
+    const profile = withFirstSectionOverrides({
       content: {
         phone: "abc",
         email: "info@acme.example",
@@ -88,9 +88,9 @@ describe("profileSchema", () => {
   });
 });
 
-function withContactContent(overrides: Partial<Profile["sections"][number]>): Profile {
+function withFirstSectionOverrides(overrides: Partial<Profile["sections"][number]>): Profile {
   return {
     ...validProfile,
-    sections: validProfile.sections.map((section) => (section.id === "contact" ? { ...section, ...overrides } : section)),
+    sections: [{ ...validProfile.sections[0], ...overrides }, ...validProfile.sections.slice(1)],
   };
 }

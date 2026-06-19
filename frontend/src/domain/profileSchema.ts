@@ -59,7 +59,11 @@ const structuredContentSchema = z.record(z.string(), jsonValueSchema).superRefin
   }
 });
 
-export const sectionContentSchema = z.union([z.string().min(1), structuredContentSchema]);
+export const sectionContentSchema = z.union([
+  z.string().min(1),
+  z.array(jsonValueSchema).min(1),
+  structuredContentSchema,
+]);
 
 export const profileSectionSchema = z.object({
   id: z.string().min(1),
@@ -75,6 +79,8 @@ export const profileSectionSchema = z.object({
 export const profileSchema = z.object({
   profileId: z.string().min(1),
   title: z.string().min(1),
+  sourceDocument: z.string().min(1).optional(),
+  lastUpdated: isoUtcTimestampSchema.optional(),
   sections: z.array(profileSectionSchema).min(1),
 });
 
