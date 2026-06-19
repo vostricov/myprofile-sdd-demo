@@ -1,15 +1,47 @@
+import type { KeyboardEvent } from "react";
+
 import styles from "../../../styles/globals.module.css";
 
 type SectionHeaderProps = {
+  contentId: string;
   headingId: string;
+  isExpanded: boolean;
+  onToggle: () => void;
   title: string;
 };
 
-export function SectionHeader({ headingId, title }: SectionHeaderProps) {
+export function SectionHeader({
+  contentId,
+  headingId,
+  isExpanded,
+  onToggle,
+  title,
+}: SectionHeaderProps) {
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    onToggle();
+  };
+
   return (
     <header className={styles.sectionHeader}>
       <h2 className={styles.sectionTitle} id={headingId}>
-        {title}
+        <button
+          aria-controls={contentId}
+          aria-expanded={isExpanded}
+          className={styles.sectionToggle}
+          onKeyDown={handleKeyDown}
+          onClick={onToggle}
+          type="button"
+        >
+          <span className={styles.sectionToggleText}>{title}</span>
+          <span aria-hidden="true" className={styles.sectionChevron}>
+            v
+          </span>
+        </button>
       </h2>
       <button
         aria-label={`Edit ${title}`}

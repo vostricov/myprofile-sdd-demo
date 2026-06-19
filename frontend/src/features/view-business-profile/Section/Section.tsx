@@ -4,7 +4,7 @@ import type {
   ProfileSectionContent,
 } from "../../../domain/profileSchema";
 import styles from "../../../styles/globals.module.css";
-import { SectionHeader } from "./SectionHeader";
+import { Accordion } from "./Accordion";
 
 type SectionProps = {
   section: ProfileSection;
@@ -21,14 +21,19 @@ export function Section({ section }: SectionProps) {
       className={styles.sectionCard}
       id={section.id}
     >
-      <SectionHeader headingId={headingId} title={section.title} />
-      <div className={styles.sectionBody}>{renderContent(section.content)}</div>
-      <footer className={styles.sectionFooter}>
-        <span>Last updated {formatDateTime(section.lastUpdated)}</span>
-        {section.lastEditedByUserId ? (
-          <span>Edited by {section.lastEditedByUserId}</span>
-        ) : null}
-      </footer>
+      <Accordion
+        headingId={headingId}
+        sectionId={section.id}
+        title={section.title}
+      >
+        <div className={styles.sectionBody}>{renderContent(section.content)}</div>
+        <footer className={styles.sectionFooter}>
+          <span>Last updated {formatDateTime(section.lastUpdated)}</span>
+          {section.lastEditedByUserId ? (
+            <span>Edited by {section.lastEditedByUserId}</span>
+          ) : null}
+        </footer>
+      </Accordion>
     </article>
   );
 }

@@ -55,7 +55,7 @@ M1 — Scaffold, data & render (2.5d)
   - GitHub issue: "Render profile sections from validated fixture"
 
 M2 — Collapse & navigation (1d)
-- [ ] T007 Implement accessible collapse + URL fragment sync (frontend/src/features/view-business-profile/Section/Accordion.tsx)
+- [X] T007 Implement accessible collapse + URL fragment sync (frontend/src/features/view-business-profile/Section/Accordion.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T006
   - Branch: feature/spec-001/t007-accessible-collapse-fragment-sync
   - Acceptance: toggles are keyboard operable, aria-expanded is present, focus is retained, animation runs within 200-300ms, and URL fragment reflects open section and vice versa
