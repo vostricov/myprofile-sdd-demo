@@ -28,12 +28,6 @@
   line-height: 1.25;
 }
 
-.lede {
-  max-width: 42rem;
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
 .profileLayout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -72,9 +66,39 @@
   line-height: 1.35;
 }
 
+.editPlaceholder {
+  flex: 0 0 auto;
+  min-height: 2.25rem;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
 .sectionBody {
   margin-block-start: var(--spacing-3);
   color: var(--color-text-muted);
+}
+
+.sectionBody > :first-child {
+  margin-block-start: 0;
+}
+
+.sectionBody > :last-child {
+  margin-block-end: 0;
+}
+
+.sectionFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2) var(--spacing-3);
+  margin-block-start: var(--spacing-3);
+  padding-block-start: var(--spacing-3);
+  border-block-start: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
 }
 
 .mutedPanel {
@@ -83,6 +107,48 @@
   border-radius: var(--radius);
   background: var(--color-surface-muted);
   color: var(--color-text-muted);
+}
+
+.metaRow,
+.contentRow {
+  display: grid;
+  gap: var(--spacing-1);
+  min-width: 0;
+}
+
+.metaRow + .metaRow,
+.contentRow + .contentRow {
+  margin-block-start: var(--spacing-3);
+}
+
+.metaRow dt,
+.contentRow dt {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.metaRow dd,
+.contentRow dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.contentGrid {
+  display: grid;
+  gap: var(--spacing-3);
+  margin: 0;
+}
+
+.contentList {
+  display: grid;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding-inline-start: var(--spacing-4);
+}
+
+.contentLink {
+  color: var(--color-accent-strong);
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 48rem) {

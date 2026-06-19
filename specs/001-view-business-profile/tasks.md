@@ -48,7 +48,7 @@ M1 — Scaffold, data & render (2.5d)
   - Acceptance: context provides validated profile state, current viewer role, edit/preview/undo actions, and in-memory draft state
   - GitHub issue: "Implement ProfileContext and reducer"
 
-- [ ] T006 Build Profile, Section, and SectionHeader components; wire validated fixture (frontend/src/features/view-business-profile/Profile.tsx, frontend/src/features/view-business-profile/Section/Section.tsx, frontend/src/features/view-business-profile/Section/SectionHeader.tsx)
+- [X] T006 Build Profile, Section, and SectionHeader components; wire validated fixture (frontend/src/features/view-business-profile/Profile.tsx, frontend/src/features/view-business-profile/Section/Section.tsx, frontend/src/features/view-business-profile/Section/SectionHeader.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T005
   - Branch: feature/spec-001/t006-render-profile-sections
   - Acceptance: Profile renders sections from the validated fixture; SectionHeader shows title and non-functional edit affordance placeholder
