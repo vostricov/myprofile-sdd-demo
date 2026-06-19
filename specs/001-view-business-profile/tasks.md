@@ -74,7 +74,7 @@ M3 — Permissions, edit flows & validation (3.5d)
   - Acceptance: inline edit opens, validates required fields, Cancel reverts local draft, and Save updates context
   - GitHub issue: "Implement inline editor with validation"
 
-- [ ] T010 Modal/Drawer editor using Radix Dialog for structured sections (frontend/src/features/view-business-profile/editors/ModalEditor.tsx)
+- [X] T010 Modal/Drawer editor using Radix Dialog for structured sections (frontend/src/features/view-business-profile/editors/ModalEditor.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T009
   - Branch: feature/spec-001/t010-modal-drawer-editor
   - Acceptance: modal opens with focus trap, validates structured content on Save, and Cancel reverts

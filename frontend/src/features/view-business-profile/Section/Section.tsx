@@ -9,6 +9,7 @@ import type {
 import { canEditSection } from "../../../domain/permissions";
 import styles from "../../../styles/globals.module.css";
 import { InlineEditor } from "../editors/InlineEditor";
+import { ModalEditor } from "../editors/ModalEditor";
 import { Accordion } from "./Accordion";
 
 type SectionProps = {
@@ -19,10 +20,15 @@ type JsonObject = { [key: string]: JsonValue };
 
 export function Section({ section }: SectionProps) {
   const { currentViewerRole } = useProfile();
-  const [isInlineEditing, setIsInlineEditing] = useState(false);
+  const [editingMode, setEditingMode] = useState<"inline" | "modal" | null>(null);
   const headingId = `${section.id}-heading`;
   const canEdit = canEditSection(section, currentViewerRole);
   const canInlineEdit = canEdit && typeof section.content === "string";
+  const canStructuredEdit = canEdit && typeof section.content !== "string";
+  const canOpenEditor = canInlineEdit || canStructuredEdit;
+  const handleEdit = () => {
+    setEditingMode(canInlineEdit ? "inline" : "modal");
+  };
 
   return (
     <article
@@ -32,16 +38,16 @@ export function Section({ section }: SectionProps) {
     >
       <Accordion
         canEdit={canEdit}
-        editDisabled={!canInlineEdit}
+        editDisabled={!canOpenEditor}
         headingId={headingId}
-        onEdit={canInlineEdit ? () => setIsInlineEditing(true) : undefined}
+        onEdit={canOpenEditor ? handleEdit : undefined}
         sectionId={section.id}
         title={section.title}
       >
         <div className={styles.sectionBody}>
-          {isInlineEditing && typeof section.content === "string" ? (
+          {editingMode === "inline" && typeof section.content === "string" ? (
             <InlineEditor
-              onClose={() => setIsInlineEditing(false)}
+              onClose={() => setEditingMode(null)}
               section={{ ...section, content: section.content }}
             />
           ) : (
@@ -55,6 +61,13 @@ export function Section({ section }: SectionProps) {
           ) : null}
         </footer>
       </Accordion>
+      {editingMode === "modal" ? (
+        <ModalEditor
+          onOpenChange={(open) => setEditingMode(open ? "modal" : null)}
+          open={editingMode === "modal"}
+          section={section}
+        />
+      ) : null}
     </article>
   );
 }

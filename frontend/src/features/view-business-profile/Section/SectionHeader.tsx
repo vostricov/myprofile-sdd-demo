@@ -53,7 +53,7 @@ export function SectionHeader({
         <button
           aria-label={`Edit ${title}`}
           className={styles.editPlaceholder}
-          disabled={editDisabled}
+          disabled={editDisabled || !onEdit}
           onClick={onEdit}
           type="button"
         >
