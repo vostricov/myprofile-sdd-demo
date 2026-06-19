@@ -80,7 +80,7 @@ M3 — Permissions, edit flows & validation (3.5d)
   - Acceptance: modal opens with focus trap, validates structured content on Save, and Cancel reverts
   - GitHub issue: "Add modal/drawer editor for rich sections"
 
-- [ ] T011 Icons, micro-interactions, and animation polish (frontend/src/components/icons/index.tsx, frontend/src/styles/animations.css)
+- [X] T011 Icons, micro-interactions, and animation polish (frontend/src/components/icons/index.tsx, frontend/src/styles/animations.css)
   - Owner: @dev | Estimate: 0.5d | Depends: T007,T009,T010
   - Branch: feature/spec-001/t011-icons-micro-interactions
   - Acceptance: lucide chevrons/edit icons are present; hover/focus affordances are visible; collapse animation remains within 200-300ms

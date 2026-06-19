@@ -1,5 +1,6 @@
 import type { KeyboardEvent } from "react";
 
+import { ChevronDownIcon, EditIcon } from "../../../components/icons";
 import styles from "../../../styles/globals.module.css";
 
 type SectionHeaderProps = {
@@ -45,7 +46,7 @@ export function SectionHeader({
         >
           <span className={styles.sectionToggleText}>{title}</span>
           <span aria-hidden="true" className={styles.sectionChevron}>
-            v
+            <ChevronDownIcon className={styles.iconSmall} />
           </span>
         </button>
       </h2>
@@ -57,7 +58,8 @@ export function SectionHeader({
           onClick={onEdit}
           type="button"
         >
-          Edit
+          <EditIcon className={styles.iconSmall} />
+          <span>Edit</span>
         </button>
       ) : null}
     </header>

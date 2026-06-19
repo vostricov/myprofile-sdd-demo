@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/tokens.css";
+import "./styles/animations.css";
 import { ProfileProvider } from "./context/ProfileContext";
 import { Profile } from "./features/view-business-profile/Profile";
 

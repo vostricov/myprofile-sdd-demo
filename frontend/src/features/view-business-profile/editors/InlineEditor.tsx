@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { CheckIcon, CloseIcon } from "../../../components/icons";
 import { useProfile } from "../../../context/ProfileContext";
 import type { ProfileSection } from "../../../domain/profileSchema";
 import styles from "../../../styles/globals.module.css";
@@ -71,14 +72,16 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
           onClick={handleCancel}
           type="button"
         >
-          Cancel
+          <CloseIcon className={styles.iconSmall} />
+          <span>Cancel</span>
         </button>
         <button
           className={styles.primaryButton}
           disabled={isSubmitting}
           type="submit"
         >
-          Save
+          <CheckIcon className={styles.iconSmall} />
+          <span>Save</span>
         </button>
       </div>
     </form>

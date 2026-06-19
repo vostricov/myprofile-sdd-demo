@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { CheckIcon, CloseIcon } from "../../../components/icons";
 import { useProfile } from "../../../context/ProfileContext";
 import {
   sectionContentSchema,
@@ -102,7 +103,7 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
               onClick={handleCancel}
               type="button"
             >
-              x
+              <CloseIcon className={styles.iconSmall} />
             </button>
           </div>
           <form className={styles.editorForm} onSubmit={handleSubmit(handleSave)}>
@@ -130,14 +131,16 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
                 onClick={handleCancel}
                 type="button"
               >
-                Cancel
+                <CloseIcon className={styles.iconSmall} />
+                <span>Cancel</span>
               </button>
               <button
                 className={styles.primaryButton}
                 disabled={isSubmitting}
                 type="submit"
               >
-                Save
+                <CheckIcon className={styles.iconSmall} />
+                <span>Save</span>
               </button>
             </div>
           </form>

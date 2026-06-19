@@ -3,6 +3,28 @@
   padding: var(--spacing-4);
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem)) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 .page {
   width: min(100%, var(--layout-max-width));
   margin: 0 auto;
@@ -83,6 +105,9 @@
   cursor: pointer;
   font: inherit;
   text-align: start;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .sectionToggle:hover {
@@ -103,7 +128,7 @@
   border-radius: var(--radius-sm);
   transition:
     transform var(--transition-collapse),
-    background-color 160ms ease;
+    background-color var(--transition-fast);
 }
 
 .sectionToggle:hover .sectionChevron {
@@ -115,14 +140,22 @@
 }
 
 .editPlaceholder {
+  display: inline-flex;
   flex: 0 0 auto;
   min-height: 2.25rem;
+  align-items: center;
+  gap: var(--spacing-1);
   padding: var(--spacing-2) var(--spacing-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface-muted);
   color: var(--color-text-muted);
   cursor: not-allowed;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .editPlaceholder:not(:disabled) {
@@ -133,6 +166,7 @@
 
 .editPlaceholder:not(:disabled):hover {
   border-color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .sectionBody {
@@ -236,6 +270,9 @@
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-text);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .roleSelect {
@@ -289,11 +326,20 @@
 
 .primaryButton,
 .secondaryButton {
+  display: inline-flex;
   min-height: 2.25rem;
+  align-items: center;
+  gap: var(--spacing-1);
   padding: var(--spacing-2) var(--spacing-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    filter var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .primaryButton {
@@ -315,12 +361,14 @@
 .primaryButton:not(:disabled):hover,
 .secondaryButton:hover {
   filter: brightness(0.97);
+  transform: translateY(-1px);
 }
 
 .dialogOverlay {
   position: fixed;
   inset: 0;
   background: rgb(23 33 43 / 55%);
+  animation: fade-in var(--transition-fast);
 }
 
 .dialogContent {
@@ -338,6 +386,7 @@
   border-radius: var(--radius);
   background: var(--color-surface);
   box-shadow: 0 1.25rem 3rem rgb(23 33 43 / 24%);
+  animation: dialog-enter var(--transition-medium);
 }
 
 .dialogHeader {
@@ -365,10 +414,21 @@
   background: var(--color-surface-muted);
   color: var(--color-text);
   cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .dialogCloseButton:hover {
   border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.iconSmall {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
 }
 
 @media (min-width: 48rem) {
@@ -403,7 +463,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .accordionPanel,
-  .sectionChevron {
+  .sectionChevron,
+  .dialogOverlay,
+  .dialogContent {
+    animation: none;
     transition: none;
   }
 }
