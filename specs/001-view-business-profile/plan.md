@@ -1,6 +1,6 @@
 # Implementation Plan: view-business-profile
 
-**Branch**: `feat/view-business-profile` | **Date**: 2026-06-18 | **Spec**: specs/001-view-business-profile/spec.md
+**Branch**: `feature/spec-001/view-business-profile` | **Date**: 2026-06-18 | **Spec**: specs/001-view-business-profile/spec.md
 
 **Input**: Feature specification from `specs/001-view-business-profile/spec.md`
 
