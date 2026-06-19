@@ -7,7 +7,9 @@ import { SectionHeader } from "./SectionHeader";
 type AccordionProps = {
   canEdit: boolean;
   children: ReactNode;
+  editDisabled?: boolean;
   headingId: string;
+  onEdit?: () => void;
   sectionId: string;
   title: string;
 };
@@ -15,7 +17,9 @@ type AccordionProps = {
 export function Accordion({
   canEdit,
   children,
+  editDisabled = false,
   headingId,
+  onEdit,
   sectionId,
   title,
 }: AccordionProps) {
@@ -60,8 +64,10 @@ export function Accordion({
       <SectionHeader
         canEdit={canEdit}
         contentId={contentId}
+        editDisabled={editDisabled}
         headingId={headingId}
         isExpanded={isExpanded}
+        onEdit={onEdit}
         onToggle={handleToggle}
         title={title}
       />

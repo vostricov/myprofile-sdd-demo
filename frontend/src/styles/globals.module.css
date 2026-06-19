@@ -3,6 +3,28 @@
   padding: var(--spacing-4);
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem)) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 .page {
   width: min(100%, var(--layout-max-width));
   margin: 0 auto;
@@ -83,6 +105,9 @@
   cursor: pointer;
   font: inherit;
   text-align: start;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .sectionToggle:hover {
@@ -103,7 +128,7 @@
   border-radius: var(--radius-sm);
   transition:
     transform var(--transition-collapse),
-    background-color 160ms ease;
+    background-color var(--transition-fast);
 }
 
 .sectionToggle:hover .sectionChevron {
@@ -115,14 +140,33 @@
 }
 
 .editPlaceholder {
+  display: inline-flex;
   flex: 0 0 auto;
   min-height: 2.25rem;
+  align-items: center;
+  gap: var(--spacing-1);
   padding: var(--spacing-2) var(--spacing-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface-muted);
   color: var(--color-text-muted);
   cursor: not-allowed;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.editPlaceholder:not(:disabled) {
+  background: var(--color-surface);
+  color: var(--color-accent-strong);
+  cursor: pointer;
+}
+
+.editPlaceholder:not(:disabled):hover {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .sectionBody {
@@ -218,6 +262,175 @@
   overflow-wrap: anywhere;
 }
 
+.roleSelect,
+.textArea,
+.jsonTextArea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.roleSelect {
+  min-height: 2.25rem;
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.editorForm {
+  display: grid;
+  gap: var(--spacing-2);
+}
+
+.fieldLabel {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.textArea {
+  min-height: 10rem;
+  resize: vertical;
+  padding: var(--spacing-2);
+}
+
+.jsonTextArea {
+  min-height: min(50vh, 26rem);
+  resize: vertical;
+  padding: var(--spacing-2);
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 0.875rem;
+}
+
+.textArea[aria-invalid="true"],
+.jsonTextArea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: 0.875rem;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    filter var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.primaryButton {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.primaryButton:not(:disabled):hover,
+.secondaryButton:hover {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
+}
+
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(23 33 43 / 55%);
+  animation: fade-in var(--transition-fast);
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: min(calc(100vw - var(--spacing-4)), 48rem);
+  max-height: calc(100vh - var(--spacing-4));
+  gap: var(--spacing-3);
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 1.25rem 3rem rgb(23 33 43 / 24%);
+  animation: dialog-enter var(--transition-medium);
+}
+
+.dialogHeader {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dialogTitle {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.35;
+}
+
+.dialogCloseButton {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.dialogCloseButton:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.iconSmall {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
 @media (min-width: 48rem) {
   .appShell {
     padding: var(--spacing-5);
@@ -250,7 +463,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .accordionPanel,
-  .sectionChevron {
+  .sectionChevron,
+  .dialogOverlay,
+  .dialogContent {
+    animation: none;
     transition: none;
   }
 }

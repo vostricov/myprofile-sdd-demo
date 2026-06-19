@@ -1,0 +1,89 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { CheckIcon, CloseIcon } from "../../../components/icons";
+import { useProfile } from "../../../context/ProfileContext";
+import type { ProfileSection } from "../../../domain/profileSchema";
+import styles from "../../../styles/globals.module.css";
+
+type InlineEditorProps = {
+  onClose: () => void;
+  section: ProfileSection & { content: string };
+};
+
+const inlineEditorSchema = z.object({
+  content: z.string().trim().min(1, "Content is required."),
+});
+
+type InlineEditorValues = z.infer<typeof inlineEditorSchema>;
+
+export function InlineEditor({ onClose, section }: InlineEditorProps) {
+  const { actions, currentViewerRole } = useProfile();
+  const {
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+    setFocus,
+  } = useForm<InlineEditorValues>({
+    defaultValues: { content: section.content },
+    resolver: zodResolver(inlineEditorSchema),
+  });
+
+  useEffect(() => {
+    actions.startDraft(section.id);
+    setFocus("content");
+  }, [actions, section.id, setFocus]);
+
+  const handleCancel = () => {
+    actions.cancelDraft(section.id);
+    onClose();
+  };
+
+  const handleSave = (values: InlineEditorValues) => {
+    actions.updateDraft(section.id, values.content);
+    actions.saveDraft(section.id, {
+      lastEditedByUserId: currentViewerRole,
+    });
+    onClose();
+  };
+
+  return (
+    <form className={styles.editorForm} onSubmit={handleSubmit(handleSave)}>
+      <label className={styles.fieldLabel} htmlFor={`${section.id}-inline-content`}>
+        Content
+      </label>
+      <textarea
+        aria-invalid={errors.content ? "true" : "false"}
+        className={styles.textArea}
+        id={`${section.id}-inline-content`}
+        rows={8}
+        {...register("content")}
+      />
+      {errors.content ? (
+        <p className={styles.fieldError} role="alert">
+          {errors.content.message}
+        </p>
+      ) : null}
+      <div className={styles.formActions}>
+        <button
+          className={styles.secondaryButton}
+          onClick={handleCancel}
+          type="button"
+        >
+          <CloseIcon className={styles.iconSmall} />
+          <span>Cancel</span>
+        </button>
+        <button
+          className={styles.primaryButton}
+          disabled={isSubmitting}
+          type="submit"
+        >
+          <CheckIcon className={styles.iconSmall} />
+          <span>Save</span>
+        </button>
+      </div>
+    </form>
+  );
+}

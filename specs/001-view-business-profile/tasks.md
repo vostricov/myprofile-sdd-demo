@@ -68,19 +68,19 @@ M3 — Permissions, edit flows & validation (3.5d)
   - Acceptance: visitors never see edit controls; owners/editors only see controls for sections where their role is in editableBy
   - GitHub issue: "Implement role-based edit controls"
 
-- [ ] T009 Inline editor using React Hook Form + Zod for simple fields (frontend/src/features/view-business-profile/editors/InlineEditor.tsx)
+- [X] T009 Inline editor using React Hook Form + Zod for simple fields (frontend/src/features/view-business-profile/editors/InlineEditor.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T007,T008
   - Branch: feature/spec-001/t009-inline-editor-validation
   - Acceptance: inline edit opens, validates required fields, Cancel reverts local draft, and Save updates context
   - GitHub issue: "Implement inline editor with validation"
 
-- [ ] T010 Modal/Drawer editor using Radix Dialog for structured sections (frontend/src/features/view-business-profile/editors/ModalEditor.tsx)
+- [X] T010 Modal/Drawer editor using Radix Dialog for structured sections (frontend/src/features/view-business-profile/editors/ModalEditor.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T009
   - Branch: feature/spec-001/t010-modal-drawer-editor
   - Acceptance: modal opens with focus trap, validates structured content on Save, and Cancel reverts
   - GitHub issue: "Add modal/drawer editor for rich sections"
 
-- [ ] T011 Icons, micro-interactions, and animation polish (frontend/src/components/icons/index.tsx, frontend/src/styles/animations.css)
+- [X] T011 Icons, micro-interactions, and animation polish (frontend/src/components/icons/index.tsx, frontend/src/styles/animations.css)
   - Owner: @dev | Estimate: 0.5d | Depends: T007,T009,T010
   - Branch: feature/spec-001/t011-icons-micro-interactions
   - Acceptance: lucide chevrons/edit icons are present; hover/focus affordances are visible; collapse animation remains within 200-300ms

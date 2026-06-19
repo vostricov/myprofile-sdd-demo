@@ -1,11 +1,15 @@
+import { useState } from "react";
+
+import { useProfile } from "../../../context/ProfileContext";
 import type {
   JsonValue,
   ProfileSection,
   ProfileSectionContent,
 } from "../../../domain/profileSchema";
 import { canEditSection } from "../../../domain/permissions";
-import { useProfile } from "../../../context/ProfileContext";
 import styles from "../../../styles/globals.module.css";
+import { InlineEditor } from "../editors/InlineEditor";
+import { ModalEditor } from "../editors/ModalEditor";
 import { Accordion } from "./Accordion";
 
 type SectionProps = {
@@ -16,8 +20,15 @@ type JsonObject = { [key: string]: JsonValue };
 
 export function Section({ section }: SectionProps) {
   const { currentViewerRole } = useProfile();
+  const [editingMode, setEditingMode] = useState<"inline" | "modal" | null>(null);
   const headingId = `${section.id}-heading`;
   const canEdit = canEditSection(section, currentViewerRole);
+  const canInlineEdit = canEdit && typeof section.content === "string";
+  const canStructuredEdit = canEdit && typeof section.content !== "string";
+  const canOpenEditor = canInlineEdit || canStructuredEdit;
+  const handleEdit = () => {
+    setEditingMode(canInlineEdit ? "inline" : "modal");
+  };
 
   return (
     <article
@@ -27,11 +38,22 @@ export function Section({ section }: SectionProps) {
     >
       <Accordion
         canEdit={canEdit}
+        editDisabled={!canOpenEditor}
         headingId={headingId}
+        onEdit={canOpenEditor ? handleEdit : undefined}
         sectionId={section.id}
         title={section.title}
       >
-        <div className={styles.sectionBody}>{renderContent(section.content)}</div>
+        <div className={styles.sectionBody}>
+          {editingMode === "inline" && typeof section.content === "string" ? (
+            <InlineEditor
+              onClose={() => setEditingMode(null)}
+              section={{ ...section, content: section.content }}
+            />
+          ) : (
+            renderContent(section.content)
+          )}
+        </div>
         <footer className={styles.sectionFooter}>
           <span>Last updated {formatDateTime(section.lastUpdated)}</span>
           {section.lastEditedByUserId ? (
@@ -39,6 +61,13 @@ export function Section({ section }: SectionProps) {
           ) : null}
         </footer>
       </Accordion>
+      {editingMode === "modal" ? (
+        <ModalEditor
+          onOpenChange={(open) => setEditingMode(open ? "modal" : null)}
+          open={editingMode === "modal"}
+          section={section}
+        />
+      ) : null}
     </article>
   );
 }
