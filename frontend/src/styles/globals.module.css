@@ -125,6 +125,16 @@
   cursor: not-allowed;
 }
 
+.editPlaceholder:not(:disabled) {
+  background: var(--color-surface);
+  color: var(--color-accent-strong);
+  cursor: pointer;
+}
+
+.editPlaceholder:not(:disabled):hover {
+  border-color: var(--color-accent);
+}
+
 .sectionBody {
   margin-block-start: var(--spacing-3);
   color: var(--color-text-muted);
@@ -216,6 +226,83 @@
 .contentLink {
   color: var(--color-accent-strong);
   overflow-wrap: anywhere;
+}
+
+.roleSelect,
+.textArea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.roleSelect {
+  min-height: 2.25rem;
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.editorForm {
+  display: grid;
+  gap: var(--spacing-2);
+}
+
+.fieldLabel {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.textArea {
+  min-height: 10rem;
+  resize: vertical;
+  padding: var(--spacing-2);
+}
+
+.textArea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: 0.875rem;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 2.25rem;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.primaryButton {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.primaryButton:not(:disabled):hover,
+.secondaryButton:hover {
+  filter: brightness(0.97);
 }
 
 @media (min-width: 48rem) {

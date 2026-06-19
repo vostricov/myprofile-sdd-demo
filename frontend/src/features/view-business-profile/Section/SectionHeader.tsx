@@ -5,8 +5,10 @@ import styles from "../../../styles/globals.module.css";
 type SectionHeaderProps = {
   canEdit: boolean;
   contentId: string;
+  editDisabled?: boolean;
   headingId: string;
   isExpanded: boolean;
+  onEdit?: () => void;
   onToggle: () => void;
   title: string;
 };
@@ -14,8 +16,10 @@ type SectionHeaderProps = {
 export function SectionHeader({
   canEdit,
   contentId,
+  editDisabled = false,
   headingId,
   isExpanded,
+  onEdit,
   onToggle,
   title,
 }: SectionHeaderProps) {
@@ -49,7 +53,8 @@ export function SectionHeader({
         <button
           aria-label={`Edit ${title}`}
           className={styles.editPlaceholder}
-          disabled
+          disabled={editDisabled}
+          onClick={onEdit}
           type="button"
         >
           Edit

@@ -68,7 +68,7 @@ M3 — Permissions, edit flows & validation (3.5d)
   - Acceptance: visitors never see edit controls; owners/editors only see controls for sections where their role is in editableBy
   - GitHub issue: "Implement role-based edit controls"
 
-- [ ] T009 Inline editor using React Hook Form + Zod for simple fields (frontend/src/features/view-business-profile/editors/InlineEditor.tsx)
+- [X] T009 Inline editor using React Hook Form + Zod for simple fields (frontend/src/features/view-business-profile/editors/InlineEditor.tsx)
   - Owner: @dev | Estimate: 1d | Depends: T007,T008
   - Branch: feature/spec-001/t009-inline-editor-validation
   - Acceptance: inline edit opens, validates required fields, Cancel reverts local draft, and Save updates context

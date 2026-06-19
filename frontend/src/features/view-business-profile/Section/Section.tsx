@@ -1,11 +1,14 @@
+import { useState } from "react";
+
+import { useProfile } from "../../../context/ProfileContext";
 import type {
   JsonValue,
   ProfileSection,
   ProfileSectionContent,
 } from "../../../domain/profileSchema";
 import { canEditSection } from "../../../domain/permissions";
-import { useProfile } from "../../../context/ProfileContext";
 import styles from "../../../styles/globals.module.css";
+import { InlineEditor } from "../editors/InlineEditor";
 import { Accordion } from "./Accordion";
 
 type SectionProps = {
@@ -16,8 +19,10 @@ type JsonObject = { [key: string]: JsonValue };
 
 export function Section({ section }: SectionProps) {
   const { currentViewerRole } = useProfile();
+  const [isInlineEditing, setIsInlineEditing] = useState(false);
   const headingId = `${section.id}-heading`;
   const canEdit = canEditSection(section, currentViewerRole);
+  const canInlineEdit = canEdit && typeof section.content === "string";
 
   return (
     <article
@@ -27,11 +32,22 @@ export function Section({ section }: SectionProps) {
     >
       <Accordion
         canEdit={canEdit}
+        editDisabled={!canInlineEdit}
         headingId={headingId}
+        onEdit={canInlineEdit ? () => setIsInlineEditing(true) : undefined}
         sectionId={section.id}
         title={section.title}
       >
-        <div className={styles.sectionBody}>{renderContent(section.content)}</div>
+        <div className={styles.sectionBody}>
+          {isInlineEditing && typeof section.content === "string" ? (
+            <InlineEditor
+              onClose={() => setIsInlineEditing(false)}
+              section={{ ...section, content: section.content }}
+            />
+          ) : (
+            renderContent(section.content)
+          )}
+        </div>
         <footer className={styles.sectionFooter}>
           <span>Last updated {formatDateTime(section.lastUpdated)}</span>
           {section.lastEditedByUserId ? (

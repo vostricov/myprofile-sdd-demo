@@ -1,9 +1,9 @@
-import { useProfile } from "../../context/ProfileContext";
+import { useProfile, type ViewerRole } from "../../context/ProfileContext";
 import styles from "../../styles/globals.module.css";
 import { Section } from "./Section/Section";
 
 export function Profile() {
-  const { visibleProfile, currentViewerRole, hasDrafts } = useProfile();
+  const { actions, visibleProfile, currentViewerRole, hasDrafts } = useProfile();
 
   return (
     <main className={styles.appShell}>
@@ -30,7 +30,20 @@ export function Profile() {
               </div>
               <div className={styles.metaRow}>
                 <dt>Viewer role</dt>
-                <dd>{currentViewerRole}</dd>
+                <dd>
+                  <select
+                    aria-label="Viewer role"
+                    className={styles.roleSelect}
+                    onChange={(event) =>
+                      actions.setViewerRole(event.target.value as ViewerRole)
+                    }
+                    value={currentViewerRole}
+                  >
+                    <option value="visitor">Visitor</option>
+                    <option value="owner">Owner</option>
+                    <option value="editor">Editor</option>
+                  </select>
+                </dd>
               </div>
               <div className={styles.metaRow}>
                 <dt>Sections</dt>
