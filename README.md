@@ -16,6 +16,7 @@ The project uses Spec Kit artifacts to drive implementation from a written speci
 
 - Node.js and npm
 - Git
+- Windows users can run the commands from PowerShell, Command Prompt, Windows Terminal, or Git Bash.
 
 ## How To Run The Project
 
@@ -33,6 +34,14 @@ npm run dev
 ```
 
 Vite prints the local URL in the terminal, usually `http://localhost:5173`.
+
+The same commands work on Windows:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
 ## Useful Commands
 
@@ -63,9 +72,18 @@ This repository demonstrates a branch-per-task workflow. Each implementation tas
 
 Before starting a task, read the current Spec Kit plan and task list:
 
+macOS, Linux, or Git Bash:
+
 ```sh
 sed -n '1,220p' specs/001-view-business-profile/plan.md
 sed -n '1,260p' specs/001-view-business-profile/tasks.md
+```
+
+Windows PowerShell:
+
+```powershell
+Get-Content .\specs\001-view-business-profile\plan.md -TotalCount 220
+Get-Content .\specs\001-view-business-profile\tasks.md -TotalCount 260
 ```
 
 Task commits use the format `[SPEC-001/T###] concise description`, and each pull request should stay scoped to a single task or focused documentation update.
