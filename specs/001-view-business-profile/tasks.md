@@ -124,7 +124,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: deterministic tests cover reducer actions, role-aware rendered edit controls, empty sections, and very long content rendering
   - GitHub issue: "Add reducer and component unit tests"
 
-- [ ] T018 [P] Persistence and save metadata unit tests (frontend/tests/unit/profilePersistence.test.ts)
+- [X] T018 [P] Persistence and save metadata unit tests (frontend/tests/unit/profilePersistence.test.ts)
   - Owner: @dev | Estimate: 0.5d | Depends: T013
   - Branch: feature/spec-001/t018-profile-persistence-unit-tests
   - Acceptance: deterministic tests cover profileApi.save, local adapter persistence, optimistic failure handling, lastUpdated, and lastEditedByUserId updates
