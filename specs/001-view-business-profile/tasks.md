@@ -118,7 +118,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: deterministic tests cover visitor, owner, and editor edit permissions for editable and non-editable sections
   - GitHub issue: "Add permission unit tests"
 
-- [ ] T017 [P] Reducer and component unit tests (frontend/tests/unit/profile.test.tsx)
+- [X] T017 [P] Reducer and component unit tests (frontend/tests/unit/profile.test.tsx)
   - Owner: @dev | Estimate: 0.5d | Depends: T005,T006,T008
   - Branch: feature/spec-001/t017-profile-reducer-component-tests
   - Acceptance: deterministic tests cover reducer actions, role-aware rendered edit controls, empty sections, and very long content rendering
