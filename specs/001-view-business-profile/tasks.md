@@ -142,7 +142,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: Lighthouse baseline is documented; CI asserts Performance >= 90, Accessibility >= 90, Best Practices >= 90, and 3G-equivalent load target <= 2s
   - GitHub issue: "Add Lighthouse CI budgets and baseline"
 
-- [ ] T021 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
+- [X] T021 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
   - Owner: @dev | Estimate: 1d | Depends: T015,T016,T017,T018,T019,T020
   - Branch: feature/spec-001/t021-final-qa-polish
   - Acceptance: final QA records pass/fail status for responsive layout, WCAG 2.1 AA checks, performance budget, edge cases, and save/undo behavior

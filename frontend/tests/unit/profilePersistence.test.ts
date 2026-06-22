@@ -131,8 +131,11 @@ async function stageSummaryDraft(content: string): Promise<void> {
   );
 
   const summaryArticle = screen.getByRole("article", { name: "Summary" });
+  const editorContentField = await within(summaryArticle).findByLabelText(
+    messages.editor.content,
+  );
 
-  fireEvent.change(within(summaryArticle).getByLabelText(messages.editor.content), {
+  fireEvent.change(editorContentField, {
     target: { value: content },
   });
   fireEvent.click(
