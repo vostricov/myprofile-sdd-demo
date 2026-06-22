@@ -2,7 +2,7 @@
 view-business-profile
 
 ## Summary
-A single-page web app that displays a user's business profile as a set of collapsible content blocks. The page supports section-level edit affordances, inline edit flows for small fields and modal/drawer editors for larger content, with clear save/cancel flow, client-side validation, preview of unsaved changes, and role-based edit permission. Initial content is loaded from an "initial input" folder and persisted through a browser-local profile storage adapter.
+A single-page web app that displays a user's business profile as a set of collapsible content blocks. The page supports section-level edit affordances, inline edit flows for small fields and modal/drawer editors for larger content, with clear save/cancel flow, client-side validation, preview of unsaved changes, and role-based edit permission. Initial content is loaded from a mock profile JSON fixture and persisted through a browser-local profile storage adapter.
 
 ## Scope
 Included:
@@ -10,7 +10,7 @@ Included:
 - Section headers with visible edit buttons; per-block inline editing where appropriate
 - Modal/drawer editor for rich or multi-field sections
 - Save and Cancel controls, with undo affordance for recent changes
-- Initial content load from an "initial input" folder (JSON files) and persistence through a browser-local profile storage adapter
+- Initial content load from a mock profile JSON fixture and persistence through a browser-local profile storage adapter
 - Responsive layout for desktop/tablet/mobile and WCAG 2.1 AA accessibility
 - Client-side validation and preview mode
 
@@ -59,7 +59,7 @@ Edit flows & persistence
 - Clicking Edit opens inline fields or a modal; Cancel reverts changes locally; Save persists changes and shows a confirmation toast
 - Validation: required fields block Save and show inline error messages with clear descriptions
 - Preview mode shows unsaved changes in a non-persistent state until Save
-- Initial content loads from an "initial input" folder (JSON) and matches the data model example below
+- Initial content loads from a mock profile JSON fixture and matches the data model example below
 
 Accessibility
 - Meets WCAG 2.1 AA: semantic headings, keyboard operable controls, ARIA attributes for expand/collapse, color contrast >= 4.5:1 for text
@@ -83,7 +83,7 @@ Validation:
 - `lastEditedByUserId` is updated on successful Save.
 - Contact email and phone fields must pass client-side format validation when present.
 
-Example initial JSON (initial input folder):
+Example mock JSON fixture:
 {
   "profileId": "business-123",
   "title": "Acme Consulting",

@@ -1,7 +1,6 @@
 {
-  "profileId": "valentin-ostricov-architect",
-  "title": "Valentin Ostricov - Architect",
-  "sourceDocument": "Endava Profile - Valentin Ostricov - Architect.pdf",
+  "profileId": "mock-solution-architect-profile",
+  "title": "Mock Solution Architect Profile",
   "lastUpdated": "2026-06-18T00:00:00Z",
   "sections": [
     {
@@ -25,9 +24,9 @@
         { "name": "Other", "duration": "1 year 6 months" },
         { "name": "Healthcare & Life Sciences", "duration": "9 months" },
         { "name": "Media", "duration": "8 months" },
-        { "name": "Growth APAC", "duration": "6 months" },
-        { "name": "Growth MENA", "duration": "2 months" },
-        { "name": "TELCO & MEDIA_Legacy", "duration": "2 months" }
+        { "name": "Emerging Markets", "duration": "6 months" },
+        { "name": "Regional Growth", "duration": "2 months" },
+        { "name": "Telecom & Media", "duration": "2 months" }
       ],
       "lastUpdated": "2026-06-18T00:00:00Z",
       "lastEditedByUserId": "system-import",
@@ -114,12 +113,12 @@
       "title": "Recent Projects",
       "content": [
         {
-          "name": "PSP integration with Amex Tokenization Service POC",
+          "name": "Payment tokenization integration proof of concept",
           "period": "12.2025 - 02.2026",
           "duration": "2 months",
           "domain": "Payments",
           "role": "Architect",
-          "overview": "Proof of Concept for integrating internal token/payment capabilities with the AmEx Tokenization Service using a modular, enterprise-ready architecture. Demonstrates external tokenization API integration while keeping core business logic independent from specific frameworks and providers.",
+          "overview": "Proof of Concept for integrating internal token/payment capabilities with an external card tokenization service using a modular, enterprise-ready architecture. Demonstrates external tokenization API integration while keeping core business logic independent from specific frameworks and providers.",
           "responsibilities": [
             "Owned end-to-end solution architecture and target technical design.",
             "Produced architecture artifacts including LLD, ADRs, C4 diagrams, module boundaries, and integration contracts.",
@@ -130,7 +129,7 @@
           "techStack": ["Java", "OpenAI Codex", "Spring Framework", "PlantUML"]
         },
         {
-          "name": "Mobile Trading and Investments app",
+          "name": "Mobile trading app",
           "period": "11.2024 - 12.2025",
           "duration": "1 year 1 month",
           "domain": "Banking & Capital Markets",
@@ -144,7 +143,7 @@
           "techStack": ["Objective-C", "Swift", "Kotlin", "Splunk", "Figma", "Confluence"]
         },
         {
-          "name": "API documentation Review",
+          "name": "Payment API documentation review",
           "period": "04.2024 - 05.2024",
           "duration": "2 months",
           "domain": "Payments",
@@ -159,10 +158,10 @@
           "techStack": ["Agile", "Brainstorming"]
         },
         {
-          "name": "RFP & Discovery phase for Middle East state-owned transport company",
+          "name": "Transport services discovery phase",
           "period": "06.2023 - 07.2023",
           "duration": "2 months",
-          "domain": "Growth MENA",
+          "domain": "Regional Growth",
           "role": "Development Consultant",
           "overview": "B2C automotive super app bringing customer services under one roof, including license services, buying, selling, renting, leasing, servicing, and vehicle repairs.",
           "responsibilities": [
@@ -173,7 +172,7 @@
           "techStack": ["Charles Proxy", "Postman"]
         },
         {
-          "name": "Access Management Application (Smart Locks)",
+          "name": "Smart lock access management app",
           "period": "04.2022 - 06.2022",
           "duration": "3 months",
           "domain": "Other",
@@ -201,7 +200,7 @@
           "techStack": ["C++", "Swift", "Objective-C", "CI/CD", "Figma", "Splunk", "Jenkins"]
         },
         {
-          "name": "White label bank application",
+          "name": "White-label banking app",
           "period": "11.2019 - 03.2020",
           "duration": "5 months",
           "domain": "Banking & Capital Markets",
@@ -224,23 +223,23 @@
       "title": "Earlier Projects",
       "content": [
         {
-          "name": "Serendipity framework",
+          "name": "Mobile analytics framework",
           "period": "07.2018 - 09.2018",
-          "domain": "TELCO & MEDIA_Legacy",
+          "domain": "Telecom & Media",
           "role": "Development Consultant",
           "summary": "Designed and developed core components of an iOS library for anonymous activity and environment analysis.",
           "techStack": ["C", "Swift", "Agile"]
         },
         {
-          "name": "Liquid: Mobile trading app",
+          "name": "Mobile trading app",
           "period": "01.2018 - 07.2018",
-          "domain": "Growth APAC",
+          "domain": "Emerging Markets",
           "role": "Design Lead",
           "summary": "Led iOS and Android streams for a global fiat and crypto trading platform with real-time data and advanced indicators.",
           "techStack": ["Agile"]
         },
         {
-          "name": "COPA Airlines, part 2",
+          "name": "Airline mobile app redesign",
           "period": "12.2016 - 10.2017",
           "domain": "Travel",
           "role": "Design Lead",
@@ -248,7 +247,7 @@
           "techStack": ["Agile"]
         },
         {
-          "name": "Loungekey - white label mobile app",
+          "name": "Airport lounge locator app",
           "period": "09.2016 - 11.2016",
           "domain": "Travel",
           "role": "Design Lead",
@@ -256,7 +255,7 @@
           "techStack": ["Swift", "Agile"]
         },
         {
-          "name": "SiklAir mobile app",
+          "name": "Airline traveler app",
           "period": "04.2016 - 10.2016",
           "domain": "Travel",
           "role": "Developer Lead",
@@ -280,15 +279,15 @@
           "techStack": ["Agile"]
         },
         {
-          "name": "iPad Client App - internal mobile project",
+          "name": "Internal tablet content app",
           "period": "09.2014 - 04.2015",
           "domain": "Technology",
           "role": "Developer Lead",
-          "summary": "Led iOS stream for an internal iPad app port of the Endava website with offline mode, dynamic UI, media, web content, and rich animations.",
+          "summary": "Led iOS stream for an internal tablet app port of a company website with offline mode, dynamic UI, media, web content, and rich animations.",
           "techStack": ["Objective-C", "Agile", "Agile Scrum and Kanban", "Jira", "Agile Ceremonies"]
         },
         {
-          "name": "SecureSign Proof Of Concept",
+          "name": "Digital signature proof of concept",
           "period": "12.2014 - 01.2015",
           "domain": "Other",
           "role": "Senior Developer",
@@ -296,7 +295,7 @@
           "techStack": ["Objective-C", "Agile Scrum and Kanban"]
         },
         {
-          "name": "Zapp Mobile Payment framework",
+          "name": "Mobile payment framework",
           "period": "11.2013 - 08.2014",
           "domain": "Payments",
           "role": "Developer Lead",
@@ -304,7 +303,7 @@
           "techStack": ["Agile Scrum and Kanban", "Git", "GitHub", "Jira", "Agile"]
         },
         {
-          "name": "Target Marketing System Mobile app",
+          "name": "Marketing campaign mobile app",
           "period": "05.2013 - 11.2013",
           "domain": "Payments",
           "role": "Developer Lead",
@@ -312,7 +311,7 @@
           "techStack": ["Objective-C", "Agile"]
         },
         {
-          "name": "Digital Concierge iPad demo app",
+          "name": "Digital concierge tablet demo app",
           "period": "10.2012 - 11.2012",
           "domain": "Payments",
           "role": "Senior Developer",
@@ -320,7 +319,7 @@
           "techStack": ["Objective-C", "Brainstorming"]
         },
         {
-          "name": "Trip Planner Mobile app",
+          "name": "Trip planner mobile app",
           "period": "05.2012 - 09.2012",
           "domain": "Payments",
           "role": "Developer Lead",
@@ -328,15 +327,15 @@
           "techStack": ["Agile Scrum and Kanban"]
         },
         {
-          "name": "Be a Hero, iPhone application",
+          "name": "Live event support mobile app",
           "period": "12.2011 - 06.2012",
           "domain": "Retail & CPG",
           "role": "Developer Lead",
-          "summary": "Owned architecture and iOS implementation for a London 2012 operational support app with schedules, news, points of interest, chat, task distribution, and social sharing.",
+          "summary": "Owned architecture and iOS implementation for a major live event operational support app with schedules, news, points of interest, chat, task distribution, and social sharing.",
           "techStack": ["Agile Scrum and Kanban"]
         },
         {
-          "name": "Camden Town, iOS app",
+          "name": "City guide mobile app",
           "period": "11.2011 - 12.2011",
           "domain": "Media",
           "role": "Developer Lead",
@@ -344,7 +343,7 @@
           "techStack": ["Charles Proxy", "CI/CD", "Cucumber"]
         },
         {
-          "name": "Boot shoot iPhone game",
+          "name": "Branded football game",
           "period": "06.2011 - 08.2011",
           "domain": "Other",
           "role": "Developer Lead",
@@ -352,7 +351,7 @@
           "techStack": ["C++", "Objective-C", "Agile Scrum and Kanban", "Blender"]
         },
         {
-          "name": "iMockapp sketch tool",
+          "name": "Tablet UI sketch tool",
           "period": "03.2011 - 06.2011",
           "domain": "Other",
           "role": "Developer Lead",
@@ -360,7 +359,7 @@
           "techStack": ["Agile Ceremonies"]
         },
         {
-          "name": "Mobile Banking iOS Proof of Concept",
+          "name": "Mobile banking proof of concept",
           "period": "12.2009 - 01.2010",
           "domain": "Banking & Capital Markets",
           "role": "Developer",
@@ -368,7 +367,7 @@
           "techStack": ["Adobe Photoshop"]
         },
         {
-          "name": "Torture Harness Concurrent Testing Framework",
+          "name": "Concurrent testing framework",
           "period": "08.2007 - 10.2009",
           "domain": "Payments",
           "role": "Developer",
@@ -376,7 +375,7 @@
           "techStack": ["C++", "Bash", "MantisBT", "Apache Subversion (SVN)"]
         },
         {
-          "name": "B2B White-Label e-comm app for global building materials manufacturing company",
+          "name": "B2B white-label commerce app",
           "period": "09.2018 - 08.2019",
           "domain": "Retail & CPG",
           "role": "Design Lead",
@@ -392,7 +391,7 @@
           "techStack": ["Java", "Objective-C", "Agile Scrum and Kanban", "Agile Ceremonies"]
         },
         {
-          "name": "FOX Business News iPad/iPhone App",
+          "name": "Financial news mobile app",
           "period": "11.2010 - 01.2011",
           "domain": "Media",
           "role": "Design Lead",
@@ -400,7 +399,7 @@
           "techStack": ["Adobe Photoshop", "Agile Scrum and Kanban"]
         },
         {
-          "name": "CSL Sofas Mobile Catalogue & Ordering App",
+          "name": "Furniture catalogue and ordering app",
           "period": "04.2010 - 10.2010",
           "domain": "Retail & CPG",
           "role": "Developer Lead",
@@ -408,7 +407,7 @@
           "techStack": ["Adobe Photoshop", "Agile Ceremonies"]
         },
         {
-          "name": "ESPN GOALS Football App",
+          "name": "Football scores mobile app",
           "period": "06.2010 - 08.2010",
           "domain": "Media",
           "role": "Developer Lead",
@@ -416,7 +415,7 @@
           "techStack": ["Adobe Photoshop", "Agile Ceremonies"]
         },
         {
-          "name": "Evostik iPhone application",
+          "name": "Product catalogue mobile app",
           "period": "02.2010 - 03.2010",
           "domain": "Retail & CPG",
           "role": "Senior Developer",
@@ -424,7 +423,7 @@
           "techStack": ["Adobe Photoshop"]
         },
         {
-          "name": "Dental Manager Cross-Platform Desktop Application",
+          "name": "Dental practice management desktop app",
           "period": "11.2006 - 07.2007",
           "domain": "Healthcare & Life Sciences",
           "role": "Developer",
@@ -432,7 +431,7 @@
           "techStack": ["C++", "Boost", "Ubuntu", "Qt"]
         },
         {
-          "name": "OrthoManager Medical Imaging & Analysis",
+          "name": "Medical imaging and analysis app",
           "period": "11.2006 - 07.2007",
           "domain": "Healthcare & Life Sciences",
           "role": "Developer",
@@ -440,7 +439,7 @@
           "techStack": ["Ubuntu"]
         },
         {
-          "name": "Smart Integrated Metering System (Smart IMS)",
+          "name": "Smart utility metering system",
           "period": "12.2003 - 10.2006",
           "domain": "Energy",
           "role": "Developer",

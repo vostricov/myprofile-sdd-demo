@@ -10,7 +10,7 @@ The project uses Spec Kit artifacts to drive implementation from a written speci
 - `specs/001-view-business-profile/spec.md` - feature specification.
 - `specs/001-view-business-profile/plan.md` - implementation plan and technical context.
 - `specs/001-view-business-profile/tasks.md` - task list, branch policy, and acceptance criteria.
-- `initial input/` - source input material used to define the profile data.
+- `frontend/src/fixtures/initial-input/profile.json` - mock profile data used by the app.
 
 ## Prerequisites
 
