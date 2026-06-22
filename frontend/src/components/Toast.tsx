@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import { CloseIcon } from "./icons";
+import { messages } from "../i18n/messages";
 import styles from "../styles/globals.module.css";
 
 type ToastTone = "success" | "error" | "info";
@@ -97,7 +98,7 @@ type ToastViewportProps = {
 function ToastViewport({ dismissToast, toasts }: ToastViewportProps) {
   return (
     <div
-      aria-label="Notifications"
+      aria-label={messages.toast.notifications}
       aria-live="polite"
       className={styles.toastViewport}
       role="status"
@@ -146,7 +147,7 @@ function ToastCard({ dismissToast, toast }: ToastCardProps) {
         </button>
       ) : null}
       <button
-        aria-label="Dismiss notification"
+        aria-label={messages.toast.dismiss}
         className={styles.toastDismiss}
         onClick={() => dismissToast(toast.id)}
         type="button"

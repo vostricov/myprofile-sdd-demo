@@ -100,7 +100,7 @@ M4 — Preview, undo, and local persistence (2d)
   - GitHub issue: "Add local persistence adapter and save metadata"
 
 M5 — Tests, i18n, performance & CI (2.5d)
-- [ ] T014 Externalize UI strings, add locale date formatting, and support RTL smoke styling (frontend/src/i18n/messages.ts, frontend/src/i18n/format.ts, frontend/src/styles/direction.css)
+- [X] T014 Externalize UI strings, add locale date formatting, and support RTL smoke styling (frontend/src/i18n/messages.ts, frontend/src/i18n/format.ts, frontend/src/styles/direction.css)
   - Owner: @dev | Estimate: 0.5d | Depends: T010,T013
   - Branch: feature/spec-001/t014-i18n-rtl-smoke-support
   - Acceptance: core UI labels are not hard-coded inside feature components; dates display via locale-aware formatter; profile view renders correctly under rtl direction

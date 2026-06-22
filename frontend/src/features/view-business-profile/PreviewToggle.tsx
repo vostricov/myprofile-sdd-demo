@@ -13,6 +13,7 @@ import {
   useProfile,
 } from "../../context/ProfileContext";
 import type { Profile } from "../../domain/profileSchema";
+import { messages } from "../../i18n/messages";
 import styles from "../../styles/globals.module.css";
 
 const UNDO_WINDOW_MS = 30_000;
@@ -53,12 +54,12 @@ export function PreviewToggle() {
       await profileApi.save(profileToRestore);
       actions.undoLastSave();
       showToast({
-        message: "Last save undone.",
+        message: messages.preview.undoSuccess,
         tone: "success",
       });
     } catch {
       showToast({
-        message: "Last save could not be undone.",
+        message: messages.preview.undoError,
         tone: "error",
       });
     }
@@ -71,7 +72,7 @@ export function PreviewToggle() {
   const handleDiscard = () => {
     actions.cancelDraft();
     showToast({
-      message: "Draft changes discarded.",
+      message: messages.preview.draftDiscarded,
       tone: "info",
     });
   };
@@ -100,7 +101,7 @@ export function PreviewToggle() {
       showToast({
         actionLabel: "Undo",
         durationMs: UNDO_WINDOW_MS,
-        message: "Profile changes saved.",
+        message: messages.preview.saved,
         onAction: () => {
           void undoLastSave(state.profile);
         },
@@ -109,7 +110,7 @@ export function PreviewToggle() {
     } catch {
       actions.undoLastSave();
       showToast({
-        message: "Profile changes could not be saved.",
+        message: messages.preview.saveError,
         tone: "error",
       });
     } finally {
@@ -118,13 +119,13 @@ export function PreviewToggle() {
   };
 
   return (
-    <section className={styles.previewToolbar} aria-label="Profile draft controls">
+    <section className={styles.previewToolbar} aria-label={messages.preview.ariaLabel}>
       <div className={styles.previewStatus}>
         <span className={styles.previewStatusLabel}>
-          {hasDrafts ? `${draftCount} draft change${draftCount === 1 ? "" : "s"}` : "No draft changes"}
+          {hasDrafts ? messages.preview.draftChanges(draftCount) : messages.preview.noDraftChanges}
         </span>
         <span className={styles.previewMode}>
-          {state.isPreviewing ? "Previewing" : "Saved profile"}
+          {state.isPreviewing ? messages.preview.previewing : messages.preview.savedProfile}
         </span>
       </div>
       <div className={styles.previewActions}>
@@ -135,7 +136,7 @@ export function PreviewToggle() {
           type="button"
         >
           <EyeIcon className={styles.iconSmall} />
-          <span>{state.isPreviewing ? "Exit preview" : "Preview"}</span>
+          <span>{state.isPreviewing ? messages.preview.exitPreview : messages.preview.preview}</span>
         </button>
         <button
           className={styles.primaryButton}
@@ -144,7 +145,7 @@ export function PreviewToggle() {
           type="button"
         >
           <SaveIcon className={styles.iconSmall} />
-          <span>{isSaving ? "Saving" : "Save"}</span>
+          <span>{isSaving ? messages.preview.saving : messages.preview.save}</span>
         </button>
         <button
           className={styles.secondaryButton}
@@ -153,7 +154,7 @@ export function PreviewToggle() {
           type="button"
         >
           <CloseIcon className={styles.iconSmall} />
-          <span>Discard</span>
+          <span>{messages.preview.discard}</span>
         </button>
         <button
           className={styles.secondaryButton}
@@ -164,7 +165,7 @@ export function PreviewToggle() {
           type="button"
         >
           <UndoIcon className={styles.iconSmall} />
-          <span>Undo</span>
+          <span>{messages.preview.undo}</span>
         </button>
       </div>
     </section>

@@ -543,6 +543,22 @@
   background: var(--color-surface-muted);
 }
 
+:global([dir="rtl"]) .toastViewport {
+  right: auto;
+  left: var(--spacing-3);
+}
+
+:global([dir="rtl"]) .previewActions,
+:global([dir="rtl"]) .formActions {
+  justify-content: flex-start;
+}
+
+:global([dir="rtl"]) .sectionToggle,
+:global([dir="rtl"]) .dialogHeader,
+:global([dir="rtl"]) .sectionHeader {
+  text-align: right;
+}
+
 @media (min-width: 48rem) {
   .appShell {
     padding: var(--spacing-5);
