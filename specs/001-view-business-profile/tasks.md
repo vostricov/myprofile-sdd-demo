@@ -106,7 +106,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: core UI labels are not hard-coded inside feature components; dates display via locale-aware formatter; profile view renders correctly under rtl direction
   - GitHub issue: "Add i18n helpers and RTL smoke support"
 
-- [ ] T015 [P] Schema validation unit tests (frontend/tests/unit/profileSchema.test.ts)
+- [X] T015 [P] Schema validation unit tests (frontend/tests/unit/profileSchema.test.ts)
   - Owner: @dev | Estimate: 0.25d | Depends: T003
   - Branch: feature/spec-001/t015-profile-schema-unit-tests
   - Acceptance: deterministic tests cover required fields, editableBy role validation, invalid email, invalid phone, empty sections, and very long content
