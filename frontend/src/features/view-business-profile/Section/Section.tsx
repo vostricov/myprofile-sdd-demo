@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 
 import { useProfile } from "../../../context/ProfileContext";
 import type {
@@ -10,9 +10,18 @@ import { canEditSection } from "../../../domain/permissions";
 import { formatDateTime } from "../../../i18n/format";
 import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
-import { InlineEditor } from "../editors/InlineEditor";
-import { ModalEditor } from "../editors/ModalEditor";
 import { Accordion } from "./Accordion";
+
+const InlineEditor = lazy(() =>
+  import("../editors/InlineEditor").then(({ InlineEditor }) => ({
+    default: InlineEditor,
+  })),
+);
+const ModalEditor = lazy(() =>
+  import("../editors/ModalEditor").then(({ ModalEditor }) => ({
+    default: ModalEditor,
+  })),
+);
 
 type SectionProps = {
   section: ProfileSection;
@@ -48,10 +57,12 @@ export function Section({ section }: SectionProps) {
       >
         <div className={styles.sectionBody}>
           {editingMode === "inline" && typeof section.content === "string" ? (
-            <InlineEditor
-              onClose={() => setEditingMode(null)}
-              section={{ ...section, content: section.content }}
-            />
+            <Suspense fallback={<p>{messages.editor.loading}</p>}>
+              <InlineEditor
+                onClose={() => setEditingMode(null)}
+                section={{ ...section, content: section.content }}
+              />
+            </Suspense>
           ) : (
             renderContent(section.content)
           )}
@@ -64,11 +75,13 @@ export function Section({ section }: SectionProps) {
         </footer>
       </Accordion>
       {editingMode === "modal" ? (
-        <ModalEditor
-          onOpenChange={(open) => setEditingMode(open ? "modal" : null)}
-          open={editingMode === "modal"}
-          section={section}
-        />
+        <Suspense fallback={null}>
+          <ModalEditor
+            onOpenChange={(open) => setEditingMode(open ? "modal" : null)}
+            open={editingMode === "modal"}
+            section={section}
+          />
+        </Suspense>
       ) : null}
     </article>
   );

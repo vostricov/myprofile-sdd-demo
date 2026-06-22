@@ -136,7 +136,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: Playwright covers view/collapse/edit/preview/save/undo flows, mobile single-column layout, desktop two-column layout, RTL smoke scenario, and axe accessibility checks
   - GitHub issue: "Add Playwright E2E and axe accessibility checks"
 
-- [ ] T020 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
+- [X] T020 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
   - Owner: @dev | Estimate: 0.5d | Depends: T015,T016,T017,T018,T019
   - Branch: feature/spec-001/t020-lighthouse-ci-budgets
   - Acceptance: Lighthouse baseline is documented; CI asserts Performance >= 90, Accessibility >= 90, Best Practices >= 90, and 3G-equivalent load target <= 2s

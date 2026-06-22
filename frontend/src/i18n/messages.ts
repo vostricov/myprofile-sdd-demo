@@ -8,6 +8,7 @@ export const messages = {
     editTitle: (title: string) => `Edit ${title}`,
     invalidJson: "Content must be valid JSON.",
     invalidSectionContent: "Content does not match the profile section schema.",
+    loading: "Loading editor.",
     save: "Save",
   },
   preview: {
