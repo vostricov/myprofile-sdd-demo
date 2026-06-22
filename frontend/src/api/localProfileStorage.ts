@@ -1,6 +1,7 @@
 import { validateProfile, type Profile } from "../domain/profileSchema";
 
-const PROFILE_STORAGE_KEY = "myprofile-sdd-demo.profile";
+const LEGACY_PROFILE_STORAGE_KEYS = ["myprofile-sdd-demo.profile"];
+const PROFILE_STORAGE_KEY = "myprofile-sdd-demo.profile.mock-v1";
 
 export function loadProfile(): Profile | null {
   const storage = getLocalStorage();
@@ -8,6 +9,8 @@ export function loadProfile(): Profile | null {
   if (!storage) {
     return null;
   }
+
+  clearLegacyStoredProfiles(storage);
 
   const rawProfile = storage.getItem(PROFILE_STORAGE_KEY);
 
@@ -31,12 +34,26 @@ export function saveProfile(profile: Profile): Profile {
     return validatedProfile;
   }
 
+  clearLegacyStoredProfiles(storage);
   storage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(validatedProfile));
   return validatedProfile;
 }
 
 export function clearStoredProfile(): void {
-  getLocalStorage()?.removeItem(PROFILE_STORAGE_KEY);
+  const storage = getLocalStorage();
+
+  if (!storage) {
+    return;
+  }
+
+  storage.removeItem(PROFILE_STORAGE_KEY);
+  clearLegacyStoredProfiles(storage);
+}
+
+function clearLegacyStoredProfiles(storage: Storage): void {
+  for (const key of LEGACY_PROFILE_STORAGE_KEYS) {
+    storage.removeItem(key);
+  }
 }
 
 function getLocalStorage(): Storage | null {
