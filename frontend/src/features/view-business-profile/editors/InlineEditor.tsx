@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { CheckIcon, CloseIcon } from "../../../components/icons";
+import { useToast } from "../../../components/Toast";
 import { useProfile } from "../../../context/ProfileContext";
 import type { ProfileSection } from "../../../domain/profileSchema";
 import styles from "../../../styles/globals.module.css";
@@ -20,7 +21,8 @@ const inlineEditorSchema = z.object({
 type InlineEditorValues = z.infer<typeof inlineEditorSchema>;
 
 export function InlineEditor({ onClose, section }: InlineEditorProps) {
-  const { actions, currentViewerRole } = useProfile();
+  const { actions } = useProfile();
+  const { showToast } = useToast();
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -43,8 +45,10 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
 
   const handleSave = (values: InlineEditorValues) => {
     actions.updateDraft(section.id, values.content);
-    actions.saveDraft(section.id, {
-      lastEditedByUserId: currentViewerRole,
+    actions.setPreview(true);
+    showToast({
+      message: `${section.title} draft updated.`,
+      tone: "success",
     });
     onClose();
   };

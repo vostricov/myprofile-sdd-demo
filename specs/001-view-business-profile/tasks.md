@@ -87,7 +87,7 @@ M3 — Permissions, edit flows & validation (3.5d)
   - GitHub issue: "Add icons and micro-interactions"
 
 M4 — Preview, undo, and local persistence (2d)
-- [ ] T012 Preview mode, undo stack, and toast UX (frontend/src/features/view-business-profile/PreviewToggle.tsx, frontend/src/components/Toast.tsx)
+- [X] T012 Preview mode, undo stack, and toast UX (frontend/src/features/view-business-profile/PreviewToggle.tsx, frontend/src/components/Toast.tsx)
   - Owner: @dev | Estimate: 1.5d | Depends: T009,T010,T005
   - Branch: feature/spec-001/t012-preview-undo-toasts
   - Acceptance: preview shows unsaved changes, Save applies, Undo is available for 30s after save, and toasts show confirmations/errors

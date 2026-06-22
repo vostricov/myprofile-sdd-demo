@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { CheckIcon, CloseIcon } from "../../../components/icons";
+import { useToast } from "../../../components/Toast";
 import { useProfile } from "../../../context/ProfileContext";
 import {
   sectionContentSchema,
@@ -45,7 +46,8 @@ const modalEditorSchema = z.object({
 type ModalEditorValues = z.infer<typeof modalEditorSchema>;
 
 export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
-  const { actions, currentViewerRole } = useProfile();
+  const { actions } = useProfile();
+  const { showToast } = useToast();
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -82,8 +84,10 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
     const content = parseSectionContent(values.contentJson);
 
     actions.updateDraft(section.id, content);
-    actions.saveDraft(section.id, {
-      lastEditedByUserId: currentViewerRole,
+    actions.setPreview(true);
+    showToast({
+      message: `${section.title} draft updated.`,
+      tone: "success",
     });
     onOpenChange(false);
   };

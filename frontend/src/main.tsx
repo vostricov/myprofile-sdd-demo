@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/tokens.css";
 import "./styles/animations.css";
+import { ToastProvider } from "./components/Toast";
 import { ProfileProvider } from "./context/ProfileContext";
 import { Profile } from "./features/view-business-profile/Profile";
 
@@ -13,8 +14,10 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ProfileProvider>
-      <Profile />
-    </ProfileProvider>
+    <ToastProvider>
+      <ProfileProvider>
+        <Profile />
+      </ProfileProvider>
+    </ToastProvider>
   </StrictMode>,
 );

@@ -1,5 +1,6 @@
 import { useProfile, type ViewerRole } from "../../context/ProfileContext";
 import styles from "../../styles/globals.module.css";
+import { PreviewToggle } from "./PreviewToggle";
 import { Section } from "./Section/Section";
 
 export function Profile() {
@@ -12,6 +13,8 @@ export function Profile() {
           <p className={styles.eyebrow}>Business profile</p>
           <h1 className={styles.title}>{visibleProfile.title}</h1>
         </header>
+
+        <PreviewToggle />
 
         <section className={styles.profileLayout} aria-label={visibleProfile.title}>
           <div className={styles.primaryColumn}>
