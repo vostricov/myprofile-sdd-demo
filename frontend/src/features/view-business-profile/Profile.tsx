@@ -17,7 +17,7 @@ export function Profile() {
 
         <PreviewToggle />
 
-        <section className={styles.profileLayout} aria-label={visibleProfile.title}>
+        <div className={styles.profileLayout}>
           <div className={styles.primaryColumn}>
             <div className={styles.sectionStack}>
               {visibleProfile.sections.map((section) => (
@@ -26,7 +26,10 @@ export function Profile() {
             </div>
           </div>
 
-          <aside className={styles.secondaryColumn} aria-label={messages.profile.detailsLabel}>
+          <section
+            className={styles.secondaryColumn}
+            aria-label={messages.profile.detailsLabel}
+          >
             <dl className={styles.mutedPanel}>
               <div className={styles.metaRow}>
                 <dt>{messages.profile.profileId}</dt>
@@ -60,8 +63,8 @@ export function Profile() {
                 </div>
               ) : null}
             </dl>
-          </aside>
-        </section>
+          </section>
+        </div>
       </div>
     </main>
   );

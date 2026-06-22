@@ -130,7 +130,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: deterministic tests cover profileApi.save, local adapter persistence, optimistic failure handling, lastUpdated, and lastEditedByUserId updates
   - GitHub issue: "Add persistence and save metadata unit tests"
 
-- [ ] T019 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
+- [X] T019 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
   - Owner: @dev | Estimate: 1d | Depends: T007,T012,T014
   - Branch: feature/spec-001/t019-playwright-axe-e2e
   - Acceptance: Playwright covers view/collapse/edit/preview/save/undo flows, mobile single-column layout, desktop two-column layout, RTL smoke scenario, and axe accessibility checks
