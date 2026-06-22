@@ -124,25 +124,25 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: deterministic tests cover reducer actions, role-aware rendered edit controls, empty sections, and very long content rendering
   - GitHub issue: "Add reducer and component unit tests"
 
-- [ ] T018 [P] Persistence and save metadata unit tests (frontend/tests/unit/profilePersistence.test.ts)
+- [X] T018 [P] Persistence and save metadata unit tests (frontend/tests/unit/profilePersistence.test.ts)
   - Owner: @dev | Estimate: 0.5d | Depends: T013
   - Branch: feature/spec-001/t018-profile-persistence-unit-tests
   - Acceptance: deterministic tests cover profileApi.save, local adapter persistence, optimistic failure handling, lastUpdated, and lastEditedByUserId updates
   - GitHub issue: "Add persistence and save metadata unit tests"
 
-- [ ] T019 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
+- [X] T019 E2E Playwright + axe accessibility checks (frontend/playwright.config.ts, frontend/tests/e2e/profile.spec.ts)
   - Owner: @dev | Estimate: 1d | Depends: T007,T012,T014
   - Branch: feature/spec-001/t019-playwright-axe-e2e
   - Acceptance: Playwright covers view/collapse/edit/preview/save/undo flows, mobile single-column layout, desktop two-column layout, RTL smoke scenario, and axe accessibility checks
   - GitHub issue: "Add Playwright E2E and axe accessibility checks"
 
-- [ ] T020 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
+- [X] T020 Lighthouse CI baseline with explicit budgets (frontend/ci/lighthouseci.yml, frontend/docs/perf-baseline.md)
   - Owner: @dev | Estimate: 0.5d | Depends: T015,T016,T017,T018,T019
   - Branch: feature/spec-001/t020-lighthouse-ci-budgets
   - Acceptance: Lighthouse baseline is documented; CI asserts Performance >= 90, Accessibility >= 90, Best Practices >= 90, and 3G-equivalent load target <= 2s
   - GitHub issue: "Add Lighthouse CI budgets and baseline"
 
-- [ ] T021 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
+- [X] T021 Final QA, accessibility fixes, and performance tuning (frontend/docs/final-qa.md)
   - Owner: @dev | Estimate: 1d | Depends: T015,T016,T017,T018,T019,T020
   - Branch: feature/spec-001/t021-final-qa-polish
   - Acceptance: final QA records pass/fail status for responsive layout, WCAG 2.1 AA checks, performance budget, edge cases, and save/undo behavior

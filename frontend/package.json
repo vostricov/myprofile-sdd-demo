@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "e2e": "playwright test",
+    "lhci": "npm run build && npx --yes @lhci/cli@0.15.1 autorun --config=ci/lighthouseci.yml",
     "test": "vitest run",
     "preview": "vite preview"
   },
@@ -19,6 +21,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@playwright/test": "^1.61.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.17",

@@ -5,6 +5,9 @@ node_modules/
 dist/
 build/
 coverage/
+.lighthouseci/
+playwright-report/
+test-results/
 *.tsbuildinfo
 
 # Logs

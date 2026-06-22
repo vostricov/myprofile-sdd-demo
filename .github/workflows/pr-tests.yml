@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   frontend-tests:
-    name: Frontend unit tests
+    name: Frontend quality checks
     runs-on: ubuntu-latest
 
     defaults:
@@ -32,3 +32,12 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E checks
+        run: npm run e2e
+
+      - name: Run Lighthouse CI budgets
+        run: npm run lhci
