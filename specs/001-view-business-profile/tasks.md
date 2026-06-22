@@ -24,7 +24,7 @@ M1 — Scaffold, data & render (2.5d)
   - Acceptance: npm install && npm run dev starts app and main.tsx mounts to DOM
   - GitHub issue: "Scaffold frontend (Vite + React 19 + TS)"
 
-- [X] T002 [P] Add canonical fixture at frontend/src/fixtures/initial-input/profile.json
+- [X] T002 [P] Add mock profile fixture at frontend/src/fixtures/initial-input/profile.json
   - Owner: @dev | Estimate: 0.5d | Depends: T001
   - Branch: feature/spec-001/t002-initial-profile-json-fixture
   - Acceptance: fixture includes profileId, title, sections[], content, lastUpdated, lastEditedByUserId, and editableBy

@@ -18,7 +18,7 @@ Single-page React 19 + TypeScript app that renders a validated canonical profile
 - **State**: local reducer + Context for draft/preview/collapse/undo; add TanStack Query only when API persistence is added
 - **Icons**: lucide-react
 - **Testing**: Vitest + React Testing Library; Playwright + axe for E2E/accessibility; Lighthouse CI for performance budgets
-- **Data**: initial JSON fixture at `frontend/src/fixtures/initial-input/profile.json`, validated by `frontend/src/domain/profileSchema.ts`
+- **Data**: mock profile JSON fixture at `frontend/src/fixtures/initial-input/profile.json`, validated by `frontend/src/domain/profileSchema.ts`
 - **Persistence**: browser-local profile storage adapter behind `frontend/src/api/profileApi.ts`; backend API is out of scope for this feature
 - **Backend (future)**: Fastify + TypeScript + PostgreSQL (jsonb) with versioning and audit fields
 
@@ -100,7 +100,7 @@ frontend/
 - Over-complex state: keep reducer actions minimal; favor simple state shapes
 
 **Required files to add**
-- `frontend/src/fixtures/initial-input/profile.json` (canonical profile fixture)
+- `frontend/src/fixtures/initial-input/profile.json` (canonical mock profile fixture)
 - `frontend/src/domain/profileSchema.ts` (Profile/Section schema and validation rules)
 - `frontend/src/domain/permissions.ts` (role-to-section edit permission checks)
 - `frontend/src/api/profileApi.ts` (local persistence adapter boundary)
