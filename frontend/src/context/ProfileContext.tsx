@@ -14,6 +14,7 @@ import {
   type ProfileSection,
   type ProfileSectionContent,
 } from "../domain/profileSchema";
+import { loadProfile } from "../api/localProfileStorage";
 import type { ViewerRole } from "../domain/permissions";
 
 export type { ViewerRole } from "../domain/permissions";
@@ -99,7 +100,9 @@ const MAX_UNDO_ENTRIES = 10;
 
 const ProfileContext = createContext<ProfileContextValue | undefined>(undefined);
 
-export function createInitialProfileState(profile: unknown = initialProfile): ProfileState {
+export function createInitialProfileState(
+  profile: unknown = loadProfile() ?? initialProfile,
+): ProfileState {
   const validatedProfile = profileSchema.parse(profile);
 
   return {
@@ -306,7 +309,7 @@ export function useProfile(): ProfileContextValue {
   return context;
 }
 
-function applyDraftsToProfile(
+export function applyDraftsToProfile(
   profile: Profile,
   drafts: DraftMap,
   metadata?: SaveMetadata,

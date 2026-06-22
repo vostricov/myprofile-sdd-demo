@@ -93,7 +93,7 @@ M4 — Preview, undo, and local persistence (2d)
   - Acceptance: preview shows unsaved changes, Save applies, Undo is available for 30s after save, and toasts show confirmations/errors
   - GitHub issue: "Implement preview, undo stack and toasts"
 
-- [ ] T013 Persistence adapter and profile API stub (frontend/src/api/profileApi.ts, frontend/src/api/localProfileStorage.ts)
+- [X] T013 Persistence adapter and profile API stub (frontend/src/api/profileApi.ts, frontend/src/api/localProfileStorage.ts)
   - Owner: @dev | Estimate: 0.5d | Depends: T012
   - Branch: feature/spec-001/t013-local-persistence-save-metadata
   - Acceptance: Save calls profileApi.save, persists through local adapter, updates lastUpdated and lastEditedByUserId, and handles success/failure for optimistic UI

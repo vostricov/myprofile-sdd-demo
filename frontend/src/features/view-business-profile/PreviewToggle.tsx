@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import { profileApi } from "../../api/profileApi";
 import {
   CloseIcon,
   EyeIcon,
@@ -7,7 +8,11 @@ import {
   UndoIcon,
 } from "../../components/icons";
 import { useToast } from "../../components/Toast";
-import { useProfile } from "../../context/ProfileContext";
+import {
+  applyDraftsToProfile,
+  useProfile,
+} from "../../context/ProfileContext";
+import type { Profile } from "../../domain/profileSchema";
 import styles from "../../styles/globals.module.css";
 
 const UNDO_WINDOW_MS = 30_000;
@@ -15,6 +20,7 @@ const UNDO_WINDOW_MS = 30_000;
 export function PreviewToggle() {
   const { actions, hasDrafts, state } = useProfile();
   const { showToast } = useToast();
+  const [isSaving, setIsSaving] = useState(false);
   const draftCount = Object.keys(state.drafts).length;
   const latestUndo = state.undoStack[0];
 
@@ -38,12 +44,24 @@ export function PreviewToggle() {
     return () => window.clearTimeout(timeoutId);
   }, [actions, latestUndo]);
 
-  const undoLastSave = () => {
-    actions.undoLastSave();
-    showToast({
-      message: "Last save undone.",
-      tone: "success",
-    });
+  const undoLastSave = async (profileToRestore?: Profile) => {
+    if (!profileToRestore) {
+      return;
+    }
+
+    try {
+      await profileApi.save(profileToRestore);
+      actions.undoLastSave();
+      showToast({
+        message: "Last save undone.",
+        tone: "success",
+      });
+    } catch {
+      showToast({
+        message: "Last save could not be undone.",
+        tone: "error",
+      });
+    }
   };
 
   const handlePreviewToggle = () => {
@@ -58,23 +76,44 @@ export function PreviewToggle() {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    if (!hasDrafts || isSaving) {
+      return;
+    }
+
+    const savedAt = new Date().toISOString();
+    const metadata = {
+      lastEditedByUserId: state.currentViewerRole,
+      lastUpdated: savedAt,
+    };
+    const profileToSave = applyDraftsToProfile(
+      state.profile,
+      state.drafts,
+      metadata,
+    );
+
+    setIsSaving(true);
+
     try {
-      actions.saveAllDrafts({
-        lastEditedByUserId: state.currentViewerRole,
-      });
+      actions.saveAllDrafts({ ...metadata, now: savedAt });
+      await profileApi.save(profileToSave);
       showToast({
         actionLabel: "Undo",
         durationMs: UNDO_WINDOW_MS,
         message: "Profile changes saved.",
-        onAction: undoLastSave,
+        onAction: () => {
+          void undoLastSave(state.profile);
+        },
         tone: "success",
       });
     } catch {
+      actions.undoLastSave();
       showToast({
         message: "Profile changes could not be saved.",
         tone: "error",
       });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -100,12 +139,12 @@ export function PreviewToggle() {
         </button>
         <button
           className={styles.primaryButton}
-          disabled={!hasDrafts}
+          disabled={!hasDrafts || isSaving}
           onClick={handleSave}
           type="button"
         >
           <SaveIcon className={styles.iconSmall} />
-          <span>Save</span>
+          <span>{isSaving ? "Saving" : "Save"}</span>
         </button>
         <button
           className={styles.secondaryButton}
@@ -119,7 +158,9 @@ export function PreviewToggle() {
         <button
           className={styles.secondaryButton}
           disabled={!latestUndo}
-          onClick={undoLastSave}
+          onClick={() => {
+            void undoLastSave(latestUndo?.profile);
+          }}
           type="button"
         >
           <UndoIcon className={styles.iconSmall} />
