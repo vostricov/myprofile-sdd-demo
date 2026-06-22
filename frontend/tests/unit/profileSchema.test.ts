@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import fixture from "../../src/fixtures/initial-input/profile.json";
-import { initialProfile, profileSchema, validateProfile, type Profile } from "../../src/domain/profileSchema";
+import {
+  initialProfile,
+  profileSchema,
+  validateProfile,
+  type Profile,
+} from "../../src/domain/profileSchema";
 
 const validProfile: Profile = initialProfile;
 
@@ -14,6 +19,7 @@ describe("profileSchema", () => {
   it("rejects missing required profile and section fields", () => {
     const { profileId: _profileId, ...missingProfileId } = validProfile;
     const { title: _sectionTitle, ...missingSectionTitle } = validProfile.sections[0];
+    const { content: _sectionContent, ...missingSectionContent } = validProfile.sections[0];
 
     expect(profileSchema.safeParse(missingProfileId).success).toBe(false);
     expect(
@@ -22,6 +28,31 @@ describe("profileSchema", () => {
         sections: [missingSectionTitle, ...validProfile.sections.slice(1)],
       }).success,
     ).toBe(false);
+    expect(
+      profileSchema.safeParse({
+        ...validProfile,
+        sections: [missingSectionContent, ...validProfile.sections.slice(1)],
+      }).success,
+    ).toBe(false);
+  });
+
+  it("rejects profiles with no sections", () => {
+    expect(
+      profileSchema.safeParse({
+        ...validProfile,
+        sections: [],
+      }).success,
+    ).toBe(false);
+  });
+
+  it("accepts very long section content", () => {
+    const profile = withFirstSectionOverrides({
+      content: "A".repeat(10_000),
+    });
+
+    const result = profileSchema.safeParse(profile);
+
+    expect(result.success).toBe(true);
   });
 
   it("rejects invalid editableBy roles", () => {

@@ -7,6 +7,8 @@ import type {
   ProfileSectionContent,
 } from "../../../domain/profileSchema";
 import { canEditSection } from "../../../domain/permissions";
+import { formatDateTime } from "../../../i18n/format";
+import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
 import { InlineEditor } from "../editors/InlineEditor";
 import { ModalEditor } from "../editors/ModalEditor";
@@ -55,9 +57,9 @@ export function Section({ section }: SectionProps) {
           )}
         </div>
         <footer className={styles.sectionFooter}>
-          <span>Last updated {formatDateTime(section.lastUpdated)}</span>
+          <span>{messages.section.lastUpdated(formatDateTime(section.lastUpdated))}</span>
           {section.lastEditedByUserId ? (
-            <span>Edited by {section.lastEditedByUserId}</span>
+            <span>{messages.section.editedBy(section.lastEditedByUserId)}</span>
           ) : null}
         </footer>
       </Accordion>
@@ -145,13 +147,6 @@ function renderObject(value: JsonObject) {
       ))}
     </dl>
   );
-}
-
-function formatDateTime(value: string): string {
-  return new Date(value).toLocaleString(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
 }
 
 function formatLabel(value: string): string {

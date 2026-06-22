@@ -2,6 +2,9 @@ import {
   Check,
   ChevronDown,
   Edit3,
+  Eye,
+  RotateCcw,
+  Save,
   X,
   type LucideProps,
 } from "lucide-react";
@@ -28,4 +31,16 @@ export function CloseIcon(props: IconProps) {
 
 export function EditIcon(props: IconProps) {
   return <Edit3 {...defaultIconProps} {...props} />;
+}
+
+export function EyeIcon(props: IconProps) {
+  return <Eye {...defaultIconProps} {...props} />;
+}
+
+export function SaveIcon(props: IconProps) {
+  return <Save {...defaultIconProps} {...props} />;
+}
+
+export function UndoIcon(props: IconProps) {
+  return <RotateCcw {...defaultIconProps} {...props} />;
 }

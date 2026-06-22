@@ -1,6 +1,7 @@
 import type { KeyboardEvent } from "react";
 
 import { ChevronDownIcon, EditIcon } from "../../../components/icons";
+import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
 
 type SectionHeaderProps = {
@@ -52,14 +53,14 @@ export function SectionHeader({
       </h2>
       {canEdit ? (
         <button
-          aria-label={`Edit ${title}`}
+          aria-label={messages.section.editAriaLabel(title)}
           className={styles.editPlaceholder}
           disabled={editDisabled || !onEdit}
           onClick={onEdit}
           type="button"
         >
           <EditIcon className={styles.iconSmall} />
-          <span>Edit</span>
+          <span>{messages.section.edit}</span>
         </button>
       ) : null}
     </header>

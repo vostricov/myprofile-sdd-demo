@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { CheckIcon, CloseIcon } from "../../../components/icons";
+import { useToast } from "../../../components/Toast";
 import { useProfile } from "../../../context/ProfileContext";
 import type { ProfileSection } from "../../../domain/profileSchema";
+import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
 
 type InlineEditorProps = {
@@ -14,13 +16,14 @@ type InlineEditorProps = {
 };
 
 const inlineEditorSchema = z.object({
-  content: z.string().trim().min(1, "Content is required."),
+  content: z.string().trim().min(1, messages.editor.contentRequired),
 });
 
 type InlineEditorValues = z.infer<typeof inlineEditorSchema>;
 
 export function InlineEditor({ onClose, section }: InlineEditorProps) {
-  const { actions, currentViewerRole } = useProfile();
+  const { actions } = useProfile();
+  const { showToast } = useToast();
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -43,8 +46,10 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
 
   const handleSave = (values: InlineEditorValues) => {
     actions.updateDraft(section.id, values.content);
-    actions.saveDraft(section.id, {
-      lastEditedByUserId: currentViewerRole,
+    actions.setPreview(true);
+    showToast({
+      message: messages.preview.draftUpdated(section.title),
+      tone: "success",
     });
     onClose();
   };
@@ -52,7 +57,7 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
   return (
     <form className={styles.editorForm} onSubmit={handleSubmit(handleSave)}>
       <label className={styles.fieldLabel} htmlFor={`${section.id}-inline-content`}>
-        Content
+        {messages.editor.content}
       </label>
       <textarea
         aria-invalid={errors.content ? "true" : "false"}
@@ -73,7 +78,7 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
           type="button"
         >
           <CloseIcon className={styles.iconSmall} />
-          <span>Cancel</span>
+          <span>{messages.editor.cancel}</span>
         </button>
         <button
           className={styles.primaryButton}
@@ -81,7 +86,7 @@ export function InlineEditor({ onClose, section }: InlineEditorProps) {
           type="submit"
         >
           <CheckIcon className={styles.iconSmall} />
-          <span>Save</span>
+          <span>{messages.editor.save}</span>
         </button>
       </div>
     </form>

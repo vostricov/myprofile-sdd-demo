@@ -87,38 +87,38 @@ M3 — Permissions, edit flows & validation (3.5d)
   - GitHub issue: "Add icons and micro-interactions"
 
 M4 — Preview, undo, and local persistence (2d)
-- [ ] T012 Preview mode, undo stack, and toast UX (frontend/src/features/view-business-profile/PreviewToggle.tsx, frontend/src/components/Toast.tsx)
+- [X] T012 Preview mode, undo stack, and toast UX (frontend/src/features/view-business-profile/PreviewToggle.tsx, frontend/src/components/Toast.tsx)
   - Owner: @dev | Estimate: 1.5d | Depends: T009,T010,T005
   - Branch: feature/spec-001/t012-preview-undo-toasts
   - Acceptance: preview shows unsaved changes, Save applies, Undo is available for 30s after save, and toasts show confirmations/errors
   - GitHub issue: "Implement preview, undo stack and toasts"
 
-- [ ] T013 Persistence adapter and profile API stub (frontend/src/api/profileApi.ts, frontend/src/api/localProfileStorage.ts)
+- [X] T013 Persistence adapter and profile API stub (frontend/src/api/profileApi.ts, frontend/src/api/localProfileStorage.ts)
   - Owner: @dev | Estimate: 0.5d | Depends: T012
   - Branch: feature/spec-001/t013-local-persistence-save-metadata
   - Acceptance: Save calls profileApi.save, persists through local adapter, updates lastUpdated and lastEditedByUserId, and handles success/failure for optimistic UI
   - GitHub issue: "Add local persistence adapter and save metadata"
 
 M5 — Tests, i18n, performance & CI (2.5d)
-- [ ] T014 Externalize UI strings, add locale date formatting, and support RTL smoke styling (frontend/src/i18n/messages.ts, frontend/src/i18n/format.ts, frontend/src/styles/direction.css)
+- [X] T014 Externalize UI strings, add locale date formatting, and support RTL smoke styling (frontend/src/i18n/messages.ts, frontend/src/i18n/format.ts, frontend/src/styles/direction.css)
   - Owner: @dev | Estimate: 0.5d | Depends: T010,T013
   - Branch: feature/spec-001/t014-i18n-rtl-smoke-support
   - Acceptance: core UI labels are not hard-coded inside feature components; dates display via locale-aware formatter; profile view renders correctly under rtl direction
   - GitHub issue: "Add i18n helpers and RTL smoke support"
 
-- [ ] T015 [P] Schema validation unit tests (frontend/tests/unit/profileSchema.test.ts)
+- [X] T015 [P] Schema validation unit tests (frontend/tests/unit/profileSchema.test.ts)
   - Owner: @dev | Estimate: 0.25d | Depends: T003
   - Branch: feature/spec-001/t015-profile-schema-unit-tests
   - Acceptance: deterministic tests cover required fields, editableBy role validation, invalid email, invalid phone, empty sections, and very long content
   - GitHub issue: "Add schema validation unit tests"
 
-- [ ] T016 [P] Permission unit tests (frontend/tests/unit/permissions.test.ts)
+- [X] T016 [P] Permission unit tests (frontend/tests/unit/permissions.test.ts)
   - Owner: @dev | Estimate: 0.25d | Depends: T008
   - Branch: feature/spec-001/t016-permissions-unit-tests
   - Acceptance: deterministic tests cover visitor, owner, and editor edit permissions for editable and non-editable sections
   - GitHub issue: "Add permission unit tests"
 
-- [ ] T017 [P] Reducer and component unit tests (frontend/tests/unit/profile.test.tsx)
+- [X] T017 [P] Reducer and component unit tests (frontend/tests/unit/profile.test.tsx)
   - Owner: @dev | Estimate: 0.5d | Depends: T005,T006,T008
   - Branch: feature/spec-001/t017-profile-reducer-component-tests
   - Acceptance: deterministic tests cover reducer actions, role-aware rendered edit controls, empty sections, and very long content rendering

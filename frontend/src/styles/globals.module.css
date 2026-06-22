@@ -36,6 +36,44 @@
   margin-block-end: var(--spacing-4);
 }
 
+.previewToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--spacing-4);
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-surface);
+}
+
+.previewStatus {
+  display: grid;
+  gap: var(--spacing-1);
+  min-width: min(100%, 14rem);
+}
+
+.previewStatusLabel {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.previewMode {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.previewActions {
+  display: flex;
+  flex: 1 1 22rem;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+}
+
 .eyebrow {
   margin: 0;
   color: var(--color-accent-strong);
@@ -358,8 +396,13 @@
   color: var(--color-text);
 }
 
+.secondaryButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .primaryButton:not(:disabled):hover,
-.secondaryButton:hover {
+.secondaryButton:not(:disabled):hover {
   filter: brightness(0.97);
   transform: translateY(-1px);
 }
@@ -431,12 +474,101 @@
   flex: 0 0 auto;
 }
 
+.toastViewport {
+  position: fixed;
+  z-index: 30;
+  right: var(--spacing-3);
+  bottom: var(--spacing-3);
+  display: grid;
+  width: min(calc(100vw - var(--spacing-4)), 24rem);
+  gap: var(--spacing-2);
+}
+
+.toast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--spacing-2);
+  align-items: center;
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-inline-start-width: 0.25rem;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 1rem 2rem rgb(23 33 43 / 14%);
+  animation: fade-in var(--transition-fast);
+}
+
+.toastSuccess {
+  border-inline-start-color: var(--color-accent);
+}
+
+.toastError {
+  border-inline-start-color: var(--color-danger);
+}
+
+.toastInfo {
+  border-inline-start-color: var(--color-focus);
+}
+
+.toastMessage {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.toastAction,
+.toastDismiss {
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-accent-strong);
+  cursor: pointer;
+}
+
+.toastAction {
+  min-height: 2rem;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-weight: 700;
+}
+
+.toastDismiss {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  color: var(--color-text-muted);
+}
+
+.toastAction:hover,
+.toastDismiss:hover {
+  background: var(--color-surface-muted);
+}
+
+:global([dir="rtl"]) .toastViewport {
+  right: auto;
+  left: var(--spacing-3);
+}
+
+:global([dir="rtl"]) .previewActions,
+:global([dir="rtl"]) .formActions {
+  justify-content: flex-start;
+}
+
+:global([dir="rtl"]) .sectionToggle,
+:global([dir="rtl"]) .dialogHeader,
+:global([dir="rtl"]) .sectionHeader {
+  text-align: right;
+}
+
 @media (min-width: 48rem) {
   .appShell {
     padding: var(--spacing-5);
   }
 
   .profileHeader {
+    margin-block-end: var(--spacing-5);
+  }
+
+  .previewToolbar {
     margin-block-end: var(--spacing-5);
   }
 

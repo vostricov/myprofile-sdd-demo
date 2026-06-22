@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { CheckIcon, CloseIcon } from "../../../components/icons";
+import { useToast } from "../../../components/Toast";
 import { useProfile } from "../../../context/ProfileContext";
 import {
   sectionContentSchema,
   type ProfileSection,
   type ProfileSectionContent,
 } from "../../../domain/profileSchema";
+import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
 
 type ModalEditorProps = {
@@ -20,13 +22,13 @@ type ModalEditorProps = {
 };
 
 const modalEditorSchema = z.object({
-  contentJson: z.string().trim().min(1, "Content is required.").superRefine((value, context) => {
+  contentJson: z.string().trim().min(1, messages.editor.contentRequired).superRefine((value, context) => {
     const parsedContent = parseJson(value);
 
     if (!parsedContent.success) {
       context.addIssue({
         code: "custom",
-        message: "Content must be valid JSON.",
+        message: messages.editor.invalidJson,
       });
       return;
     }
@@ -36,7 +38,7 @@ const modalEditorSchema = z.object({
     if (!result.success) {
       context.addIssue({
         code: "custom",
-        message: "Content does not match the profile section schema.",
+        message: messages.editor.invalidSectionContent,
       });
     }
   }),
@@ -45,7 +47,8 @@ const modalEditorSchema = z.object({
 type ModalEditorValues = z.infer<typeof modalEditorSchema>;
 
 export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
-  const { actions, currentViewerRole } = useProfile();
+  const { actions } = useProfile();
+  const { showToast } = useToast();
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -82,8 +85,10 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
     const content = parseSectionContent(values.contentJson);
 
     actions.updateDraft(section.id, content);
-    actions.saveDraft(section.id, {
-      lastEditedByUserId: currentViewerRole,
+    actions.setPreview(true);
+    showToast({
+      message: messages.preview.draftUpdated(section.title),
+      tone: "success",
     });
     onOpenChange(false);
   };
@@ -95,10 +100,10 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
         <Dialog.Content className={styles.dialogContent}>
           <div className={styles.dialogHeader}>
             <Dialog.Title className={styles.dialogTitle}>
-              Edit {section.title}
+              {messages.editor.editTitle(section.title)}
             </Dialog.Title>
             <button
-              aria-label={`Close ${section.title} editor`}
+              aria-label={messages.editor.closeEditor(section.title)}
               className={styles.dialogCloseButton}
               onClick={handleCancel}
               type="button"
@@ -111,7 +116,7 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
               className={styles.fieldLabel}
               htmlFor={`${section.id}-modal-content`}
             >
-              Content JSON
+              {messages.editor.contentJson}
             </label>
             <textarea
               aria-invalid={errors.contentJson ? "true" : "false"}
@@ -132,7 +137,7 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
                 type="button"
               >
                 <CloseIcon className={styles.iconSmall} />
-                <span>Cancel</span>
+                <span>{messages.editor.cancel}</span>
               </button>
               <button
                 className={styles.primaryButton}
@@ -140,7 +145,7 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
                 type="submit"
               >
                 <CheckIcon className={styles.iconSmall} />
-                <span>Save</span>
+                <span>{messages.editor.save}</span>
               </button>
             </div>
           </form>

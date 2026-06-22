@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import { canEditSection } from "../../src/domain/permissions";
-import { initialProfile } from "../../src/domain/profileSchema";
+import {
+  initialProfile,
+  type ProfileSection,
+} from "../../src/domain/profileSchema";
 
 describe("permissions", () => {
   it("prevents visitors from editing any section", () => {
@@ -13,6 +16,10 @@ describe("permissions", () => {
   it("allows owners to edit owner-editable sections", () => {
     expect(canEditSection(sectionById("summary"), "owner")).toBe(true);
     expect(canEditSection(sectionById("certifications"), "owner")).toBe(true);
+  });
+
+  it("prevents owners from editing editor-only sections", () => {
+    expect(canEditSection(sectionWithEditableBy(["editor"]), "owner")).toBe(false);
   });
 
   it("allows editors only when the section includes editor permissions", () => {
@@ -29,4 +36,10 @@ function sectionById(sectionId: string) {
   }
 
   return section;
+}
+
+function sectionWithEditableBy(
+  editableBy: ProfileSection["editableBy"],
+): Pick<ProfileSection, "editableBy"> {
+  return { editableBy };
 }
