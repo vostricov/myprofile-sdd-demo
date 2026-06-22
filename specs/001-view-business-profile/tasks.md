@@ -112,7 +112,7 @@ M5 — Tests, i18n, performance & CI (2.5d)
   - Acceptance: deterministic tests cover required fields, editableBy role validation, invalid email, invalid phone, empty sections, and very long content
   - GitHub issue: "Add schema validation unit tests"
 
-- [ ] T016 [P] Permission unit tests (frontend/tests/unit/permissions.test.ts)
+- [X] T016 [P] Permission unit tests (frontend/tests/unit/permissions.test.ts)
   - Owner: @dev | Estimate: 0.25d | Depends: T008
   - Branch: feature/spec-001/t016-permissions-unit-tests
   - Acceptance: deterministic tests cover visitor, owner, and editor edit permissions for editable and non-editable sections
