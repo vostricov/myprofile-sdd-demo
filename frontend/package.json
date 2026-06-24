@@ -8,6 +8,9 @@
     "build": "tsc --noEmit && vite build",
     "e2e": "playwright test",
     "lhci": "npm run build && npx --yes @lhci/cli@0.15.1 autorun --config=ci/lighthouseci.yml",
+    "metrics:dashboard": "node scripts/generate-engineering-metrics.mjs",
+    "metrics:export": "python3 scripts/export-engineering-report.py",
+    "metrics:report": "npm run metrics:dashboard && npm run metrics:export",
     "test": "vitest run",
     "preview": "vite preview"
   },
