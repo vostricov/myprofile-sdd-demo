@@ -29,6 +29,15 @@ type BusFactorHotspot = {
   share: number | null;
 };
 
+type ContributorPerformance = {
+  contributor: string;
+  activities: number;
+  commits: number;
+  reviews: number;
+  additions: number;
+  deletions: number;
+};
+
 type WeeklyMetric = {
   week: string;
   label: string;
@@ -40,6 +49,7 @@ type WeeklyMetric = {
   pipelinePassRate: RateMetric;
   afterHoursCommitRate: RateMetric;
   busFactorHotspots: BusFactorHotspot[];
+  contributors: ContributorPerformance[];
 };
 
 type PullRequestMetric = {
@@ -76,6 +86,7 @@ type DashboardSnapshot = {
     pipelinePassRate: RateMetric;
     afterHoursCommitRate: RateMetric;
     highestWeeklyReviewShare: number | null;
+    contributors: ContributorPerformance[];
   };
   weekly: WeeklyMetric[];
   pullRequests: PullRequestMetric[];
@@ -151,6 +162,14 @@ const rateMetrics = [
     })),
   },
 ] as const;
+
+const contributorRows = snapshot.weekly.flatMap((week) =>
+  week.contributors.map((contributor) => ({
+    ...contributor,
+    week: week.week,
+    label: week.label,
+  })),
+);
 
 export function EngineeringDashboard() {
   useEffect(() => {
@@ -265,6 +284,44 @@ export function EngineeringDashboard() {
                 </div>
               ))}
             </dl>
+          </div>
+        </section>
+
+        <section className={styles.panel}>
+          <PanelHeader
+            title="Individual Performance"
+            description="Activities are authored commits plus submitted reviews, grouped by contributor and week"
+          />
+          <div className={styles.tableScroller}>
+            <table className={styles.metricsTable}>
+              <thead>
+                <tr>
+                  <th scope="col">Week</th>
+                  <th scope="col">Contributor</th>
+                  <th scope="col">Activities</th>
+                  <th scope="col">Commits</th>
+                  <th scope="col">Reviews</th>
+                  <th scope="col">Added lines</th>
+                  <th scope="col">Deleted lines</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contributorRows.map((contributor) => (
+                  <tr key={`${contributor.week}-${contributor.contributor}`}>
+                    <th scope="row">
+                      <span>{contributor.week}</span>
+                      <small>{contributor.label}</small>
+                    </th>
+                    <td>{contributor.contributor}</td>
+                    <td>{formatNumber(contributor.activities)}</td>
+                    <td>{formatNumber(contributor.commits)}</td>
+                    <td>{formatNumber(contributor.reviews)}</td>
+                    <td>{formatNumber(contributor.additions)}</td>
+                    <td>{formatNumber(contributor.deletions)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -525,6 +582,10 @@ function formatDateTime(value: string) {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(value));
+}
+
+function formatNumber(value: number) {
+  return new Intl.NumberFormat("en-US").format(value);
 }
 
 function metricWithSample(metricItem: TimedMetric) {

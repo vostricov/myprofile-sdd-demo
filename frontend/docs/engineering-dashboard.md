@@ -39,6 +39,9 @@ Metric definitions:
 - Pipeline pass rate: successful completed workflow runs divided by completed
   applicable runs; cancelled, neutral, and skipped runs are excluded.
 - Bus-factor hotspots: weekly share of review submissions by reviewer.
+- Individual performance: weekly contributor totals for activities, authored
+  commits, submitted reviews, added lines, and deleted lines. Activities equal
+  authored commits plus submitted reviews.
 - After-hours work: share of commits authored at or after 18:00 local time.
 
 Override defaults when regenerating:

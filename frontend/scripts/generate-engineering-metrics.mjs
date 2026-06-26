@@ -182,6 +182,7 @@ function createBucket(info) {
       total: 0,
     },
     reviewsByContributor: new Map(),
+    contributors: new Map(),
   };
 }
 
@@ -256,10 +257,52 @@ function reviewContributorName(review) {
     : review.user.login;
 }
 
+function commitContributorName(commit) {
+  const identity = `${commit.authorName} <${commit.authorEmail}>`;
+  const aliases = new Map([
+    ["Valentin Ostricov <valentin.ostricov@endava.com>", "valentinostricov"],
+    ["valentinostricov <valentin.ostricov@endava.com>", "valentinostricov"],
+    ["vostricov <valentin.ostricov@gmail.com>", "vostricov"],
+  ]);
+
+  return aliases.get(identity) ?? commit.authorName ?? "unknown";
+}
+
+function ensureContributor(bucket, contributor) {
+  if (!bucket.contributors.has(contributor)) {
+    bucket.contributors.set(contributor, {
+      contributor,
+      activities: 0,
+      commits: 0,
+      reviews: 0,
+      additions: 0,
+      deletions: 0,
+    });
+  }
+
+  return bucket.contributors.get(contributor);
+}
+
+function sortContributors(contributors) {
+  return contributors.sort(
+    (a, b) =>
+      b.activities - a.activities ||
+      b.commits - a.commits ||
+      b.reviews - a.reviews ||
+      b.additions + b.deletions - (a.additions + a.deletions) ||
+      a.contributor.localeCompare(b.contributor),
+  );
+}
+
 function parseGitCommits() {
   const output = run(
     "git",
-    ["log", "--all", "--date=iso-strict", "--pretty=format:%H%x09%aI%x09%an%x09%s"],
+    [
+      "log",
+      "--all",
+      "--date=iso-strict",
+      "--pretty=format:%H%x09%aI%x09%an%x09%ae%x09%s",
+    ],
     { cwd: repoRoot },
   ).trim();
 
@@ -268,15 +311,51 @@ function parseGitCommits() {
   }
 
   return output.split("\n").map((line) => {
-    const [sha, authoredAt, authorName, ...subjectParts] = line.split("\t");
+    const [sha, authoredAt, authorName, authorEmail, ...subjectParts] =
+      line.split("\t");
 
     return {
       sha,
       authoredAt,
       authorName,
+      authorEmail,
       subject: subjectParts.join("\t"),
     };
   });
+}
+
+function commitLineStats(sha) {
+  const output = run("git", ["show", "--numstat", "--format=", "--no-renames", sha], {
+    cwd: repoRoot,
+  }).trim();
+
+  if (!output) {
+    return {
+      additions: 0,
+      deletions: 0,
+    };
+  }
+
+  return output.split("\n").reduce(
+    (totals, line) => {
+      const [additions, deletions] = line.split("\t");
+      const parsedAdditions = Number.parseInt(additions, 10);
+      const parsedDeletions = Number.parseInt(deletions, 10);
+
+      return {
+        additions:
+          totals.additions +
+          (Number.isFinite(parsedAdditions) ? parsedAdditions : 0),
+        deletions:
+          totals.deletions +
+          (Number.isFinite(parsedDeletions) ? parsedDeletions : 0),
+      };
+    },
+    {
+      additions: 0,
+      deletions: 0,
+    },
+  );
 }
 
 const repo = ghJson(["repo", "view", "--json", "nameWithOwner,defaultBranchRef,url"]);
@@ -318,6 +397,9 @@ for (const pull of pulls) {
       contributor,
       (bucket.reviewsByContributor.get(contributor) ?? 0) + 1,
     );
+    const contributorStats = ensureContributor(bucket, contributor);
+    contributorStats.activities += 1;
+    contributorStats.reviews += 1;
   }
 
   if (pull.merged_at) {
@@ -384,6 +466,14 @@ for (const commit of gitCommits) {
   if (localHour(commit.authoredAt) >= afterHoursStart) {
     bucket.afterHoursCommits.afterHours += 1;
   }
+
+  const contributor = commitContributorName(commit);
+  const lineStats = commitLineStats(commit.sha);
+  const contributorStats = ensureContributor(bucket, contributor);
+  contributorStats.activities += 1;
+  contributorStats.commits += 1;
+  contributorStats.additions += lineStats.additions;
+  contributorStats.deletions += lineStats.deletions;
 }
 
 const weekly = [...buckets.values()]
@@ -400,6 +490,9 @@ const weekly = [...buckets.values()]
         share: reviewTotal > 0 ? round(reviews / reviewTotal, 3) : null,
       }))
       .sort((a, b) => b.reviews - a.reviews || a.contributor.localeCompare(b.contributor));
+    const contributors = sortContributors(
+      [...bucket.contributors.values()].map((contributor) => ({ ...contributor })),
+    );
 
     return {
       week: bucket.week,
@@ -415,6 +508,7 @@ const weekly = [...buckets.values()]
         bucket.afterHoursCommits.total,
       ),
       busFactorHotspots,
+      contributors,
     };
   });
 
@@ -439,6 +533,27 @@ const topWeeklyReviewShare = weekly.reduce(
   (max, week) => Math.max(max, week.busFactorHotspots[0]?.share ?? 0),
   0,
 );
+const contributorTotals = new Map();
+
+for (const week of weekly) {
+  for (const contributor of week.contributors) {
+    const total = contributorTotals.get(contributor.contributor) ?? {
+      contributor: contributor.contributor,
+      activities: 0,
+      commits: 0,
+      reviews: 0,
+      additions: 0,
+      deletions: 0,
+    };
+
+    total.activities += contributor.activities;
+    total.commits += contributor.commits;
+    total.reviews += contributor.reviews;
+    total.additions += contributor.additions;
+    total.deletions += contributor.deletions;
+    contributorTotals.set(contributor.contributor, total);
+  }
+}
 
 const snapshot = {
   generatedAt: new Date().toISOString(),
@@ -459,6 +574,8 @@ const snapshot = {
       "Successful completed GitHub Actions workflow runs divided by completed applicable runs; cancelled, neutral, and skipped runs are excluded.",
     busFactorHotspots:
       "Share of GitHub review submissions by reviewer within the week, including bot accounts when they submit reviews.",
+    individualPerformance:
+      "Weekly contributor activity where activities equal authored commits plus submitted reviews; added and deleted lines come from git numstat for authored commits.",
     afterHoursWork: `Share of local git commits authored at or after ${String(afterHoursStart).padStart(
       2,
       "0",
@@ -476,6 +593,7 @@ const snapshot = {
     pipelinePassRate: rate(successfulWorkflowRuns.length, completedWorkflowRuns.length),
     afterHoursCommitRate: rate(afterHoursCommitCount, totalCommitCount),
     highestWeeklyReviewShare: round(topWeeklyReviewShare, 3),
+    contributors: sortContributors([...contributorTotals.values()]),
   },
   weekly,
   pullRequests: pullRequestRows.sort((a, b) => b.number - a.number),

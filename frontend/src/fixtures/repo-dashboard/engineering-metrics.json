@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T11:07:47.274Z",
+  "generatedAt": "2026-06-24T12:26:22.731Z",
   "repository": {
     "nameWithOwner": "vostricov/myprofile-sdd-demo",
     "url": "https://github.com/vostricov/myprofile-sdd-demo",
@@ -12,6 +12,7 @@
     "reviewLatency": "PR created_at to first non-author review submitted_at, grouped by merge week for merged PRs.",
     "pipelinePassRate": "Successful completed GitHub Actions workflow runs divided by completed applicable runs; cancelled, neutral, and skipped runs are excluded.",
     "busFactorHotspots": "Share of GitHub review submissions by reviewer within the week, including bot accounts when they submit reviews.",
+    "individualPerformance": "Weekly contributor activity where activities equal authored commits plus submitted reviews; added and deleted lines come from git numstat for authored commits.",
     "afterHoursWork": "Share of local git commits authored at or after 18:00 in Europe/Chisinau."
   },
   "summary": {
@@ -19,7 +20,7 @@
     "mergedPullRequests": 17,
     "reviewSubmissions": 15,
     "completedWorkflowRuns": 5,
-    "commitsAnalyzed": 63,
+    "commitsAnalyzed": 64,
     "prCycleTime": {
       "averageHours": 0.4,
       "medianHours": 0.1,
@@ -41,11 +42,37 @@
       "denominator": 5
     },
     "afterHoursCommitRate": {
-      "rate": 0.238,
+      "rate": 0.234,
       "numerator": 15,
-      "denominator": 63
+      "denominator": 64
     },
-    "highestWeeklyReviewShare": 0.667
+    "highestWeeklyReviewShare": 0.667,
+    "contributors": [
+      {
+        "contributor": "valentinostricov",
+        "activities": 57,
+        "commits": 49,
+        "reviews": 8,
+        "additions": 15924,
+        "deletions": 1861
+      },
+      {
+        "contributor": "vostricov",
+        "activities": 18,
+        "commits": 15,
+        "reviews": 3,
+        "additions": 12300,
+        "deletions": 865
+      },
+      {
+        "contributor": "chatgpt-codex-connector[bot] (bot)",
+        "activities": 4,
+        "commits": 0,
+        "reviews": 4,
+        "additions": 0,
+        "deletions": 0
+      }
+    ]
   },
   "weekly": [
     {
@@ -89,6 +116,24 @@
           "reviews": 1,
           "share": 0.333
         }
+      ],
+      "contributors": [
+        {
+          "contributor": "valentinostricov",
+          "activities": 23,
+          "commits": 21,
+          "reviews": 2,
+          "additions": 8957,
+          "deletions": 507
+        },
+        {
+          "contributor": "vostricov",
+          "activities": 11,
+          "commits": 10,
+          "reviews": 1,
+          "additions": 10183,
+          "deletions": 286
+        }
       ]
     },
     {
@@ -117,9 +162,9 @@
         "denominator": 5
       },
       "afterHoursCommitRate": {
-        "rate": 0.063,
+        "rate": 0.061,
         "numerator": 2,
-        "denominator": 32
+        "denominator": 33
       },
       "busFactorHotspots": [
         {
@@ -136,6 +181,32 @@
           "contributor": "vostricov",
           "reviews": 2,
           "share": 0.167
+        }
+      ],
+      "contributors": [
+        {
+          "contributor": "valentinostricov",
+          "activities": 34,
+          "commits": 28,
+          "reviews": 6,
+          "additions": 6967,
+          "deletions": 1354
+        },
+        {
+          "contributor": "vostricov",
+          "activities": 7,
+          "commits": 5,
+          "reviews": 2,
+          "additions": 2117,
+          "deletions": 579
+        },
+        {
+          "contributor": "chatgpt-codex-connector[bot] (bot)",
+          "activities": 4,
+          "commits": 0,
+          "reviews": 4,
+          "additions": 0,
+          "deletions": 0
         }
       ]
     }

@@ -98,6 +98,22 @@ def build_markdown(snapshot):
             ]
         )
 
+    performance_rows = []
+    for week in snapshot["weekly"]:
+        for contributor in week["contributors"]:
+            performance_rows.append(
+                [
+                    week["week"],
+                    week["label"],
+                    contributor["contributor"],
+                    contributor["activities"],
+                    contributor["commits"],
+                    contributor["reviews"],
+                    contributor["additions"],
+                    contributor["deletions"],
+                ]
+            )
+
     review_rows = []
     for week in snapshot["weekly"]:
         for reviewer in week["busFactorHotspots"]:
@@ -149,6 +165,7 @@ def build_markdown(snapshot):
                 ["Review submissions", summary["reviewSubmissions"]],
                 ["Completed workflow runs", summary["completedWorkflowRuns"]],
                 ["Commits analyzed", summary["commitsAnalyzed"]],
+                ["Active contributors", len(summary["contributors"])],
                 ["PR cycle time", metric_summary(summary["prCycleTime"])],
                 ["Lead time for changes", metric_summary(summary["leadTimeForChanges"])],
                 ["Review latency", metric_summary(summary["reviewLatency"])],
@@ -175,6 +192,22 @@ def build_markdown(snapshot):
                 "Top reviewer share",
             ],
             weekly_rows,
+        ),
+        "",
+        "## Individual Performance",
+        "",
+        md_table(
+            [
+                "Week",
+                "Range",
+                "Contributor",
+                "Activities",
+                "Commits",
+                "Reviews",
+                "Added lines",
+                "Deleted lines",
+            ],
+            performance_rows,
         ),
         "",
         "## Bus-Factor Review Shares",
@@ -312,6 +345,7 @@ def build_workbook_sheets(snapshot):
         (["Review submissions", summary["reviewSubmissions"], ""], {}),
         (["Completed workflow runs", summary["completedWorkflowRuns"], ""], {}),
         (["Commits analyzed", summary["commitsAnalyzed"], ""], {}),
+        (["Active contributors", len(summary["contributors"]), ""], {}),
         (
             [
                 "PR cycle time",
@@ -417,6 +451,39 @@ def build_workbook_sheets(snapshot):
             )
         )
 
+    contributor_rows = [
+        (
+            [
+                "Week",
+                "Range",
+                "Contributor",
+                "Activities",
+                "Commits",
+                "Reviews",
+                "Added lines",
+                "Deleted lines",
+            ],
+            {index: 1 for index in range(1, 9)},
+        )
+    ]
+    for week in snapshot["weekly"]:
+        for contributor in week["contributors"]:
+            contributor_rows.append(
+                (
+                    [
+                        week["week"],
+                        week["label"],
+                        contributor["contributor"],
+                        contributor["activities"],
+                        contributor["commits"],
+                        contributor["reviews"],
+                        contributor["additions"],
+                        contributor["deletions"],
+                    ],
+                    {},
+                )
+            )
+
     review_rows = [
         (["Week", "Range", "Contributor", "Reviews", "Share"], {i: 1 for i in range(1, 6)})
     ]
@@ -484,6 +551,7 @@ def build_workbook_sheets(snapshot):
     return [
         ("Summary", summary_rows, [34, 18, 56]),
         ("Weekly Metrics", weekly_rows, [13, 22, 14, 16, 10, 12, 14, 10, 13, 15, 10, 14, 10, 10, 13, 18, 10, 32, 16]),
+        ("Individual Perf", contributor_rows, [13, 22, 34, 12, 10, 10, 14, 14]),
         ("Review Shares", review_rows, [13, 22, 36, 12, 12]),
         ("PR Detail", pr_rows, [8, 58, 12, 20, 24, 24, 10, 10, 10, 16, 72]),
         ("Definitions", definition_rows, [28, 110]),
