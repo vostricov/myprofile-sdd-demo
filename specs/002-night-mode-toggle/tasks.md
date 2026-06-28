@@ -70,7 +70,7 @@
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T006 [P] [US1] Add unit tests for current-session toggle state, accessible name, and aria-pressed behavior in frontend/tests/unit/displayMode.test.tsx
+- [X] T006 [P] [US1] Add unit tests for current-session toggle state, accessible name, and aria-pressed behavior in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t006-us1-toggle-unit-tests
   - Depends: T003
   - Acceptance: tests fail until the provider and toggle expose day/night state, accessible labels, and keyboard-operable state changes.
