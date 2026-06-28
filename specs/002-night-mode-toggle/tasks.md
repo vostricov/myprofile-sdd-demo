@@ -157,7 +157,7 @@ Write these tests first and confirm they fail before implementation.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T017 [P] [US3] Add unit tests that display mode changes preserve profile drafts, preview state, expanded sections, and viewer role in frontend/tests/unit/displayMode.test.tsx
+- [X] T017 [P] [US3] Add unit tests that display mode changes preserve profile drafts, preview state, expanded sections, and viewer role in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t017-us3-preservation-unit-tests
   - Depends: T012,T015
   - Acceptance: tests fail until display-mode state changes do not mutate ProfileContext profile, drafts, preview, expandedSectionIds, or currentViewerRole.

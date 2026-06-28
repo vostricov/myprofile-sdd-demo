@@ -8,6 +8,10 @@ import {
   DisplayModeProvider,
   useDisplayMode,
 } from "../../src/context/DisplayModeContext";
+import {
+  ProfileProvider,
+  useProfile,
+} from "../../src/context/ProfileContext";
 import { messages } from "../../src/i18n/messages";
 
 describe("display mode provider", () => {
@@ -109,6 +113,29 @@ describe("display mode provider", () => {
     expect(screen.getByText(messages.displayMode.currentMode("night"))).toBeVisible();
     expect(screen.getByText("canPersist:false")).toBeVisible();
   });
+
+  it("preserves profile drafts, preview state, expanded sections, and viewer role", () => {
+    renderProfilePreservationHarness();
+
+    fireEvent.click(screen.getByRole("button", { name: "Seed profile state" }));
+
+    expect(screen.getByText("role:editor")).toBeVisible();
+    expect(screen.getByText("preview:true")).toBeVisible();
+    expect(screen.getByText("draft:Draft summary for mode preservation.")).toBeVisible();
+    expect(screen.getByText("expanded:summary,industry-expertise")).toBeVisible();
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: messages.displayMode.switchToNightMode,
+      }),
+    );
+
+    expect(screen.getByText("mode:night")).toBeVisible();
+    expect(screen.getByText("role:editor")).toBeVisible();
+    expect(screen.getByText("preview:true")).toBeVisible();
+    expect(screen.getByText("draft:Draft summary for mode preservation.")).toBeVisible();
+    expect(screen.getByText("expanded:summary,industry-expertise")).toBeVisible();
+  });
 });
 
 function renderDisplayModeHarness() {
@@ -141,6 +168,53 @@ function DisplayModeHarness() {
       <p>{messages.displayMode.currentMode(mode)}</p>
       <p>source:{source}</p>
       <p>canPersist:{String(canPersist)}</p>
+    </div>
+  );
+}
+
+function renderProfilePreservationHarness() {
+  return render(
+    <DisplayModeProvider>
+      <ProfileProvider>
+        <ProfilePreservationHarness />
+      </ProfileProvider>
+    </DisplayModeProvider>,
+  );
+}
+
+function ProfilePreservationHarness() {
+  const { mode, toggleMode } = useDisplayMode();
+  const { actions, state } = useProfile();
+
+  const seedProfileState = () => {
+    actions.setViewerRole("editor");
+    actions.setSectionExpanded("industry-expertise", true);
+    actions.startDraft("summary");
+    actions.updateDraft("summary", "Draft summary for mode preservation.");
+    actions.setPreview(true);
+  };
+
+  return (
+    <div>
+      <button onClick={seedProfileState} type="button">
+        Seed profile state
+      </button>
+      <button
+        aria-label={
+          mode === "night"
+            ? messages.displayMode.switchToDayMode
+            : messages.displayMode.switchToNightMode
+        }
+        onClick={() => toggleMode()}
+        type="button"
+      >
+        Toggle display mode
+      </button>
+      <p>mode:{mode}</p>
+      <p>role:{state.currentViewerRole}</p>
+      <p>preview:{String(state.isPreviewing)}</p>
+      <p>draft:{String(state.drafts.summary)}</p>
+      <p>expanded:{state.expandedSectionIds.join(",")}</p>
     </div>
   );
 }
