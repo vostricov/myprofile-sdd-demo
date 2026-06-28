@@ -82,7 +82,7 @@ Write these tests first and confirm they fail before implementation.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement current-session day/night mode actions and root mode attribute updates in frontend/src/context/DisplayModeContext.tsx
+- [X] T008 [US1] Implement current-session day/night mode actions and root mode attribute updates in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t008-us1-current-session-mode
   - Depends: T006
   - Acceptance: toggling mode updates provider state and a root/app attribute without profile data changes or page reloads.

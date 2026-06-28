@@ -2,7 +2,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useState,
   type ReactNode,
 } from "react";
 
@@ -34,19 +36,32 @@ export function DisplayModeProvider({
   initialMode = "day",
   initialSource = "default",
 }: DisplayModeProviderProps) {
+  const [mode, setMode] = useState<DisplayMode>(initialMode);
   const toggleMode = useCallback(() => {
-    // State changes are implemented with the user-story tasks.
+    setMode((currentMode) => (currentMode === "night" ? "day" : "night"));
   }, []);
+
+  useEffect(() => {
+    const rootElement = document.documentElement;
+
+    rootElement.dataset.displayMode = mode;
+    rootElement.style.colorScheme = mode === "night" ? "dark" : "light";
+
+    return () => {
+      delete rootElement.dataset.displayMode;
+      rootElement.style.colorScheme = "";
+    };
+  }, [mode]);
 
   const value = useMemo<DisplayModeContextValue>(
     () => ({
       canPersist,
-      isNightMode: initialMode === "night",
-      mode: initialMode,
+      isNightMode: mode === "night",
+      mode,
       source: initialSource,
       toggleMode,
     }),
-    [canPersist, initialMode, initialSource, toggleMode],
+    [canPersist, initialSource, mode, toggleMode],
   );
 
   return (
