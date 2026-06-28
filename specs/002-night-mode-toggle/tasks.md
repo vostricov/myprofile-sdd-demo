@@ -128,7 +128,7 @@ Write these tests first and confirm they fail before implementation.
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Implement dedicated display mode preference adapter and storage key in frontend/src/api/localDisplayModePreference.ts
+- [X] T014 [US2] Implement dedicated display mode preference adapter and storage key in frontend/src/api/localDisplayModePreference.ts
   - Branch: feature/spec-002/t014-us2-local-preference-adapter
   - Depends: T012
   - Acceptance: adapter loads valid day/night choices, ignores invalid data, uses a dedicated key, and returns safe fallback results when localStorage is unavailable.
