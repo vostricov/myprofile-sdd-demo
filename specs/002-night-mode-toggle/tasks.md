@@ -121,7 +121,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T006,T008
   - Acceptance: tests fail until saved choices, corrupt saved values, storage failures, device dark/light preference, and day fallback are all handled.
 
-- [ ] T013 [P] [US2] Add Playwright reload persistence scenarios for day and night choices in frontend/tests/e2e/profile.spec.ts
+- [X] T013 [P] [US2] Add Playwright reload persistence scenarios for day and night choices in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t013-us2-preference-e2e-tests
   - Depends: T007,T010
   - Acceptance: tests fail until explicit mode choices survive same-device reloads and the toggle reflects restored state.

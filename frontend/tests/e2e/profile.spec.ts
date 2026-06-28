@@ -67,6 +67,30 @@ test("switches display mode from the upper bar by pointer and keyboard", async (
   expect(results.violations).toEqual([]);
 });
 
+test("restores explicit display mode choices across reloads", async ({ page }) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+
+  await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(
+    upperBar.getByRole("button", { name: "Switch to day mode" }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  await upperBar.getByRole("button", { name: "Switch to day mode" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(
+    upperBar.getByRole("button", { name: "Switch to night mode" }),
+  ).toHaveAttribute("aria-pressed", "false");
+});
+
 test("previews, saves, and undoes an inline edit", async ({ page }) => {
   const updatedSummary = "Playwright edited summary for preview and undo.";
   const originalSummary = await page
