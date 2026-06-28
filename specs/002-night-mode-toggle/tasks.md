@@ -197,7 +197,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T020
   - Acceptance: QA checklist maps to `contracts/night-mode-ui.md` and records expected evidence for the scenarios in `quickstart.md`.
 
-- [ ] T023 Update Lighthouse baseline notes for night mode and performance acceptance in frontend/docs/perf-baseline.md
+- [X] T023 Update Lighthouse baseline notes for night mode and performance acceptance in frontend/docs/perf-baseline.md
   - Branch: feature/spec-002/t023-night-mode-lighthouse-baseline
   - Depends: T021
   - Acceptance: notes confirm existing Performance, Accessibility, and Best Practices targets remain at or above 90 and the 3G-equivalent load target remains within budget.

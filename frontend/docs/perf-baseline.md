@@ -1,6 +1,6 @@
 # Performance Baseline
 
-Task: SPEC-001/T020
+Task: SPEC-001/T020, SPEC-002/T023
 
 ## Command
 
@@ -20,6 +20,18 @@ using `ci/lighthouseci.yml`.
 - Lighthouse Best Practices: `>= 90`
 - Simulated 3G-equivalent largest contentful paint: `<= 2s`
 - Simulated 3G-equivalent time to interactive: warning at `> 2s`
+
+## Night Mode Acceptance
+
+The SPEC-002 night-mode toggle must preserve the existing Lighthouse budgets.
+The implementation adds CSS token overrides, a small display-mode context, and
+browser-local preference persistence only; it does not add network requests or
+backend dependencies.
+
+Final SPEC-002 validation records the current `npm run lhci` result in
+`frontend/docs/night-mode-qa.md`. The target remains Performance,
+Accessibility, and Best Practices at or above 90, with the 3G-equivalent load
+metrics inside the existing 2-second budget.
 
 ## Latest Baseline
 
