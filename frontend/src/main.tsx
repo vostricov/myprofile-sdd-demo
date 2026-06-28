@@ -4,6 +4,7 @@ import "./styles/tokens.css";
 import "./styles/animations.css";
 import "./styles/direction.css";
 import { ToastProvider } from "./components/Toast";
+import { DisplayModeProvider } from "./context/DisplayModeContext";
 import { ProfileProvider } from "./context/ProfileContext";
 import { Profile } from "./features/view-business-profile/Profile";
 
@@ -22,9 +23,11 @@ if (requestedDirection === "rtl" || requestedDirection === "ltr") {
 createRoot(rootElement).render(
   <StrictMode>
     <ToastProvider>
-      <ProfileProvider>
-        <Profile />
-      </ProfileProvider>
+      <DisplayModeProvider>
+        <ProfileProvider>
+          <Profile />
+        </ProfileProvider>
+      </DisplayModeProvider>
     </ToastProvider>
   </StrictMode>,
 );

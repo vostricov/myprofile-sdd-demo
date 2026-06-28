@@ -46,7 +46,7 @@
   - Depends: T001
   - Acceptance: provider exposes `mode`, `isNightMode`, `source`, `canPersist`, and `toggleMode` placeholders without coupling to profile reducer state.
 
-- [ ] T004 Wire DisplayModeProvider around only the profile app path in frontend/src/main.tsx
+- [X] T004 Wire DisplayModeProvider around only the profile app path in frontend/src/main.tsx
   - Branch: feature/spec-002/t004-wire-display-mode-provider
   - Depends: T003
   - Acceptance: profile view renders inside DisplayModeProvider, engineering dashboard route remains outside the mode scope unless explicitly verified, and existing ToastProvider/ProfileProvider order is preserved.
