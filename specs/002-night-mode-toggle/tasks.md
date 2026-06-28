@@ -51,7 +51,7 @@
   - Depends: T003
   - Acceptance: profile view renders inside DisplayModeProvider, engineering dashboard route remains outside the mode scope unless explicitly verified, and existing ToastProvider/ProfileProvider order is preserved.
 
-- [ ] T005 [P] Add upper-bar toggle layout slot and stable wrapping styles in frontend/src/styles/globals.module.css
+- [X] T005 [P] Add upper-bar toggle layout slot and stable wrapping styles in frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t005-upper-bar-toggle-layout
   - Depends: T001
   - Acceptance: preview toolbar can host a persistent toggle plus existing draft actions without overlap at mobile and desktop widths.

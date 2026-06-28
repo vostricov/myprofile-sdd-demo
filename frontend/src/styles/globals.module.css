@@ -52,6 +52,7 @@
 
 .previewStatus {
   display: grid;
+  flex: 1 1 14rem;
   gap: var(--spacing-1);
   min-width: min(100%, 14rem);
 }
@@ -66,12 +67,29 @@
   font-size: 0.875rem;
 }
 
-.previewActions {
+.previewControls {
   display: flex;
   flex: 1 1 22rem;
   flex-wrap: wrap;
   gap: var(--spacing-2);
+  align-items: center;
   justify-content: flex-end;
+  min-width: min(100%, 18rem);
+}
+
+.displayModeSlot {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: min(100%, 10rem);
+}
+
+.previewActions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+  min-width: 0;
 }
 
 .eyebrow {
@@ -549,6 +567,7 @@
 }
 
 :global([dir="rtl"]) .previewActions,
+:global([dir="rtl"]) .previewControls,
 :global([dir="rtl"]) .formActions {
   justify-content: flex-start;
 }
@@ -580,6 +599,25 @@
     grid-template-columns:
       minmax(0, 1fr)
       minmax(14rem, var(--layout-sidebar-width));
+  }
+}
+
+@media (max-width: 42rem) {
+  .previewControls,
+  .displayModeSlot,
+  .previewActions {
+    width: 100%;
+  }
+
+  .previewControls,
+  .previewActions {
+    justify-content: stretch;
+  }
+
+  .displayModeSlot > *,
+  .previewActions > * {
+    flex: 1 1 10rem;
+    justify-content: center;
   }
 }
 
