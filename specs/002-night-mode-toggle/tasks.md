@@ -116,7 +116,7 @@ Write these tests first and confirm they fail before implementation.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T012 [P] [US2] Add unit tests for saved, invalid, unavailable-storage, device-preference, and default mode resolution in frontend/tests/unit/displayMode.test.tsx
+- [X] T012 [P] [US2] Add unit tests for saved, invalid, unavailable-storage, device-preference, and default mode resolution in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t012-us2-preference-unit-tests
   - Depends: T006,T008
   - Acceptance: tests fail until saved choices, corrupt saved values, storage failures, device dark/light preference, and day fallback are all handled.
