@@ -1,6 +1,6 @@
 # Night Mode QA
 
-Task: SPEC-002/T022
+Task: SPEC-002/T022, SPEC-002/T024
 
 ## Manual QA Matrix
 
@@ -18,3 +18,33 @@ Task: SPEC-002/T022
 - Automated coverage in `frontend/tests/unit/displayMode.test.tsx` verifies mode resolution, persistence fallback, current-session toggling, and profile-state preservation.
 - Automated coverage in `frontend/tests/e2e/profile.spec.ts` verifies upper-bar activation, reload persistence, preservation flows, responsive layouts, RTL, and axe scans.
 - Lighthouse and final command results are recorded in this file by SPEC-002/T024.
+
+## Final Validation Results
+
+Date: 2026-06-28
+
+| Command | Result |
+|---------|--------|
+| `npm run test` | PASS: 6 test files, 31 tests. |
+| `npm run build` | PASS: TypeScript `tsc --noEmit` and Vite production build completed. |
+| `npm run e2e` | PASS: 8 Playwright tests. |
+| `npm run lhci` | PASS: Lighthouse CI assertions passed and reports were written to `.lighthouseci/`. |
+
+## Lighthouse Metrics
+
+| Metric | Result |
+|--------|--------|
+| Performance | 90 |
+| Accessibility | 100 |
+| Best Practices | 96 |
+| SEO | 90 |
+| First Contentful Paint | 1.4s |
+| Largest Contentful Paint | 1.5s |
+| Time to Interactive | 1.5s |
+| Speed Index | 1.4s |
+| Total Blocking Time | 0ms |
+| Cumulative Layout Shift | 0 |
+
+The existing Performance, Accessibility, and Best Practices targets remain at
+or above 90, and the 3G-equivalent load metrics remain within the 2-second
+budget.

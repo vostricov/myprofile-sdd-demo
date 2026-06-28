@@ -14,6 +14,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearStoredProfile, loadProfile } from "../../src/api/localProfileStorage";
 import { profileApi } from "../../src/api/profileApi";
 import { ToastProvider } from "../../src/components/Toast";
+import { DisplayModeProvider } from "../../src/context/DisplayModeContext";
 import {
   createInitialProfileState,
   ProfileProvider,
@@ -114,7 +115,11 @@ function renderProfile(profile: Profile = initialProfile) {
       createElement(
         ProfileProvider,
         { initialState: createInitialProfileState(profile) },
-        createElement(ProfileView),
+        createElement(
+          DisplayModeProvider,
+          null,
+          createElement(ProfileView),
+        ),
       ),
     ),
   );

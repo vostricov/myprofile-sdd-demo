@@ -202,7 +202,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T021
   - Acceptance: notes confirm existing Performance, Accessibility, and Best Practices targets remain at or above 90 and the 3G-equivalent load target remains within budget.
 
-- [ ] T024 Run final validation commands and record outcomes in frontend/docs/night-mode-qa.md
+- [X] T024 Run final validation commands and record outcomes in frontend/docs/night-mode-qa.md
   - Branch: feature/spec-002/t024-final-night-mode-validation
   - Depends: T021,T022,T023
   - Acceptance: `npm run test`, `npm run build`, `npm run e2e`, and `npm run lhci` results are recorded, with any skipped validation explained before marking this task complete.
