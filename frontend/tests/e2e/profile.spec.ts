@@ -232,6 +232,66 @@ test("renders an RTL smoke scenario without accessibility violations", async ({ 
   expect(results.violations).toEqual([]);
 });
 
+test("keeps the night-mode upper bar usable across responsive and RTL layouts", async ({
+  page,
+}) => {
+  const scenarios = [
+    {
+      height: 844,
+      name: "mobile",
+      url: "/",
+      width: 390,
+    },
+    {
+      height: 900,
+      name: "desktop",
+      url: "/",
+      width: 1280,
+    },
+    {
+      height: 900,
+      largeText: true,
+      name: "large text",
+      url: "/",
+      width: 1280,
+    },
+    {
+      height: 844,
+      name: "rtl mobile",
+      rtl: true,
+      url: "/?dir=rtl",
+      width: 390,
+    },
+  ];
+
+  for (const scenario of scenarios) {
+    await page.setViewportSize({ height: scenario.height, width: scenario.width });
+    await page.goto(scenario.url);
+    await page.evaluate(() => window.localStorage.clear());
+    await page.goto(scenario.url);
+
+    if (scenario.largeText) {
+      await page.evaluate(() => {
+        document.documentElement.style.fontSize = "32px";
+      });
+    }
+
+    if (scenario.rtl) {
+      await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+    }
+
+    const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+
+    await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+    await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+    await expect(
+      upperBar.getByRole("button", { name: "Switch to day mode" }),
+    ).toBeVisible();
+    await expect(upperBar.getByRole("button", { name: "Preview" })).toBeVisible();
+    await assertToolbarControlsFit(upperBar, scenario.name);
+  }
+});
+
 async function requiredBox(locator: Locator) {
   const box = await locator.boundingBox();
 
@@ -240,4 +300,62 @@ async function requiredBox(locator: Locator) {
   }
 
   return box;
+}
+
+async function assertToolbarControlsFit(toolbar: Locator, scenarioName: string) {
+  const toolbarBox = await requiredBox(toolbar);
+  const buttons = toolbar.locator("button");
+  const buttonBoxes = [];
+
+  for (let index = 0; index < await buttons.count(); index += 1) {
+    const button = buttons.nth(index);
+    const buttonBox = await requiredBox(button);
+
+    expect(
+      buttonBox.x,
+      `${scenarioName}: button ${index} starts inside toolbar`,
+    ).toBeGreaterThanOrEqual(toolbarBox.x - 1);
+    expect(
+      buttonBox.y,
+      `${scenarioName}: button ${index} starts inside toolbar`,
+    ).toBeGreaterThanOrEqual(toolbarBox.y - 1);
+    expect(
+      buttonBox.x + buttonBox.width,
+      `${scenarioName}: button ${index} ends inside toolbar`,
+    ).toBeLessThanOrEqual(toolbarBox.x + toolbarBox.width + 1);
+    expect(
+      buttonBox.y + buttonBox.height,
+      `${scenarioName}: button ${index} bottom stays inside toolbar`,
+    ).toBeLessThanOrEqual(toolbarBox.y + toolbarBox.height + 1);
+
+    buttonBoxes.push(buttonBox);
+  }
+
+  for (let firstIndex = 0; firstIndex < buttonBoxes.length; firstIndex += 1) {
+    for (
+      let secondIndex = firstIndex + 1;
+      secondIndex < buttonBoxes.length;
+      secondIndex += 1
+    ) {
+      const overlapWidth = Math.max(
+        0,
+        Math.min(
+          buttonBoxes[firstIndex].x + buttonBoxes[firstIndex].width,
+          buttonBoxes[secondIndex].x + buttonBoxes[secondIndex].width,
+        ) - Math.max(buttonBoxes[firstIndex].x, buttonBoxes[secondIndex].x),
+      );
+      const overlapHeight = Math.max(
+        0,
+        Math.min(
+          buttonBoxes[firstIndex].y + buttonBoxes[firstIndex].height,
+          buttonBoxes[secondIndex].y + buttonBoxes[secondIndex].height,
+        ) - Math.max(buttonBoxes[firstIndex].y, buttonBoxes[secondIndex].y),
+      );
+
+      expect(
+        overlapWidth * overlapHeight,
+        `${scenarioName}: buttons ${firstIndex} and ${secondIndex} do not overlap`,
+      ).toBeLessThanOrEqual(1);
+    }
+  }
 }

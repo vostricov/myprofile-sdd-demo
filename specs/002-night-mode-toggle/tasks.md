@@ -187,7 +187,7 @@ Write these tests first and confirm they fail before implementation.
 
 **Purpose**: Complete responsive, RTL, accessibility, and final validation work across all user stories.
 
-- [ ] T021 [P] Add mobile, desktop, 200-percent text, and RTL night-mode assertions in frontend/tests/e2e/profile.spec.ts
+- [X] T021 [P] Add mobile, desktop, 200-percent text, and RTL night-mode assertions in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t021-responsive-rtl-night-mode
   - Depends: T018,T020
   - Acceptance: Playwright confirms the upper bar wraps without overlap or clipping and remains coherent under `?dir=rtl` in both display modes.
