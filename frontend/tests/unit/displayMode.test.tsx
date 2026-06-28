@@ -176,7 +176,8 @@ function mockDevicePreference(preference: "dark" | "light" | null) {
       addListener: vi.fn(),
       dispatchEvent: vi.fn(),
       matches:
-        query === "(prefers-color-scheme: dark)" && preference === "dark",
+        (query === "(prefers-color-scheme: dark)" && preference === "dark") ||
+        (query === "(prefers-color-scheme: light)" && preference === "light"),
       media: query,
       onchange: null,
       removeEventListener: vi.fn(),

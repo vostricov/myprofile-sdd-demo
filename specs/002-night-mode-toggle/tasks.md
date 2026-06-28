@@ -133,7 +133,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T012
   - Acceptance: adapter loads valid day/night choices, ignores invalid data, uses a dedicated key, and returns safe fallback results when localStorage is unavailable.
 
-- [ ] T015 [US2] Integrate saved, device, default, and unavailable-storage resolution in frontend/src/context/DisplayModeContext.tsx
+- [X] T015 [US2] Integrate saved, device, default, and unavailable-storage resolution in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t015-us2-initial-mode-resolution
   - Depends: T014
   - Acceptance: provider initializes from saved preference first, device preference second, day default last, and keeps current-session toggling available when persistence fails.

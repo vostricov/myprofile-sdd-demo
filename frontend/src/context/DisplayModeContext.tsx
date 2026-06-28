@@ -8,6 +8,8 @@ import {
   type ReactNode,
 } from "react";
 
+import { loadDisplayModePreference } from "../api/localDisplayModePreference";
+
 export type DisplayMode = "day" | "night";
 export type DisplayModeSource = "saved" | "device" | "default";
 
@@ -26,6 +28,12 @@ type DisplayModeProviderProps = {
   initialSource?: DisplayModeSource;
 };
 
+type ResolvedDisplayMode = {
+  canPersist: boolean;
+  mode: DisplayMode;
+  source: DisplayModeSource;
+};
+
 const DisplayModeContext = createContext<DisplayModeContextValue | undefined>(
   undefined,
 );
@@ -33,35 +41,44 @@ const DisplayModeContext = createContext<DisplayModeContextValue | undefined>(
 export function DisplayModeProvider({
   canPersist = false,
   children,
-  initialMode = "day",
+  initialMode,
   initialSource = "default",
 }: DisplayModeProviderProps) {
-  const [mode, setMode] = useState<DisplayMode>(initialMode);
+  const [preference, setPreference] = useState<ResolvedDisplayMode>(() =>
+    resolveInitialDisplayMode({
+      canPersist,
+      initialMode,
+      initialSource,
+    }),
+  );
   const toggleMode = useCallback(() => {
-    setMode((currentMode) => (currentMode === "night" ? "day" : "night"));
+    setPreference((currentPreference) => ({
+      ...currentPreference,
+      mode: currentPreference.mode === "night" ? "day" : "night",
+    }));
   }, []);
 
   useEffect(() => {
     const rootElement = document.documentElement;
 
-    rootElement.dataset.displayMode = mode;
-    rootElement.style.colorScheme = mode === "night" ? "dark" : "light";
+    rootElement.dataset.displayMode = preference.mode;
+    rootElement.style.colorScheme = preference.mode === "night" ? "dark" : "light";
 
     return () => {
       delete rootElement.dataset.displayMode;
       rootElement.style.colorScheme = "";
     };
-  }, [mode]);
+  }, [preference.mode]);
 
   const value = useMemo<DisplayModeContextValue>(
     () => ({
-      canPersist,
-      isNightMode: mode === "night",
-      mode,
-      source: initialSource,
+      canPersist: preference.canPersist,
+      isNightMode: preference.mode === "night",
+      mode: preference.mode,
+      source: preference.source,
       toggleMode,
     }),
-    [canPersist, initialSource, mode, toggleMode],
+    [preference, toggleMode],
   );
 
   return (
@@ -79,4 +96,67 @@ export function useDisplayMode(): DisplayModeContextValue {
   }
 
   return context;
+}
+
+function resolveInitialDisplayMode({
+  canPersist,
+  initialMode,
+  initialSource,
+}: Pick<
+  DisplayModeProviderProps,
+  "canPersist" | "initialMode" | "initialSource"
+>): ResolvedDisplayMode {
+  if (initialMode) {
+    return {
+      canPersist: canPersist ?? false,
+      mode: initialMode,
+      source: initialSource ?? "default",
+    };
+  }
+
+  const savedPreference = loadDisplayModePreference();
+
+  if (savedPreference.mode) {
+    return {
+      canPersist: savedPreference.canPersist,
+      mode: savedPreference.mode,
+      source: "saved",
+    };
+  }
+
+  const deviceMode = resolveDeviceDisplayMode();
+
+  if (deviceMode) {
+    return {
+      canPersist: savedPreference.canPersist,
+      mode: deviceMode,
+      source: "device",
+    };
+  }
+
+  return {
+    canPersist: savedPreference.canPersist,
+    mode: "day",
+    source: "default",
+  };
+}
+
+function resolveDeviceDisplayMode(): DisplayMode | null {
+  if (typeof window === "undefined" || !window.matchMedia) {
+    return null;
+  }
+
+  try {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "night";
+    }
+
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "day";
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 }
