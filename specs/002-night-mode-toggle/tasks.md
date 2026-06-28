@@ -28,7 +28,7 @@
   - Depends: none
   - Acceptance: message keys cover day mode, night mode, toggle action, and non-visual current-state text without hard-coded toggle strings in components.
 
-- [ ] T002 [P] Add SunIcon and MoonIcon exports for display mode controls in frontend/src/components/icons/index.tsx
+- [X] T002 [P] Add SunIcon and MoonIcon exports for display mode controls in frontend/src/components/icons/index.tsx
   - Branch: feature/spec-002/t002-display-mode-icons
   - Depends: none
   - Acceptance: exported icon components use the same lucide wrapper pattern and default accessibility props as existing icons.
