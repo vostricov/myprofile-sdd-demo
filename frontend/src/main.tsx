@@ -23,11 +23,11 @@ if (requestedDirection === "rtl" || requestedDirection === "ltr") {
 createRoot(rootElement).render(
   <StrictMode>
     <ToastProvider>
-      <DisplayModeProvider>
-        <ProfileProvider>
+      <ProfileProvider>
+        <DisplayModeProvider>
           <Profile />
-        </ProfileProvider>
-      </DisplayModeProvider>
+        </DisplayModeProvider>
+      </ProfileProvider>
     </ToastProvider>
   </StrictMode>,
 );

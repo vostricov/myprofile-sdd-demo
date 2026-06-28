@@ -169,7 +169,7 @@ Write these tests first and confirm they fail before implementation.
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Refine provider integration so display mode changes do not remount ProfileProvider or ToastProvider in frontend/src/main.tsx
+- [X] T019 [US3] Refine provider integration so display mode changes do not remount ProfileProvider or ToastProvider in frontend/src/main.tsx
   - Branch: feature/spec-002/t019-us3-preserve-provider-state
   - Depends: T017
   - Acceptance: changing mode updates presentation attributes without recreating profile context, toast context, active drafts, or undo stack.
