@@ -41,7 +41,7 @@
 
 **Critical**: Complete this phase before starting user story tasks.
 
-- [ ] T003 Create display mode types, context, provider shell, and hook in frontend/src/context/DisplayModeContext.tsx
+- [X] T003 Create display mode types, context, provider shell, and hook in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t003-display-mode-context-shell
   - Depends: T001
   - Acceptance: provider exposes `mode`, `isNightMode`, `source`, `canPersist`, and `toggleMode` placeholders without coupling to profile reducer state.
