@@ -372,10 +372,16 @@
 .textArea[aria-invalid="true"],
 .jsonTextArea[aria-invalid="true"] {
   border-color: var(--color-danger);
+  box-shadow: 0 0 0 1px var(--color-danger);
 }
 
 .fieldError {
   margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-danger-surface);
   color: var(--color-danger);
   font-size: 0.875rem;
 }
@@ -412,6 +418,9 @@
 }
 
 .primaryButton:disabled {
+  border-color: var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -453,7 +462,7 @@
 .dialogOverlay {
   position: fixed;
   inset: 0;
-  background: rgb(23 33 43 / 55%);
+  background: var(--color-overlay);
   animation: fade-in var(--transition-fast);
 }
 
@@ -471,7 +480,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
-  box-shadow: 0 1.25rem 3rem rgb(23 33 43 / 24%);
+  box-shadow: var(--shadow-elevated);
   animation: dialog-enter var(--transition-medium);
 }
 
@@ -537,7 +546,8 @@
   border-inline-start-width: 0.25rem;
   border-radius: var(--radius);
   background: var(--color-surface);
-  box-shadow: 0 1rem 2rem rgb(23 33 43 / 14%);
+  color: var(--color-text);
+  box-shadow: var(--shadow-elevated);
   animation: fade-in var(--transition-fast);
 }
 

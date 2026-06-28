@@ -18,6 +18,8 @@
   --color-on-accent: #ffffff;
   --color-focus: #1d4ed8;
   --color-danger: #b42318;
+  --color-danger-surface: #fff1f0;
+  --color-overlay: rgb(23 33 43 / 55%);
 
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
@@ -29,6 +31,7 @@
   --radius: 0.5rem;
   --radius-sm: 0.25rem;
   --shadow-surface: 0 1px 2px rgb(23 33 43 / 8%);
+  --shadow-elevated: 0 1.25rem 3rem rgb(23 33 43 / 24%);
   --layout-max-width: 72rem;
   --layout-sidebar-width: 18rem;
   --layout-gap: var(--spacing-4);
@@ -51,7 +54,10 @@
   --color-on-accent: #062a28;
   --color-focus: #93c5fd;
   --color-danger: #fca5a5;
+  --color-danger-surface: #3f1f24;
+  --color-overlay: rgb(0 0 0 / 68%);
   --shadow-surface: 0 1px 2px rgb(0 0 0 / 42%);
+  --shadow-elevated: 0 1.25rem 3rem rgb(0 0 0 / 52%);
 }
 
 * {

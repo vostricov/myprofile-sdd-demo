@@ -174,7 +174,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T017
   - Acceptance: changing mode updates presentation attributes without recreating profile context, toast context, active drafts, or undo stack.
 
-- [ ] T020 [US3] Ensure dialogs, toasts, form errors, disabled states, and focus indicators inherit both display modes in frontend/src/styles/globals.module.css
+- [X] T020 [US3] Ensure dialogs, toasts, form errors, disabled states, and focus indicators inherit both display modes in frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t020-us3-mode-aware-overlays
   - Depends: T011,T018,T019
   - Acceptance: inline editors, modal editors, validation errors, toasts, disabled buttons, and focus states remain visible and usable in day and night mode.
