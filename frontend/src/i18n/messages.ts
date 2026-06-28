@@ -1,4 +1,13 @@
 export const messages = {
+  displayMode: {
+    currentMode: (mode: "day" | "night") =>
+      `Current display mode: ${mode === "night" ? "night mode" : "day mode"}`,
+    dayMode: "Day mode",
+    nightMode: "Night mode",
+    switchToDayMode: "Switch to day mode",
+    switchToNightMode: "Switch to night mode",
+    toggleLabel: "Night mode",
+  },
   editor: {
     cancel: "Cancel",
     closeEditor: (title: string) => `Close ${title} editor`,

@@ -23,7 +23,7 @@
 
 **Purpose**: Add small shared assets needed by all display-mode work.
 
-- [ ] T001 [P] Add night mode labels, state announcements, and action copy in frontend/src/i18n/messages.ts
+- [X] T001 [P] Add night mode labels, state announcements, and action copy in frontend/src/i18n/messages.ts
   - Branch: feature/spec-002/t001-night-mode-messages
   - Depends: none
   - Acceptance: message keys cover day mode, night mode, toggle action, and non-visual current-state text without hard-coded toggle strings in components.
