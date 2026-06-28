@@ -34,6 +34,39 @@ test("renders profile sections, synchronizes collapse state, and passes axe chec
   expect(results.violations).toEqual([]);
 });
 
+test("switches display mode from the upper bar by pointer and keyboard", async ({
+  page,
+}) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const toggle = upperBar.getByRole("button", {
+    name: "Switch to night mode",
+  });
+
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  await toggle.click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+
+  const dayToggle = upperBar.getByRole("button", {
+    name: "Switch to day mode",
+  });
+
+  await expect(dayToggle).toHaveAttribute("aria-pressed", "true");
+  await dayToggle.focus();
+  await page.keyboard.press("Enter");
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(
+    upperBar.getByRole("button", { name: "Switch to night mode" }),
+  ).toHaveAttribute("aria-pressed", "false");
+
+  const results = await new AxeBuilder({ page }).include("main").analyze();
+
+  expect(results.violations).toEqual([]);
+});
+
 test("previews, saves, and undoes an inline edit", async ({ page }) => {
   const updatedSummary = "Playwright edited summary for preview and undo.";
   const originalSummary = await page

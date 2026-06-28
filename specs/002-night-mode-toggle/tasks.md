@@ -75,7 +75,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T003
   - Acceptance: tests fail until the provider and toggle expose day/night state, accessible labels, and keyboard-operable state changes.
 
-- [ ] T007 [P] [US1] Add Playwright contract coverage for visible upper-bar toggle, pointer activation, keyboard activation, and axe scan in frontend/tests/e2e/profile.spec.ts
+- [X] T007 [P] [US1] Add Playwright contract coverage for visible upper-bar toggle, pointer activation, keyboard activation, and axe scan in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t007-us1-toggle-e2e-tests
   - Depends: T003,T005
   - Acceptance: test fails until the upper-bar toggle is visible, activatable without a pointer, updates state immediately, and passes axe checks.
