@@ -87,7 +87,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T006
   - Acceptance: toggling mode updates provider state and a root/app attribute without profile data changes or page reloads.
 
-- [ ] T009 [P] [US1] Implement NightModeToggle button with icon, visible label, aria-pressed, and focus behavior in frontend/src/features/view-business-profile/NightModeToggle.tsx
+- [X] T009 [P] [US1] Implement NightModeToggle button with icon, visible label, aria-pressed, and focus behavior in frontend/src/features/view-business-profile/NightModeToggle.tsx
   - Branch: feature/spec-002/t009-us1-night-mode-toggle
   - Depends: T001,T002,T003,T006
   - Acceptance: component renders a keyboard-focusable button that reflects the current mode visually and non-visually and calls the display-mode toggle action.
