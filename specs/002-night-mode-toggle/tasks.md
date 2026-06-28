@@ -138,7 +138,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T014
   - Acceptance: provider initializes from saved preference first, device preference second, day default last, and keeps current-session toggling available when persistence fails.
 
-- [ ] T016 [US2] Update NightModeToggle to persist explicit choices and display restored state in frontend/src/features/view-business-profile/NightModeToggle.tsx
+- [X] T016 [US2] Update NightModeToggle to persist explicit choices and display restored state in frontend/src/features/view-business-profile/NightModeToggle.tsx
   - Branch: feature/spec-002/t016-us2-persist-toggle-choice
   - Depends: T015
   - Acceptance: activating the toggle saves explicit choices when possible, reports current state after reload, and continues to work for the current visit when saving fails.

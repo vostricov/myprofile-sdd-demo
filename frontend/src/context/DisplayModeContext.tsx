@@ -18,7 +18,12 @@ export type DisplayModeContextValue = {
   isNightMode: boolean;
   mode: DisplayMode;
   source: DisplayModeSource;
-  toggleMode: () => void;
+  toggleMode: (options?: ToggleModeOptions) => void;
+};
+
+export type ToggleModeOptions = {
+  canPersist?: boolean;
+  source?: DisplayModeSource;
 };
 
 type DisplayModeProviderProps = {
@@ -51,10 +56,11 @@ export function DisplayModeProvider({
       initialSource,
     }),
   );
-  const toggleMode = useCallback(() => {
+  const toggleMode = useCallback((options?: ToggleModeOptions) => {
     setPreference((currentPreference) => ({
-      ...currentPreference,
+      canPersist: options?.canPersist ?? currentPreference.canPersist,
       mode: currentPreference.mode === "night" ? "day" : "night",
+      source: options?.source ?? currentPreference.source,
     }));
   }, []);
 
