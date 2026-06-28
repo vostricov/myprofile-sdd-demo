@@ -192,7 +192,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T018,T020
   - Acceptance: Playwright confirms the upper bar wraps without overlap or clipping and remains coherent under `?dir=rtl` in both display modes.
 
-- [ ] T022 [P] Document manual QA coverage for day/night contrast, focus, disabled states, dialogs, toasts, and storage fallback in frontend/docs/night-mode-qa.md
+- [X] T022 [P] Document manual QA coverage for day/night contrast, focus, disabled states, dialogs, toasts, and storage fallback in frontend/docs/night-mode-qa.md
   - Branch: feature/spec-002/t022-night-mode-manual-qa
   - Depends: T020
   - Acceptance: QA checklist maps to `contracts/night-mode-ui.md` and records expected evidence for the scenarios in `quickstart.md`.
