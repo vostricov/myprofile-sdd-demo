@@ -162,7 +162,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T012,T015
   - Acceptance: tests fail until display-mode state changes do not mutate ProfileContext profile, drafts, preview, expandedSectionIds, or currentViewerRole.
 
-- [ ] T018 [P] [US3] Add Playwright preservation flow for inline edit, modal editor, preview, validation message, toast, undo availability, and mode switching in frontend/tests/e2e/profile.spec.ts
+- [X] T018 [P] [US3] Add Playwright preservation flow for inline edit, modal editor, preview, validation message, toast, undo availability, and mode switching in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t018-us3-preservation-e2e-tests
   - Depends: T013,T016
   - Acceptance: test fails until mode switching preserves visible workflow state and keeps all affected controls readable.

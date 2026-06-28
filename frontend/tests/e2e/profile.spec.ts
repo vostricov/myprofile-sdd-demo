@@ -133,6 +133,69 @@ test("previews, saves, and undoes an inline edit", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("preserves editing workflow state while switching display modes", async ({
+  page,
+}) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const summaryArticle = page.getByRole("article", { name: "Summary" });
+  const updatedSummary = "Night mode preservation draft.";
+
+  await page.getByLabel("Viewer role").selectOption("editor");
+  await page.getByRole("button", { name: "Edit Summary" }).click();
+  await summaryArticle.getByLabel("Content").fill("");
+  await summaryArticle.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Content is required.")).toBeVisible();
+
+  await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(summaryArticle.getByLabel("Content")).toBeVisible();
+  await expect(page.getByText("Content is required.")).toBeVisible();
+
+  await summaryArticle.getByLabel("Content").fill(updatedSummary);
+  await summaryArticle.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Summary draft updated.")).toBeVisible();
+  await expect(page.getByText("Previewing")).toBeVisible();
+  await expect(page.getByText(updatedSummary)).toBeVisible();
+  await expect(upperBar.getByRole("button", { name: "Save" })).toBeEnabled();
+
+  await upperBar.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Profile changes saved.")).toBeVisible();
+  await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
+
+  await upperBar.getByRole("button", { name: "Switch to day mode" }).click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
+  await expect(page.getByText("Profile changes saved.")).toBeVisible();
+
+  await page.getByLabel("Viewer role").selectOption("owner");
+  await page
+    .getByRole("button", { exact: true, name: "Industry Expertise" })
+    .click();
+  await page.getByRole("button", { name: "Edit Industry Expertise" }).click();
+
+  const dialog = page.getByRole("dialog", { name: "Edit Industry Expertise" });
+
+  await dialog.getByLabel("Content JSON").fill("{");
+  await dialog.getByRole("button", { name: "Save" }).click();
+
+  await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
+
+  await page
+    .locator('button[aria-label="Switch to night mode"]')
+    .first()
+    .dispatchEvent("click");
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByLabel("Content JSON")).toHaveValue("{");
+  await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
+});
+
 test("uses single-column mobile and two-column desktop layouts", async ({ page }) => {
   await page.setViewportSize({ height: 844, width: 390 });
   await page.goto("/");
