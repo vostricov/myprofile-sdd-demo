@@ -97,7 +97,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T005,T008,T009
   - Acceptance: toggle appears in the upper bar for visitor, owner, and editor roles; preview, save, discard, and undo buttons retain their existing enabled/disabled behavior.
 
-- [ ] T011 [US1] Add day/night token overrides and visible toggle/button states in frontend/src/styles/tokens.css and frontend/src/styles/globals.module.css
+- [X] T011 [US1] Add day/night token overrides and visible toggle/button states in frontend/src/styles/tokens.css and frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t011-us1-night-mode-tokens
   - Depends: T005,T008,T009
   - Acceptance: page, upper bar, sections, details panel, buttons, links, focus rings, and disabled states visibly switch between day and night appearances with WCAG 2.1 AA contrast targets.

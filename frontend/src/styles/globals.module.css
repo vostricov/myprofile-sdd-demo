@@ -1,6 +1,11 @@
 .appShell {
   min-height: 100vh;
   padding: var(--spacing-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 @keyframes fade-in {
@@ -316,6 +321,8 @@
 .contentLink {
   color: var(--color-accent-strong);
   overflow-wrap: anywhere;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.16em;
 }
 
 .roleSelect,
@@ -401,7 +408,7 @@
 .primaryButton {
   border-color: var(--color-accent);
   background: var(--color-accent);
-  color: var(--color-surface);
+  color: var(--color-on-accent);
 }
 
 .primaryButton:disabled {
@@ -415,6 +422,8 @@
 }
 
 .secondaryButton:disabled {
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -423,6 +432,22 @@
 .secondaryButton:not(:disabled):hover {
   filter: brightness(0.97);
   transform: translateY(-1px);
+}
+
+.modeToggle {
+  min-width: min(100%, 10rem);
+  justify-content: space-between;
+}
+
+.modeToggle span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.modeToggle[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-surface-muted);
+  color: var(--color-accent-strong);
 }
 
 .dialogOverlay {
