@@ -92,7 +92,7 @@ Write these tests first and confirm they fail before implementation.
   - Depends: T001,T002,T003,T006
   - Acceptance: component renders a keyboard-focusable button that reflects the current mode visually and non-visually and calls the display-mode toggle action.
 
-- [ ] T010 [US1] Insert NightModeToggle into the profile upper bar without disabling preview actions in frontend/src/features/view-business-profile/PreviewToggle.tsx
+- [X] T010 [US1] Insert NightModeToggle into the profile upper bar without disabling preview actions in frontend/src/features/view-business-profile/PreviewToggle.tsx
   - Branch: feature/spec-002/t010-us1-upper-bar-integration
   - Depends: T005,T008,T009
   - Acceptance: toggle appears in the upper bar for visitor, owner, and editor roles; preview, save, discard, and undo buttons retain their existing enabled/disabled behavior.
