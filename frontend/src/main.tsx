@@ -7,6 +7,7 @@ import { ToastProvider } from "./components/Toast";
 import { DisplayModeProvider } from "./context/DisplayModeContext";
 import { ProfileProvider } from "./context/ProfileContext";
 import { Profile } from "./features/view-business-profile/Profile";
+import { EngineeringDashboard } from "./features/repo-dashboard/EngineeringDashboard";
 
 const rootElement = document.getElementById("root");
 
@@ -15,6 +16,10 @@ if (!rootElement) {
 }
 
 const requestedDirection = new URLSearchParams(window.location.search).get("dir");
+const requestedView = new URLSearchParams(window.location.search).get("view");
+const showEngineeringDashboard =
+  requestedView === "engineering-dashboard" ||
+  window.location.pathname === "/engineering-dashboard";
 
 if (requestedDirection === "rtl" || requestedDirection === "ltr") {
   document.documentElement.dir = requestedDirection;
@@ -22,12 +27,16 @@ if (requestedDirection === "rtl" || requestedDirection === "ltr") {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ToastProvider>
-      <ProfileProvider>
-        <DisplayModeProvider>
-          <Profile />
-        </DisplayModeProvider>
-      </ProfileProvider>
-    </ToastProvider>
+    {showEngineeringDashboard ? (
+      <EngineeringDashboard />
+    ) : (
+      <ToastProvider>
+        <ProfileProvider>
+          <DisplayModeProvider>
+            <Profile />
+          </DisplayModeProvider>
+        </ProfileProvider>
+      </ToastProvider>
+    )}
   </StrictMode>,
 );
