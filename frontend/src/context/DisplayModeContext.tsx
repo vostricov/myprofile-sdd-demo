@@ -2,7 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -64,7 +64,7 @@ export function DisplayModeProvider({
     }));
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const rootElement = document.documentElement;
 
     rootElement.dataset.displayMode = preference.mode;

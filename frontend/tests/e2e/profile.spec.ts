@@ -185,10 +185,7 @@ test("preserves editing workflow state while switching display modes", async ({
 
   await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
 
-  await page
-    .locator('button[aria-label="Switch to night mode"]')
-    .first()
-    .dispatchEvent("click");
+  await dialog.getByRole("button", { name: "Switch to night mode" }).click();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
   await expect(dialog).toBeVisible();

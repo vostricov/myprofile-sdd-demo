@@ -14,6 +14,7 @@ import {
 } from "../../../domain/profileSchema";
 import { messages } from "../../../i18n/messages";
 import styles from "../../../styles/globals.module.css";
+import { NightModeToggle } from "../NightModeToggle";
 
 type ModalEditorProps = {
   onOpenChange: (open: boolean) => void;
@@ -102,14 +103,17 @@ export function ModalEditor({ onOpenChange, open, section }: ModalEditorProps) {
             <Dialog.Title className={styles.dialogTitle}>
               {messages.editor.editTitle(section.title)}
             </Dialog.Title>
-            <button
-              aria-label={messages.editor.closeEditor(section.title)}
-              className={styles.dialogCloseButton}
-              onClick={handleCancel}
-              type="button"
-            >
-              <CloseIcon className={styles.iconSmall} />
-            </button>
+            <div className={styles.dialogHeaderActions}>
+              <NightModeToggle />
+              <button
+                aria-label={messages.editor.closeEditor(section.title)}
+                className={styles.dialogCloseButton}
+                onClick={handleCancel}
+                type="button"
+              >
+                <CloseIcon className={styles.iconSmall} />
+              </button>
+            </div>
           </div>
           <form className={styles.editorForm} onSubmit={handleSubmit(handleSave)}>
             <label
