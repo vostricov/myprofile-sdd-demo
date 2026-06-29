@@ -1,4 +1,5 @@
-import { validateProfile, type Profile } from "../domain/profileSchema";
+import type { Profile } from "../domain/profileSchema";
+import { assertProfile } from "../domain/profileValidation";
 
 const LEGACY_PROFILE_STORAGE_KEYS = ["myprofile-sdd-demo.profile"];
 const PROFILE_STORAGE_KEY = "myprofile-sdd-demo.profile.mock-v1";
@@ -19,7 +20,7 @@ export function loadProfile(): Profile | null {
   }
 
   try {
-    return validateProfile(JSON.parse(rawProfile));
+    return assertProfile(JSON.parse(rawProfile));
   } catch {
     storage.removeItem(PROFILE_STORAGE_KEY);
     return null;
@@ -28,7 +29,7 @@ export function loadProfile(): Profile | null {
 
 export function saveProfile(profile: Profile): Profile {
   const storage = getLocalStorage();
-  const validatedProfile = validateProfile(profile);
+  const validatedProfile = assertProfile(profile);
 
   if (!storage) {
     return validatedProfile;

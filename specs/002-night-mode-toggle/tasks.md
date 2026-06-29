@@ -23,12 +23,12 @@
 
 **Purpose**: Add small shared assets needed by all display-mode work.
 
-- [ ] T001 [P] Add night mode labels, state announcements, and action copy in frontend/src/i18n/messages.ts
+- [X] T001 [P] Add night mode labels, state announcements, and action copy in frontend/src/i18n/messages.ts
   - Branch: feature/spec-002/t001-night-mode-messages
   - Depends: none
   - Acceptance: message keys cover day mode, night mode, toggle action, and non-visual current-state text without hard-coded toggle strings in components.
 
-- [ ] T002 [P] Add SunIcon and MoonIcon exports for display mode controls in frontend/src/components/icons/index.tsx
+- [X] T002 [P] Add SunIcon and MoonIcon exports for display mode controls in frontend/src/components/icons/index.tsx
   - Branch: feature/spec-002/t002-display-mode-icons
   - Depends: none
   - Acceptance: exported icon components use the same lucide wrapper pattern and default accessibility props as existing icons.
@@ -41,17 +41,17 @@
 
 **Critical**: Complete this phase before starting user story tasks.
 
-- [ ] T003 Create display mode types, context, provider shell, and hook in frontend/src/context/DisplayModeContext.tsx
+- [X] T003 Create display mode types, context, provider shell, and hook in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t003-display-mode-context-shell
   - Depends: T001
   - Acceptance: provider exposes `mode`, `isNightMode`, `source`, `canPersist`, and `toggleMode` placeholders without coupling to profile reducer state.
 
-- [ ] T004 Wire DisplayModeProvider around only the profile app path in frontend/src/main.tsx
+- [X] T004 Wire DisplayModeProvider around only the profile app path in frontend/src/main.tsx
   - Branch: feature/spec-002/t004-wire-display-mode-provider
   - Depends: T003
   - Acceptance: profile view renders inside DisplayModeProvider, engineering dashboard route remains outside the mode scope unless explicitly verified, and existing ToastProvider/ProfileProvider order is preserved.
 
-- [ ] T005 [P] Add upper-bar toggle layout slot and stable wrapping styles in frontend/src/styles/globals.module.css
+- [X] T005 [P] Add upper-bar toggle layout slot and stable wrapping styles in frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t005-upper-bar-toggle-layout
   - Depends: T001
   - Acceptance: preview toolbar can host a persistent toggle plus existing draft actions without overlap at mobile and desktop widths.
@@ -70,34 +70,34 @@
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T006 [P] [US1] Add unit tests for current-session toggle state, accessible name, and aria-pressed behavior in frontend/tests/unit/displayMode.test.tsx
+- [X] T006 [P] [US1] Add unit tests for current-session toggle state, accessible name, and aria-pressed behavior in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t006-us1-toggle-unit-tests
   - Depends: T003
   - Acceptance: tests fail until the provider and toggle expose day/night state, accessible labels, and keyboard-operable state changes.
 
-- [ ] T007 [P] [US1] Add Playwright contract coverage for visible upper-bar toggle, pointer activation, keyboard activation, and axe scan in frontend/tests/e2e/profile.spec.ts
+- [X] T007 [P] [US1] Add Playwright contract coverage for visible upper-bar toggle, pointer activation, keyboard activation, and axe scan in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t007-us1-toggle-e2e-tests
   - Depends: T003,T005
   - Acceptance: test fails until the upper-bar toggle is visible, activatable without a pointer, updates state immediately, and passes axe checks.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement current-session day/night mode actions and root mode attribute updates in frontend/src/context/DisplayModeContext.tsx
+- [X] T008 [US1] Implement current-session day/night mode actions and root mode attribute updates in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t008-us1-current-session-mode
   - Depends: T006
   - Acceptance: toggling mode updates provider state and a root/app attribute without profile data changes or page reloads.
 
-- [ ] T009 [P] [US1] Implement NightModeToggle button with icon, visible label, aria-pressed, and focus behavior in frontend/src/features/view-business-profile/NightModeToggle.tsx
+- [X] T009 [P] [US1] Implement NightModeToggle button with icon, visible label, aria-pressed, and focus behavior in frontend/src/features/view-business-profile/NightModeToggle.tsx
   - Branch: feature/spec-002/t009-us1-night-mode-toggle
   - Depends: T001,T002,T003,T006
   - Acceptance: component renders a keyboard-focusable button that reflects the current mode visually and non-visually and calls the display-mode toggle action.
 
-- [ ] T010 [US1] Insert NightModeToggle into the profile upper bar without disabling preview actions in frontend/src/features/view-business-profile/PreviewToggle.tsx
+- [X] T010 [US1] Insert NightModeToggle into the profile upper bar without disabling preview actions in frontend/src/features/view-business-profile/PreviewToggle.tsx
   - Branch: feature/spec-002/t010-us1-upper-bar-integration
   - Depends: T005,T008,T009
   - Acceptance: toggle appears in the upper bar for visitor, owner, and editor roles; preview, save, discard, and undo buttons retain their existing enabled/disabled behavior.
 
-- [ ] T011 [US1] Add day/night token overrides and visible toggle/button states in frontend/src/styles/tokens.css and frontend/src/styles/globals.module.css
+- [X] T011 [US1] Add day/night token overrides and visible toggle/button states in frontend/src/styles/tokens.css and frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t011-us1-night-mode-tokens
   - Depends: T005,T008,T009
   - Acceptance: page, upper bar, sections, details panel, buttons, links, focus rings, and disabled states visibly switch between day and night appearances with WCAG 2.1 AA contrast targets.
@@ -116,29 +116,29 @@ Write these tests first and confirm they fail before implementation.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T012 [P] [US2] Add unit tests for saved, invalid, unavailable-storage, device-preference, and default mode resolution in frontend/tests/unit/displayMode.test.tsx
+- [X] T012 [P] [US2] Add unit tests for saved, invalid, unavailable-storage, device-preference, and default mode resolution in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t012-us2-preference-unit-tests
   - Depends: T006,T008
   - Acceptance: tests fail until saved choices, corrupt saved values, storage failures, device dark/light preference, and day fallback are all handled.
 
-- [ ] T013 [P] [US2] Add Playwright reload persistence scenarios for day and night choices in frontend/tests/e2e/profile.spec.ts
+- [X] T013 [P] [US2] Add Playwright reload persistence scenarios for day and night choices in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t013-us2-preference-e2e-tests
   - Depends: T007,T010
   - Acceptance: tests fail until explicit mode choices survive same-device reloads and the toggle reflects restored state.
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Implement dedicated display mode preference adapter and storage key in frontend/src/api/localDisplayModePreference.ts
+- [X] T014 [US2] Implement dedicated display mode preference adapter and storage key in frontend/src/api/localDisplayModePreference.ts
   - Branch: feature/spec-002/t014-us2-local-preference-adapter
   - Depends: T012
   - Acceptance: adapter loads valid day/night choices, ignores invalid data, uses a dedicated key, and returns safe fallback results when localStorage is unavailable.
 
-- [ ] T015 [US2] Integrate saved, device, default, and unavailable-storage resolution in frontend/src/context/DisplayModeContext.tsx
+- [X] T015 [US2] Integrate saved, device, default, and unavailable-storage resolution in frontend/src/context/DisplayModeContext.tsx
   - Branch: feature/spec-002/t015-us2-initial-mode-resolution
   - Depends: T014
   - Acceptance: provider initializes from saved preference first, device preference second, day default last, and keeps current-session toggling available when persistence fails.
 
-- [ ] T016 [US2] Update NightModeToggle to persist explicit choices and display restored state in frontend/src/features/view-business-profile/NightModeToggle.tsx
+- [X] T016 [US2] Update NightModeToggle to persist explicit choices and display restored state in frontend/src/features/view-business-profile/NightModeToggle.tsx
   - Branch: feature/spec-002/t016-us2-persist-toggle-choice
   - Depends: T015
   - Acceptance: activating the toggle saves explicit choices when possible, reports current state after reload, and continues to work for the current visit when saving fails.
@@ -157,24 +157,24 @@ Write these tests first and confirm they fail before implementation.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T017 [P] [US3] Add unit tests that display mode changes preserve profile drafts, preview state, expanded sections, and viewer role in frontend/tests/unit/displayMode.test.tsx
+- [X] T017 [P] [US3] Add unit tests that display mode changes preserve profile drafts, preview state, expanded sections, and viewer role in frontend/tests/unit/displayMode.test.tsx
   - Branch: feature/spec-002/t017-us3-preservation-unit-tests
   - Depends: T012,T015
   - Acceptance: tests fail until display-mode state changes do not mutate ProfileContext profile, drafts, preview, expandedSectionIds, or currentViewerRole.
 
-- [ ] T018 [P] [US3] Add Playwright preservation flow for inline edit, modal editor, preview, validation message, toast, undo availability, and mode switching in frontend/tests/e2e/profile.spec.ts
+- [X] T018 [P] [US3] Add Playwright preservation flow for inline edit, modal editor, preview, validation message, toast, undo availability, and mode switching in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t018-us3-preservation-e2e-tests
   - Depends: T013,T016
   - Acceptance: test fails until mode switching preserves visible workflow state and keeps all affected controls readable.
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Refine provider integration so display mode changes do not remount ProfileProvider or ToastProvider in frontend/src/main.tsx
+- [X] T019 [US3] Refine provider integration so display mode changes do not remount ProfileProvider or ToastProvider in frontend/src/main.tsx
   - Branch: feature/spec-002/t019-us3-preserve-provider-state
   - Depends: T017
   - Acceptance: changing mode updates presentation attributes without recreating profile context, toast context, active drafts, or undo stack.
 
-- [ ] T020 [US3] Ensure dialogs, toasts, form errors, disabled states, and focus indicators inherit both display modes in frontend/src/styles/globals.module.css
+- [X] T020 [US3] Ensure dialogs, toasts, form errors, disabled states, and focus indicators inherit both display modes in frontend/src/styles/globals.module.css
   - Branch: feature/spec-002/t020-us3-mode-aware-overlays
   - Depends: T011,T018,T019
   - Acceptance: inline editors, modal editors, validation errors, toasts, disabled buttons, and focus states remain visible and usable in day and night mode.
@@ -187,22 +187,22 @@ Write these tests first and confirm they fail before implementation.
 
 **Purpose**: Complete responsive, RTL, accessibility, and final validation work across all user stories.
 
-- [ ] T021 [P] Add mobile, desktop, 200-percent text, and RTL night-mode assertions in frontend/tests/e2e/profile.spec.ts
+- [X] T021 [P] Add mobile, desktop, 200-percent text, and RTL night-mode assertions in frontend/tests/e2e/profile.spec.ts
   - Branch: feature/spec-002/t021-responsive-rtl-night-mode
   - Depends: T018,T020
   - Acceptance: Playwright confirms the upper bar wraps without overlap or clipping and remains coherent under `?dir=rtl` in both display modes.
 
-- [ ] T022 [P] Document manual QA coverage for day/night contrast, focus, disabled states, dialogs, toasts, and storage fallback in frontend/docs/night-mode-qa.md
+- [X] T022 [P] Document manual QA coverage for day/night contrast, focus, disabled states, dialogs, toasts, and storage fallback in frontend/docs/night-mode-qa.md
   - Branch: feature/spec-002/t022-night-mode-manual-qa
   - Depends: T020
   - Acceptance: QA checklist maps to `contracts/night-mode-ui.md` and records expected evidence for the scenarios in `quickstart.md`.
 
-- [ ] T023 Update Lighthouse baseline notes for night mode and performance acceptance in frontend/docs/perf-baseline.md
+- [X] T023 Update Lighthouse baseline notes for night mode and performance acceptance in frontend/docs/perf-baseline.md
   - Branch: feature/spec-002/t023-night-mode-lighthouse-baseline
   - Depends: T021
   - Acceptance: notes confirm existing Performance, Accessibility, and Best Practices targets remain at or above 90 and the 3G-equivalent load target remains within budget.
 
-- [ ] T024 Run final validation commands and record outcomes in frontend/docs/night-mode-qa.md
+- [X] T024 Run final validation commands and record outcomes in frontend/docs/night-mode-qa.md
   - Branch: feature/spec-002/t024-final-night-mode-validation
   - Depends: T021,T022,T023
   - Acceptance: `npm run test`, `npm run build`, `npm run e2e`, and `npm run lhci` results are recorded, with any skipped validation explained before marking this task complete.

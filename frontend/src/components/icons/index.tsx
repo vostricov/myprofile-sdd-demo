@@ -3,8 +3,10 @@ import {
   ChevronDown,
   Edit3,
   Eye,
+  Moon,
   RotateCcw,
   Save,
+  Sun,
   X,
   type LucideProps,
 } from "lucide-react";
@@ -37,8 +39,16 @@ export function EyeIcon(props: IconProps) {
   return <Eye {...defaultIconProps} {...props} />;
 }
 
+export function MoonIcon(props: IconProps) {
+  return <Moon {...defaultIconProps} {...props} />;
+}
+
 export function SaveIcon(props: IconProps) {
   return <Save {...defaultIconProps} {...props} />;
+}
+
+export function SunIcon(props: IconProps) {
+  return <Sun {...defaultIconProps} {...props} />;
 }
 
 export function UndoIcon(props: IconProps) {

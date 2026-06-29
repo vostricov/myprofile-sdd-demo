@@ -1,12 +1,20 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/tokens.css";
 import "./styles/animations.css";
 import "./styles/direction.css";
 import { ToastProvider } from "./components/Toast";
+import { DisplayModeProvider } from "./context/DisplayModeContext";
 import { ProfileProvider } from "./context/ProfileContext";
 import { Profile } from "./features/view-business-profile/Profile";
-import { EngineeringDashboard } from "./features/repo-dashboard/EngineeringDashboard";
+
+const EngineeringDashboard = lazy(() =>
+  import("./features/repo-dashboard/EngineeringDashboard").then(
+    ({ EngineeringDashboard }) => ({
+      default: EngineeringDashboard,
+    }),
+  ),
+);
 
 const rootElement = document.getElementById("root");
 
@@ -27,11 +35,15 @@ if (requestedDirection === "rtl" || requestedDirection === "ltr") {
 createRoot(rootElement).render(
   <StrictMode>
     {showEngineeringDashboard ? (
-      <EngineeringDashboard />
+      <Suspense fallback={null}>
+        <EngineeringDashboard />
+      </Suspense>
     ) : (
       <ToastProvider>
         <ProfileProvider>
-          <Profile />
+          <DisplayModeProvider>
+            <Profile />
+          </DisplayModeProvider>
         </ProfileProvider>
       </ToastProvider>
     )}

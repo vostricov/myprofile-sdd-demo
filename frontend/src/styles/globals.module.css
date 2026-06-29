@@ -1,6 +1,11 @@
 .appShell {
   min-height: 100vh;
   padding: var(--spacing-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 @keyframes fade-in {
@@ -52,6 +57,7 @@
 
 .previewStatus {
   display: grid;
+  flex: 1 1 14rem;
   gap: var(--spacing-1);
   min-width: min(100%, 14rem);
 }
@@ -66,12 +72,29 @@
   font-size: 0.875rem;
 }
 
-.previewActions {
+.previewControls {
   display: flex;
   flex: 1 1 22rem;
   flex-wrap: wrap;
   gap: var(--spacing-2);
+  align-items: center;
   justify-content: flex-end;
+  min-width: min(100%, 18rem);
+}
+
+.displayModeSlot {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: min(100%, 10rem);
+}
+
+.previewActions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+  min-width: 0;
 }
 
 .eyebrow {
@@ -298,6 +321,8 @@
 .contentLink {
   color: var(--color-accent-strong);
   overflow-wrap: anywhere;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.16em;
 }
 
 .roleSelect,
@@ -347,10 +372,16 @@
 .textArea[aria-invalid="true"],
 .jsonTextArea[aria-invalid="true"] {
   border-color: var(--color-danger);
+  box-shadow: 0 0 0 1px var(--color-danger);
 }
 
 .fieldError {
   margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-danger-surface);
   color: var(--color-danger);
   font-size: 0.875rem;
 }
@@ -383,11 +414,13 @@
 .primaryButton {
   border-color: var(--color-accent);
   background: var(--color-accent);
-  color: var(--color-surface);
+  color: var(--color-on-accent);
 }
 
 .primaryButton:disabled {
-  opacity: 0.6;
+  border-color: var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
@@ -397,7 +430,8 @@
 }
 
 .secondaryButton:disabled {
-  opacity: 0.55;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
@@ -407,10 +441,26 @@
   transform: translateY(-1px);
 }
 
+.modeToggle {
+  min-width: min(100%, 10rem);
+  justify-content: space-between;
+}
+
+.modeToggle span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.modeToggle[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-surface-muted);
+  color: var(--color-accent-strong);
+}
+
 .dialogOverlay {
   position: fixed;
   inset: 0;
-  background: rgb(23 33 43 / 55%);
+  background: var(--color-overlay);
   animation: fade-in var(--transition-fast);
 }
 
@@ -428,22 +478,33 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
-  box-shadow: 0 1.25rem 3rem rgb(23 33 43 / 24%);
+  box-shadow: var(--shadow-elevated);
   animation: dialog-enter var(--transition-medium);
 }
 
 .dialogHeader {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-3);
   align-items: center;
   justify-content: space-between;
 }
 
 .dialogTitle {
+  flex: 1 1 16rem;
   margin: 0;
   color: var(--color-text);
   font-size: 1.125rem;
   line-height: 1.35;
+}
+
+.dialogHeaderActions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .dialogCloseButton {
@@ -494,7 +555,8 @@
   border-inline-start-width: 0.25rem;
   border-radius: var(--radius);
   background: var(--color-surface);
-  box-shadow: 0 1rem 2rem rgb(23 33 43 / 14%);
+  color: var(--color-text);
+  box-shadow: var(--shadow-elevated);
   animation: fade-in var(--transition-fast);
 }
 
@@ -549,6 +611,8 @@
 }
 
 :global([dir="rtl"]) .previewActions,
+:global([dir="rtl"]) .previewControls,
+:global([dir="rtl"]) .dialogHeaderActions,
 :global([dir="rtl"]) .formActions {
   justify-content: flex-start;
 }
@@ -580,6 +644,25 @@
     grid-template-columns:
       minmax(0, 1fr)
       minmax(14rem, var(--layout-sidebar-width));
+  }
+}
+
+@media (max-width: 42rem) {
+  .previewControls,
+  .displayModeSlot,
+  .previewActions {
+    width: 100%;
+  }
+
+  .previewControls,
+  .previewActions {
+    justify-content: stretch;
+  }
+
+  .displayModeSlot > *,
+  .previewActions > * {
+    flex: 1 1 10rem;
+    justify-content: center;
   }
 }
 

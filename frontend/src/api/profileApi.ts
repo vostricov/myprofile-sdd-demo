@@ -1,4 +1,5 @@
-import { initialProfile, type Profile } from "../domain/profileSchema";
+import { initialProfile } from "../domain/initialProfile";
+import type { Profile } from "../domain/profileSchema";
 import { loadProfile, saveProfile } from "./localProfileStorage";
 
 export const profileApi = {

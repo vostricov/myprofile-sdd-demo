@@ -15,6 +15,7 @@ import {
 import type { Profile } from "../../domain/profileSchema";
 import { messages } from "../../i18n/messages";
 import styles from "../../styles/globals.module.css";
+import { NightModeToggle } from "./NightModeToggle";
 
 const UNDO_WINDOW_MS = 30_000;
 
@@ -128,45 +129,50 @@ export function PreviewToggle() {
           {state.isPreviewing ? messages.preview.previewing : messages.preview.savedProfile}
         </span>
       </div>
-      <div className={styles.previewActions}>
-        <button
-          className={styles.secondaryButton}
-          disabled={!hasDrafts}
-          onClick={handlePreviewToggle}
-          type="button"
-        >
-          <EyeIcon className={styles.iconSmall} />
-          <span>{state.isPreviewing ? messages.preview.exitPreview : messages.preview.preview}</span>
-        </button>
-        <button
-          className={styles.primaryButton}
-          disabled={!hasDrafts || isSaving}
-          onClick={handleSave}
-          type="button"
-        >
-          <SaveIcon className={styles.iconSmall} />
-          <span>{isSaving ? messages.preview.saving : messages.preview.save}</span>
-        </button>
-        <button
-          className={styles.secondaryButton}
-          disabled={!hasDrafts}
-          onClick={handleDiscard}
-          type="button"
-        >
-          <CloseIcon className={styles.iconSmall} />
-          <span>{messages.preview.discard}</span>
-        </button>
-        <button
-          className={styles.secondaryButton}
-          disabled={!latestUndo}
-          onClick={() => {
-            void undoLastSave(latestUndo?.profile);
-          }}
-          type="button"
-        >
-          <UndoIcon className={styles.iconSmall} />
-          <span>{messages.preview.undo}</span>
-        </button>
+      <div className={styles.previewControls}>
+        <div className={styles.displayModeSlot}>
+          <NightModeToggle />
+        </div>
+        <div className={styles.previewActions}>
+          <button
+            className={styles.secondaryButton}
+            disabled={!hasDrafts}
+            onClick={handlePreviewToggle}
+            type="button"
+          >
+            <EyeIcon className={styles.iconSmall} />
+            <span>{state.isPreviewing ? messages.preview.exitPreview : messages.preview.preview}</span>
+          </button>
+          <button
+            className={styles.primaryButton}
+            disabled={!hasDrafts || isSaving}
+            onClick={handleSave}
+            type="button"
+          >
+            <SaveIcon className={styles.iconSmall} />
+            <span>{isSaving ? messages.preview.saving : messages.preview.save}</span>
+          </button>
+          <button
+            className={styles.secondaryButton}
+            disabled={!hasDrafts}
+            onClick={handleDiscard}
+            type="button"
+          >
+            <CloseIcon className={styles.iconSmall} />
+            <span>{messages.preview.discard}</span>
+          </button>
+          <button
+            className={styles.secondaryButton}
+            disabled={!latestUndo}
+            onClick={() => {
+              void undoLastSave(latestUndo?.profile);
+            }}
+            type="button"
+          >
+            <UndoIcon className={styles.iconSmall} />
+            <span>{messages.preview.undo}</span>
+          </button>
+        </div>
       </div>
     </section>
   );

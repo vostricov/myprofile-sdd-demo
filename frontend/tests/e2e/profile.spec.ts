@@ -34,6 +34,54 @@ test("renders profile sections, synchronizes collapse state, and passes axe chec
   expect(results.violations).toEqual([]);
 });
 
+test("switches display mode from the upper bar by pointer and keyboard", async ({
+  page,
+}) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const toggle = upperBar.getByRole("button", {
+    name: "Night mode",
+  });
+
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  await toggle.click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await toggle.focus();
+  await page.keyboard.press("Enter");
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  const results = await new AxeBuilder({ page }).include("main").analyze();
+
+  expect(results.violations).toEqual([]);
+});
+
+test("restores explicit display mode choices across reloads", async ({ page }) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const toggle = upperBar.getByRole("button", { name: "Night mode" });
+
+  await toggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+
+  await toggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+
+  await page.reload();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+});
+
 test("previews, saves, and undoes an inline edit", async ({ page }) => {
   const updatedSummary = "Playwright edited summary for preview and undo.";
   const originalSummary = await page
@@ -76,6 +124,66 @@ test("previews, saves, and undoes an inline edit", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("preserves editing workflow state while switching display modes", async ({
+  page,
+}) => {
+  const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const summaryArticle = page.getByRole("article", { name: "Summary" });
+  const updatedSummary = "Night mode preservation draft.";
+
+  await page.getByLabel("Viewer role").selectOption("editor");
+  await page.getByRole("button", { name: "Edit Summary" }).click();
+  await summaryArticle.getByLabel("Content").fill("");
+  await summaryArticle.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Content is required.")).toBeVisible();
+
+  await upperBar.getByRole("button", { name: "Night mode" }).click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(summaryArticle.getByLabel("Content")).toBeVisible();
+  await expect(page.getByText("Content is required.")).toBeVisible();
+
+  await summaryArticle.getByLabel("Content").fill(updatedSummary);
+  await summaryArticle.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Summary draft updated.")).toBeVisible();
+  await expect(page.getByText("Previewing")).toBeVisible();
+  await expect(page.getByText(updatedSummary)).toBeVisible();
+  await expect(upperBar.getByRole("button", { name: "Save" })).toBeEnabled();
+
+  await upperBar.getByRole("button", { name: "Save" }).click();
+
+  await expect(page.getByText("Profile changes saved.")).toBeVisible();
+  await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
+
+  await upperBar.getByRole("button", { name: "Night mode" }).click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
+  await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
+  await expect(page.getByText("Profile changes saved.")).toBeVisible();
+
+  await page.getByLabel("Viewer role").selectOption("owner");
+  await page
+    .getByRole("button", { exact: true, name: "Industry Expertise" })
+    .click();
+  await page.getByRole("button", { name: "Edit Industry Expertise" }).click();
+
+  const dialog = page.getByRole("dialog", { name: "Edit Industry Expertise" });
+
+  await dialog.getByLabel("Content JSON").fill("{");
+  await dialog.getByRole("button", { name: "Save" }).click();
+
+  await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
+
+  await dialog.getByRole("button", { name: "Night mode" }).click();
+
+  await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByLabel("Content JSON")).toHaveValue("{");
+  await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
+});
+
 test("uses single-column mobile and two-column desktop layouts", async ({ page }) => {
   await page.setViewportSize({ height: 844, width: 390 });
   await page.goto("/");
@@ -112,6 +220,66 @@ test("renders an RTL smoke scenario without accessibility violations", async ({ 
   expect(results.violations).toEqual([]);
 });
 
+test("keeps the night-mode upper bar usable across responsive and RTL layouts", async ({
+  page,
+}) => {
+  const scenarios = [
+    {
+      height: 844,
+      name: "mobile",
+      url: "/",
+      width: 390,
+    },
+    {
+      height: 900,
+      name: "desktop",
+      url: "/",
+      width: 1280,
+    },
+    {
+      height: 900,
+      largeText: true,
+      name: "large text",
+      url: "/",
+      width: 1280,
+    },
+    {
+      height: 844,
+      name: "rtl mobile",
+      rtl: true,
+      url: "/?dir=rtl",
+      width: 390,
+    },
+  ];
+
+  for (const scenario of scenarios) {
+    await page.setViewportSize({ height: scenario.height, width: scenario.width });
+    await page.goto(scenario.url);
+    await page.evaluate(() => window.localStorage.clear());
+    await page.goto(scenario.url);
+
+    if (scenario.largeText) {
+      await page.evaluate(() => {
+        document.documentElement.style.fontSize = "32px";
+      });
+    }
+
+    if (scenario.rtl) {
+      await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+    }
+
+    const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+
+    const toggle = upperBar.getByRole("button", { name: "Night mode" });
+
+    await toggle.click();
+    await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
+    await expect(toggle).toHaveAttribute("aria-pressed", "true");
+    await expect(upperBar.getByRole("button", { name: "Preview" })).toBeVisible();
+    await assertToolbarControlsFit(upperBar, scenario.name);
+  }
+});
+
 async function requiredBox(locator: Locator) {
   const box = await locator.boundingBox();
 
@@ -120,4 +288,62 @@ async function requiredBox(locator: Locator) {
   }
 
   return box;
+}
+
+async function assertToolbarControlsFit(toolbar: Locator, scenarioName: string) {
+  const toolbarBox = await requiredBox(toolbar);
+  const buttons = toolbar.locator("button");
+  const buttonBoxes = [];
+
+  for (let index = 0; index < await buttons.count(); index += 1) {
+    const button = buttons.nth(index);
+    const buttonBox = await requiredBox(button);
+
+    expect(
+      buttonBox.x,
+      `${scenarioName}: button ${index} starts inside toolbar`,
+    ).toBeGreaterThanOrEqual(toolbarBox.x - 1);
+    expect(
+      buttonBox.y,
+      `${scenarioName}: button ${index} starts inside toolbar`,
+    ).toBeGreaterThanOrEqual(toolbarBox.y - 1);
+    expect(
+      buttonBox.x + buttonBox.width,
+      `${scenarioName}: button ${index} ends inside toolbar`,
+    ).toBeLessThanOrEqual(toolbarBox.x + toolbarBox.width + 1);
+    expect(
+      buttonBox.y + buttonBox.height,
+      `${scenarioName}: button ${index} bottom stays inside toolbar`,
+    ).toBeLessThanOrEqual(toolbarBox.y + toolbarBox.height + 1);
+
+    buttonBoxes.push(buttonBox);
+  }
+
+  for (let firstIndex = 0; firstIndex < buttonBoxes.length; firstIndex += 1) {
+    for (
+      let secondIndex = firstIndex + 1;
+      secondIndex < buttonBoxes.length;
+      secondIndex += 1
+    ) {
+      const overlapWidth = Math.max(
+        0,
+        Math.min(
+          buttonBoxes[firstIndex].x + buttonBoxes[firstIndex].width,
+          buttonBoxes[secondIndex].x + buttonBoxes[secondIndex].width,
+        ) - Math.max(buttonBoxes[firstIndex].x, buttonBoxes[secondIndex].x),
+      );
+      const overlapHeight = Math.max(
+        0,
+        Math.min(
+          buttonBoxes[firstIndex].y + buttonBoxes[firstIndex].height,
+          buttonBoxes[secondIndex].y + buttonBoxes[secondIndex].height,
+        ) - Math.max(buttonBoxes[firstIndex].y, buttonBoxes[secondIndex].y),
+      );
+
+      expect(
+        overlapWidth * overlapHeight,
+        `${scenarioName}: buttons ${firstIndex} and ${secondIndex} do not overlap`,
+      ).toBeLessThanOrEqual(1);
+    }
+  }
 }

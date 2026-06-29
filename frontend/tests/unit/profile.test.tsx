@@ -4,6 +4,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { ToastProvider } from "../../src/components/Toast";
+import { DisplayModeProvider } from "../../src/context/DisplayModeContext";
 import {
   createInitialProfileState,
   getVisibleProfile,
@@ -150,7 +151,9 @@ function renderProfile(profile: Profile) {
   return render(
     <ToastProvider>
       <ProfileProvider initialState={createInitialProfileState(profile)}>
-        <ProfileView />
+        <DisplayModeProvider>
+          <ProfileView />
+        </DisplayModeProvider>
       </ProfileProvider>
     </ToastProvider>,
   );

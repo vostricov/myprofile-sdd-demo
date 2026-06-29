@@ -45,6 +45,16 @@ describe("local profile storage", () => {
     expect(window.localStorage.getItem(PROFILE_STORAGE_KEY)).toBeNull();
   });
 
+  it("removes invalid saved profile data instead of loading it", () => {
+    window.localStorage.setItem(
+      PROFILE_STORAGE_KEY,
+      JSON.stringify({ ...initialProfile, sections: [] }),
+    );
+
+    expect(loadProfile()).toBeNull();
+    expect(window.localStorage.getItem(PROFILE_STORAGE_KEY)).toBeNull();
+  });
+
   it("clears saved profile data", () => {
     saveProfile(initialProfile);
     window.localStorage.setItem(LEGACY_PROFILE_STORAGE_KEY, "legacy");
