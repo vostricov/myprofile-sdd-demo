@@ -39,7 +39,7 @@ test("switches display mode from the upper bar by pointer and keyboard", async (
 }) => {
   const upperBar = page.getByRole("region", { name: "Profile draft controls" });
   const toggle = upperBar.getByRole("button", {
-    name: "Switch to night mode",
+    name: "Night mode",
   });
 
   await expect(toggle).toBeVisible();
@@ -49,18 +49,12 @@ test("switches display mode from the upper bar by pointer and keyboard", async (
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
 
-  const dayToggle = upperBar.getByRole("button", {
-    name: "Switch to day mode",
-  });
-
-  await expect(dayToggle).toHaveAttribute("aria-pressed", "true");
-  await dayToggle.focus();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await toggle.focus();
   await page.keyboard.press("Enter");
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
-  await expect(
-    upperBar.getByRole("button", { name: "Switch to night mode" }),
-  ).toHaveAttribute("aria-pressed", "false");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
 
   const results = await new AxeBuilder({ page }).include("main").analyze();
 
@@ -69,26 +63,23 @@ test("switches display mode from the upper bar by pointer and keyboard", async (
 
 test("restores explicit display mode choices across reloads", async ({ page }) => {
   const upperBar = page.getByRole("region", { name: "Profile draft controls" });
+  const toggle = upperBar.getByRole("button", { name: "Night mode" });
 
-  await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+  await toggle.click();
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
 
   await page.reload();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
-  await expect(
-    upperBar.getByRole("button", { name: "Switch to day mode" }),
-  ).toHaveAttribute("aria-pressed", "true");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
 
-  await upperBar.getByRole("button", { name: "Switch to day mode" }).click();
+  await toggle.click();
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
 
   await page.reload();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
-  await expect(
-    upperBar.getByRole("button", { name: "Switch to night mode" }),
-  ).toHaveAttribute("aria-pressed", "false");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
 });
 
 test("previews, saves, and undoes an inline edit", async ({ page }) => {
@@ -147,7 +138,7 @@ test("preserves editing workflow state while switching display modes", async ({
 
   await expect(page.getByText("Content is required.")).toBeVisible();
 
-  await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+  await upperBar.getByRole("button", { name: "Night mode" }).click();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
   await expect(summaryArticle.getByLabel("Content")).toBeVisible();
@@ -166,7 +157,7 @@ test("preserves editing workflow state while switching display modes", async ({
   await expect(page.getByText("Profile changes saved.")).toBeVisible();
   await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
 
-  await upperBar.getByRole("button", { name: "Switch to day mode" }).click();
+  await upperBar.getByRole("button", { name: "Night mode" }).click();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "day");
   await expect(upperBar.getByRole("button", { name: "Undo" })).toBeEnabled();
@@ -185,7 +176,7 @@ test("preserves editing workflow state while switching display modes", async ({
 
   await expect(dialog.getByText("Content must be valid JSON.")).toBeVisible();
 
-  await dialog.getByRole("button", { name: "Switch to night mode" }).click();
+  await dialog.getByRole("button", { name: "Night mode" }).click();
 
   await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
   await expect(dialog).toBeVisible();
@@ -279,11 +270,11 @@ test("keeps the night-mode upper bar usable across responsive and RTL layouts", 
 
     const upperBar = page.getByRole("region", { name: "Profile draft controls" });
 
-    await upperBar.getByRole("button", { name: "Switch to night mode" }).click();
+    const toggle = upperBar.getByRole("button", { name: "Night mode" });
+
+    await toggle.click();
     await expect(page.locator("html")).toHaveAttribute("data-display-mode", "night");
-    await expect(
-      upperBar.getByRole("button", { name: "Switch to day mode" }),
-    ).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-pressed", "true");
     await expect(upperBar.getByRole("button", { name: "Preview" })).toBeVisible();
     await assertToolbarControlsFit(upperBar, scenario.name);
   }

@@ -29,7 +29,7 @@ describe("display mode provider", () => {
     renderDisplayModeHarness();
 
     const toggle = screen.getByRole("button", {
-      name: messages.displayMode.switchToNightMode,
+      name: messages.displayMode.toggleLabel,
     });
 
     expect(toggle).toHaveAttribute("aria-pressed", "false");
@@ -41,12 +41,12 @@ describe("display mode provider", () => {
 
     fireEvent.click(
       screen.getByRole("button", {
-        name: messages.displayMode.switchToNightMode,
+        name: messages.displayMode.toggleLabel,
       }),
     );
 
     const toggle = screen.getByRole("button", {
-      name: messages.displayMode.switchToDayMode,
+      name: messages.displayMode.toggleLabel,
     });
 
     expect(toggle).toHaveAttribute("aria-pressed", "true");
@@ -106,7 +106,7 @@ describe("display mode provider", () => {
 
     fireEvent.click(
       screen.getByRole("button", {
-        name: messages.displayMode.switchToNightMode,
+        name: messages.displayMode.toggleLabel,
       }),
     );
 
@@ -126,7 +126,7 @@ describe("display mode provider", () => {
 
     fireEvent.click(
       screen.getByRole("button", {
-        name: messages.displayMode.switchToNightMode,
+        name: messages.displayMode.toggleLabel,
       }),
     );
 
@@ -153,17 +153,10 @@ function DisplayModeHarness() {
     <div>
       <button
         aria-pressed={isNightMode}
-        aria-label={
-          isNightMode
-            ? messages.displayMode.switchToDayMode
-            : messages.displayMode.switchToNightMode
-        }
         onClick={toggleMode}
         type="button"
       >
-        {isNightMode
-          ? messages.displayMode.nightMode
-          : messages.displayMode.dayMode}
+        {messages.displayMode.toggleLabel}
       </button>
       <p>{messages.displayMode.currentMode(mode)}</p>
       <p>source:{source}</p>
@@ -200,15 +193,10 @@ function ProfilePreservationHarness() {
         Seed profile state
       </button>
       <button
-        aria-label={
-          mode === "night"
-            ? messages.displayMode.switchToDayMode
-            : messages.displayMode.switchToNightMode
-        }
         onClick={() => toggleMode()}
         type="button"
       >
-        Toggle display mode
+        {messages.displayMode.toggleLabel}
       </button>
       <p>mode:{mode}</p>
       <p>role:{state.currentViewerRole}</p>
