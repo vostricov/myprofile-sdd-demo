@@ -6,16 +6,18 @@ import {
   type ReactNode,
 } from "react";
 
-import {
-  initialProfile,
-  profileSchema,
-  sectionContentSchema,
-  type Profile,
-  type ProfileSection,
-  type ProfileSectionContent,
-} from "../domain/profileSchema";
 import { loadProfile } from "../api/localProfileStorage";
+import { initialProfile } from "../domain/initialProfile";
 import type { ViewerRole } from "../domain/permissions";
+import type {
+  Profile,
+  ProfileSection,
+  ProfileSectionContent,
+} from "../domain/profileSchema";
+import {
+  assertProfile,
+  assertProfileSectionContent,
+} from "../domain/profileValidation";
 
 export type { ViewerRole } from "../domain/permissions";
 
@@ -103,7 +105,7 @@ const ProfileContext = createContext<ProfileContextValue | undefined>(undefined)
 export function createInitialProfileState(
   profile: unknown = loadProfile() ?? initialProfile,
 ): ProfileState {
-  const validatedProfile = profileSchema.parse(profile);
+  const validatedProfile = assertProfile(profile);
 
   return {
     profile: validatedProfile,
@@ -156,7 +158,7 @@ export function profileReducer(
 
     case "updateDraft": {
       getSection(state.profile, action.sectionId);
-      const content = sectionContentSchema.parse(action.content);
+      const content = assertProfileSectionContent(action.content);
 
       return {
         ...state,
@@ -332,7 +334,7 @@ export function applyDraftsToProfile(
     }),
   };
 
-  return profileSchema.parse(nextProfile);
+  return assertProfile(nextProfile);
 }
 
 function getSection(profile: Profile, sectionId: string): ProfileSection {
