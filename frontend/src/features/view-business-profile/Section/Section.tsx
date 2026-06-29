@@ -30,13 +30,18 @@ type SectionProps = {
 type JsonObject = { [key: string]: JsonValue };
 
 export function Section({ section }: SectionProps) {
-  const { currentViewerRole } = useProfile();
+  const {
+    currentViewerRole,
+    state: { expandedSectionIds },
+  } = useProfile();
   const [editingMode, setEditingMode] = useState<"inline" | "modal" | null>(null);
   const headingId = `${section.id}-heading`;
+  const isExpanded = expandedSectionIds.includes(section.id);
   const canEdit = canEditSection(section, currentViewerRole);
   const canInlineEdit = canEdit && typeof section.content === "string";
   const canStructuredEdit = canEdit && typeof section.content !== "string";
   const canOpenEditor = canInlineEdit || canStructuredEdit;
+  const shouldRenderPanelContent = isExpanded || editingMode !== null;
   const handleEdit = () => {
     setEditingMode(canInlineEdit ? "inline" : "modal");
   };
@@ -55,24 +60,28 @@ export function Section({ section }: SectionProps) {
         sectionId={section.id}
         title={section.title}
       >
-        <div className={styles.sectionBody}>
-          {editingMode === "inline" && typeof section.content === "string" ? (
-            <Suspense fallback={<p>{messages.editor.loading}</p>}>
-              <InlineEditor
-                onClose={() => setEditingMode(null)}
-                section={{ ...section, content: section.content }}
-              />
-            </Suspense>
-          ) : (
-            renderContent(section.content)
-          )}
-        </div>
-        <footer className={styles.sectionFooter}>
-          <span>{messages.section.lastUpdated(formatDateTime(section.lastUpdated))}</span>
-          {section.lastEditedByUserId ? (
-            <span>{messages.section.editedBy(section.lastEditedByUserId)}</span>
-          ) : null}
-        </footer>
+        {shouldRenderPanelContent ? (
+          <>
+            <div className={styles.sectionBody}>
+              {editingMode === "inline" && typeof section.content === "string" ? (
+                <Suspense fallback={<p>{messages.editor.loading}</p>}>
+                  <InlineEditor
+                    onClose={() => setEditingMode(null)}
+                    section={{ ...section, content: section.content }}
+                  />
+                </Suspense>
+              ) : (
+                renderContent(section.content)
+              )}
+            </div>
+            <footer className={styles.sectionFooter}>
+              <span>{messages.section.lastUpdated(formatDateTime(section.lastUpdated))}</span>
+              {section.lastEditedByUserId ? (
+                <span>{messages.section.editedBy(section.lastEditedByUserId)}</span>
+              ) : null}
+            </footer>
+          </>
+        ) : null}
       </Accordion>
       {editingMode === "modal" ? (
         <Suspense fallback={null}>

@@ -3,7 +3,7 @@ ci:
     staticDistDir: ./dist
     url:
       - http://localhost/
-    numberOfRuns: 1
+    numberOfRuns: 3
     settings:
       preset: desktop
       formFactor: desktop
